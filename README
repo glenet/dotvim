@@ -1,7 +1,7 @@
 Installation:
 	
-	git clone git://
+	git clone git@github.com:browny/dotvim.git
 
 Create symlinks
 
-	ln -s ~/
+	ln -s ~/dotvim/vimrc ~/.vimrc
