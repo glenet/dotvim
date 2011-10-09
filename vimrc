@@ -1,3 +1,5 @@
+call pathogen#infect()
+
 " // --- General --- //
 
 syntax on
