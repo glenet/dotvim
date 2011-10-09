@@ -40,7 +40,7 @@ nmap <S-p> :r ~/.vbuf<CR>
 set tags+=opt/local/share/vim/vim73/tags/cpp
 
 " build tags of your own project with Ctrl-L
-nmap <C-L> :!ctags -R --sort=yes --c  -kinds= p --fields= iaS --extra= q .<CR>
+nmap <C-L> :!ctags -R --sort=yes --c++kinds=+p --fields=+iaS --extra=+q .<CR>
 
 
 " // --- Taglist Plugin ---//
