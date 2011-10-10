@@ -35,7 +35,7 @@ nmap <S-p> :r ~/.vbuf<CR>
 
 
 " // --- Ctags Plugin --- //
-
+set tags=tags;/
 " configure tags - add additional tags here
 set tags+=~/.vim/tags/cpp
 " build tags of your own project with Ctrl-L
