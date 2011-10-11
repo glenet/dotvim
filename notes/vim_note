@@ -1,0 +1,60 @@
+/*--- Edit ---*/
+
+u			// Undo
+<Cr-R>		// Redo
+
+"dy						// put this copy into buffer "d"
+Insert mode: <Cr-R>d	// paste from buffer "d"
+
+"ayw		// 複製一個字到 buffer a
+"ap			// 貼上 buffer a 當中的字
+/<Cr-R>a	// 搜尋 buffer a 當中的字
+
+
+/*--- Search ---*/
+
+n			// Find next
+N			// Find previous
+
+*			// Go to next occurrence of word under cursor
+#			// Go to previous occurrence of word under cursor
+
+
+/*--- Move ---*/
+
+16G			// 跳到第16行
+1G			// 跳到第1行
+G			// 跳到最後一行
+
+<Cr> E		// 往下捲動一行
+<Cr> Y		// 往上捲動一行
+<Cr> F		// 往下捲動半頁
+<Cr> B		// 往上捲動半頁
+
+<Cr> O		// previous cursor location
+<Cr> I		// next cursor location
+
+gf			// 在當前視窗打開游標下的檔案
+<Cr-W> gf	// 在新的Tab打開游標下的檔案
+gt			// next tab
+
+
+/*--- Window ---*/
+
+vsp <file.path>		// vertical split window
+:set scrollbind		// set current window scroll bind
+
+
+/*--- Ctags ---*/
+
+<Cr> ]		// go to definition
+<Cr> t		// previous step
+
+
+/*--- Cscope ---*/
+find . -name "*.h" -o -name "*.c" -o -name "*.cc" -o -name "*.cpp" -o -name "*.hpp"  > cscope.files
+cscope -Rbkq
+
+:cs find <parameter> <search-item>
+
+

@@ -1,0 +1,14 @@
+// System-wide environemt variables
+
+	/etc/environment
+
+// install inconsolata font
+
+	sudo apt-get install ttf-inconsolata
+
+
+Ctrl+Alt+T				// Open terminal
+Ctrl+Alt Left/Right		// Switch Workspace
+Alt+Caps+1/2/3			// Switch terminal tab
+Ctrl+Shift+W			// Close terminal tab
+Ctrl+Shift+T			// Create new terminal tab

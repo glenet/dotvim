@@ -1,0 +1,9 @@
+history				// List command history
+grep 'term' ./*		// Search 'term' word in all files under current dir
+
+// 找出所有包含有 "keyword" 的 java檔
+~# : find ./ -name \*.java -exec grep -wl "keyword" {} \; 
+
+// Dump htc ssd test tool system logger's log
+adb pull /data/htclog  pyd_mhl
+cd pyd_mhl/

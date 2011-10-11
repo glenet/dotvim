@@ -1,0 +1,41 @@
+git diff			// Look diff from previous commited version
+git diff > pk_xxx	// Output diff to 'pk_xxx' file (pk:patch kernel)
+git checkout -f		// Recover to previous version
+git apply pk_xxx	// Apply patch 'pk_xxx'
+
+
+git reset --hard 6a137		// Force reset to version '6a137' will lost new commit
+git format-patch HEAD^^^	// Patch to nth(^) previos version from HEAD
+
+
+git diff --name-status master..branchName	// Lookup 2 branch difference
+git diff --stat --color master..branchName	// Lookup 2 branch difference more detail
+
+
+// Getting existing git branches to track remote branches
+branch --set-upstream local-branch-name origin/remote-branch-name
+
+
+// Use rebase to merge commits
+Suppose you have a history containing the three commits A, B and C:
+A-B-C
+I would like to combine the two commits A and B to one commit AB:
+AB-C
+
+You tried:
+
+git rebase -i A
+
+It is possible to start like that if you continue with edit rather than squash:
+
+edit e97a17b B
+pick asd314f C
+
+then run
+
+git reset --soft HEAD^
+git commit --amend
+git rebase --continue
+
+
+
