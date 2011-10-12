@@ -1,0 +1,16 @@
+
+/// Download Source Tree
+
+  repo init -u ssh://10.9.130.18:29419/manifest.git -b trunk -m honeycomb_quo.xml
+
+/// Sync
+
+  repo sync
+
+/// Opne Option for build
+
+  source setbuildenv
+
+/// Build
+
+  build all

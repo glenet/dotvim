@@ -1,5 +1,5 @@
 history				// List command history
-grep 'term' ./*		// Search 'term' word in all files under current dir
+grep -nR 'term' ./*		// Search 'term' word in all files under current dir
 
 // 找出所有包含有 "keyword" 的 java檔
 ~# : find ./ -name \*.java -exec grep -wl "keyword" {} \; 

@@ -172,15 +172,16 @@ endif
 colorscheme desert
 
 " Cursor color
-highlight Cursor  guifg=white guibg=steelblue
-highlight iCursor guifg=white guibg=steelblue
-set guicursor=n-v-c:block-Cursor
-set guicursor+=i:ver100-iCursor
-set guicursor+=n-v-c:blinkon0
-set guicursor+=i:blinkwait10
+"highlight Cursor ctermbg=Green
+"highlight Cursor  guifg=white guibg=steelblue
+"highlight iCursor guifg=white guibg=steelblue
+"set guicursor=n-v-c:block-Cursor
+"set guicursor+=i:ver100-iCursor
+"set guicursor+=n-v-c:blinkon0
+"set guicursor+=i:blinkwait10
 
 " Cscope result color
-hi ModeMsg guifg=black guibg=#C6C5FE gui=BOLD ctermfg=black ctermbg=cyan cterm=BOLD
+"hi ModeMsg guifg=black guibg=#C6C5FE gui=BOLD ctermfg=black ctermbg=cyan cterm=BOLD
 
 
 " // --- Mark Redundant Spaces ---//
@@ -207,12 +208,12 @@ nnoremap <F3>     :ShowSpaces 1<CR>
 
 
 " Highlight Class and Function names
-syn match    cCustomParen    "(" contains=cParen
-syn match    cCustomFunc     "\w\+\s*(" contains=cCustomParen
-syn match    cCustomScope    "::"
-syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope
+"syn match    cCustomParen    "(" contains=cParen
+"syn match    cCustomFunc     "\w\+\s*(" contains=cCustomParen
+"syn match    cCustomScope    "::"
+"syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope
 
-hi cCustomFunc	guifg=yellowgreen
-hi cCustomClass guifg=#00FF00
+"hi cCustomFunc	guifg=yellowgreen
+"hi cCustomClass guifg=#00FF00
 
 

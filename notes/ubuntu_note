@@ -2,13 +2,21 @@
 
 	/etc/environment
 
-// install inconsolata font
+// Install inconsolata font
 
 	sudo apt-get install ttf-inconsolata
 
+// Hotkey
 
+Alt+F10					// Maximize window
 Ctrl+Alt+T				// Open terminal
 Ctrl+Alt Left/Right		// Switch Workspace
 Alt+Caps+1/2/3			// Switch terminal tab
 Ctrl+Shift+W			// Close terminal tab
 Ctrl+Shift+T			// Create new terminal tab
+
+// Add environment variable
+1. open ~/.bashrc
+2. add "export PATH=$PATH:/home/brownylin/gingerbread/out/host/linux-x86/bin"
+
+//
