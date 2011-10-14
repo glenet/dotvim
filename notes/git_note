@@ -37,5 +37,8 @@ git reset --soft HEAD^
 git commit --amend
 git rebase --continue
 
+// Make an existing git branch track a remote branch?
+git branch --set-upstream foo upstream/foo	// That will cause Git to make foo track upstream/foo
 
-
+// How to tell which local branch is tracking which remote branch in Git
+git remote show origin

@@ -7,6 +7,7 @@ filetype on
 
 :set nu
 :set confirm
+:set showcmd
 :set nobackup
 :set autoindent
 :set smartindent

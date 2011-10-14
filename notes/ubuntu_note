@@ -19,4 +19,5 @@ Ctrl+Shift+T			// Create new terminal tab
 1. open ~/.bashrc
 2. add "export PATH=$PATH:/home/brownylin/gingerbread/out/host/linux-x86/bin"
 
-//
+// System
+lspci		// List peripheral devices info
