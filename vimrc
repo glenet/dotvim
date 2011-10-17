@@ -10,6 +10,7 @@ filetype on
 :set showcmd
 :set nobackup
 :set autoindent
+:set noswapfile
 :set smartindent
 :set nocompatible
 " :set expandtab " use spaces replace tab
