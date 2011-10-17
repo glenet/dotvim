@@ -47,3 +47,9 @@ git remote show origin
 2. git reset --hard 	// reset the entire repository to last commited state	
 
 
+// Show the HEAD change history
+git reflog show HEAD@{now} -10
+
+
+// Discard local changes of some file
+git checkout -- <somefile>
