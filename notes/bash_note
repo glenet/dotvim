@@ -5,5 +5,5 @@ grep -nR 'term' ./*		// Search 'term' word in all files under current dir
 ~# : find ./ -name \*.java -exec grep -wl "keyword" {} \; 
 
 // Dump htc ssd test tool system logger's log
-adb pull /data/htclog  pyd_mhl
+adb pull /data/htclog pyd_mhl
 cd pyd_mhl/

@@ -5,24 +5,26 @@ call pathogen#infect()
 syntax on
 filetype on
 
-:set nu
-:set confirm
-:set showcmd
-:set nobackup
-:set autoindent
-:set noswapfile
-:set smartindent
-:set nocompatible
-" :set expandtab " use spaces replace tab
+set nu
+set confirm
+set modeline
+set ls=2
+set showcmd
+set nobackup
+set autoindent
+set noswapfile
+set smartindent
+set nocompatible
+"set expandtab " use spaces replace tab
 
-:set tabstop=4
-:set backspace=2
-:set shiftwidth=4
-:set textwidth=80
-:set encoding=utf-8
-":set guifont=Monaco\ 12  " ubuntu
-:set guifont=Monaco:h14 " windows/mac
-:set fileencodings=utf-8,cp950
+set tabstop=4
+set backspace=2
+set shiftwidth=4
+set textwidth=80
+set encoding=utf-8
+"set guifont=Monaco\ 12  " ubuntu
+set guifont=Monaco:h14 " windows/mac
+set fileencodings=utf-8,cp950
 
 
 " // --- Copy/Paste Cross Session --- //
