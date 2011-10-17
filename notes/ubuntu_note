@@ -21,3 +21,6 @@ Ctrl+Shift+T			// Create new terminal tab
 
 // System
 lspci		// List peripheral devices info
+
+// Utility
+sudo apt-get install nautilus-open-terminal	// Install nautilus addon nautilus-open-terminal
