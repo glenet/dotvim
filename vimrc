@@ -11,10 +11,12 @@ set modeline
 set ls=2
 set showcmd
 set nobackup
+set hlsearch
 set autoindent
 set noswapfile
 set smartindent
 set nocompatible
+
 "set expandtab " use spaces replace tab
 
 set tabstop=4
