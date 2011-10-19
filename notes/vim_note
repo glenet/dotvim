@@ -10,6 +10,9 @@ Insert mode: <Cr-R>d	// paste from buffer "d"
 "ap			// 貼上 buffer a 當中的字
 /<Cr-R>a	// 搜尋 buffer a 當中的字
 
+:sp			// 水平分割視窗
+:e			// 在 vim 當中開啟同資料夾下的其他檔案
+
 
 /*--- Search ---*/
 

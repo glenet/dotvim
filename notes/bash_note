@@ -7,3 +7,7 @@ grep -nR 'term' ./*		// Search 'term' word in all files under current dir
 // Dump htc ssd test tool system logger's log
 adb pull /data/htclog pyd_mhl
 cd pyd_mhl/
+
+// Minicom 使用方式
+minicom -s	// 更改 serial port
+Ctrl+A + L	// 輸出 log 成檔案
