@@ -53,3 +53,6 @@ git reflog show HEAD@{now} -10
 
 // Discard local changes of some file
 git checkout -- <somefile>
+
+// Pathc from commit to commit
+git format-patch 7ef30fa2c(你要從別人那個commit開始patch)..e9623f0e67(一直patch到你想要的commit) --stdout > pk.patch
