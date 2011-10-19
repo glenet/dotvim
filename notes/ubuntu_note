@@ -1,10 +1,12 @@
+desktop ip: 10.9.113.174
+
 // System-wide environemt variables
 
-	/etc/environment
+/etc/environment
 
 // Install inconsolata font
 
-	sudo apt-get install ttf-inconsolata
+sudo apt-get install ttf-inconsolata
 
 // Hotkey
 
