@@ -56,3 +56,9 @@ git checkout -- <somefile>
 
 // Pathc from commit to commit
 git format-patch 7ef30fa2c(你要從別人那個commit開始patch)..e9623f0e67(一直patch到你想要的commit) --stdout > pk.patch
+
+// 一個branch有tracking remote branch時，你在從他checkout一個branch出來，新的branch並不會也tracking同一個branch，要自己設定
+
+// 一旦 add 以後，git diff 就看不到了
+
+git apply --reject 會把可以上的部份上去，衝突部份他會寫到 xxx.c.rej 檔案中
