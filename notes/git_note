@@ -62,3 +62,6 @@ git format-patch 7ef30fa2c(你要從別人那個commit開始patch)..e9623f0e67(�
 // 一旦 add 以後，git diff 就看不到了
 
 git apply --reject 會把可以上的部份上去，衝突部份他會寫到 xxx.c.rej 檔案中
+
+git reset	// 把changes to be commited的部份拉到 changes but not commit
+git ch .	// 把changes but not commit 變成 no changes
