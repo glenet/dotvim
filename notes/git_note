@@ -3,53 +3,41 @@ git diff > pk_xxx	// Output diff to 'pk_xxx' file (pk:patch kernel)
 git checkout -f		// Recover to previous version
 git apply pk_xxx	// Apply patch 'pk_xxx'
 
-
 git reset --hard 6a137		// Force reset to version '6a137' will lost new commit
 git format-patch HEAD^^^	// Patch to nth(^) previos version from HEAD
-
 
 git diff --name-status master..branchName	// Lookup 2 branch difference
 git diff --stat --color master..branchName	// Lookup 2 branch difference more detail
 
-
 // Getting existing git branches to track remote branches
 branch --set-upstream local-branch-name origin/remote-branch-name
 
-
 // Use rebase to merge commits
-Suppose you have a history containing the three commits A, B and C:
-A-B-C
-I would like to combine the two commits A and B to one commit AB:
-AB-C
-
-You tried:
-
+// Suppose you have a history containing the three commits A, B and C: A-B-C
+// I would like to combine the two commits A and B to one commit AB: AB-C
+// You tried:
 git rebase -i A
 
-It is possible to start like that if you continue with edit rather than squash:
-
+//It is possible to start like that if you continue with edit rather than squash:
 edit e97a17b B
 pick asd314f C
 
-then run
-
+//then run
 git reset --soft HEAD^
 git commit --amend
 git rebase --continue
 
+
 // How to tell which local branch is tracking which remote branch in Git
 git remote show origin
-
 
 // Discard local changes and checkout to other branch then delete this
 // experimental branch 
 1. Delete all files in the branch
 2. git reset --hard 	// reset the entire repository to last commited state	
 
-
 // Show the HEAD change history
 git reflog show HEAD@{now} -10
-
 
 // Discard local changes of some file
 git checkout -- <somefile>
@@ -61,7 +49,12 @@ git format-patch 7ef30fa2c(你要從別人那個commit開始patch)..e9623f0e67(�
 
 // 一旦 add 以後，git diff 就看不到了
 
-git apply --reject 會把可以上的部份上去，衝突部份他會寫到 xxx.c.rej 檔案中
+git apply --reject	// 會把可以上的部份上去，衝突部份他會寫到 xxx.c.rej 檔案中
 
 git reset	// 把changes to be commited的部份拉到 changes but not commit
 git ch .	// 把changes but not commit 變成 no changes
+
+// Global git ignore 
+git config --global core.excludesfile ~/.gitignore 
+printf ".DS_Store\nThumbs.db\n" >> ~/.gitignore	// 忽略所有 .DS_Store 和
+Thumbs.db
