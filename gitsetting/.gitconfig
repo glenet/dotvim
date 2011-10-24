@@ -3,8 +3,8 @@
     email = shlin1983@gmail.com
 
 [core]
-    editor = vim
-excludesfile = /Users/brownylin/.gitignore
+	editor = vim
+	excludesfile = /home/brownylin/.gitignore
 
 [alias]
   ch = checkout
