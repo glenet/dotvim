@@ -5,7 +5,8 @@ git apply pk_xxx	// Apply patch 'pk_xxx'
 
 
 git reset --hard 6a137		// Force reset to version '6a137' will lost new commit
-git format-patch HEAD^^^	// Patch to nth(^) previos version from HEAD
+git format-patch HEAD^^^	// Patch to nth(^) previos version from HEAD, output
+multiple files
 
 
 git diff --name-status master..branchName	// Lookup 2 branch difference
