@@ -59,3 +59,8 @@ git ch .	// 把changes but not commit 變成 no changes
 git config --global core.excludesfile ~/.gitignore 
 printf ".DS_Store\nThumbs.db\n" >> ~/.gitignore	// 忽略所有 .DS_Store 和
 Thumbs.db
+
+always commit good code base before apply any debug step
+
+git log --pretty=short	// 簡短的log
+git log --oneline	// 超短的log
