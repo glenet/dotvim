@@ -73,3 +73,28 @@ pick asd314f C
 git reset --soft HEAD^
 git commit --amend
 git rebase --continue
+
+
+// 整理code的流程
+// 列出某次commit修改了哪些檔案
+git log
+git show f8040320c63522312ec4ccaaccca9c8d7275b720 --name-only
+git show f8040320c63522312ec4ccaaccca9c8d7275b720 --name-only |awk '{print "cp " $1 " mhl/"}'
+
+mkdir mhl	// 新增一個資料夾存放這些修改的檔案
+
+// 然後複製產生的命令,執行複製動作
+cp arch/arm/mach-tegra/cpu-tegra3.c mhl/
+cp drivers/video/tegra/dc/hdmi.c mhl/
+cp drivers/video/tegra/fb.c mhl/
+
+// 針對每一次的 commit 做完複製動作, 開一個文字檔複製起這些 cp
+// 指令(因為有路徑的問題)
+
+// 整理該文字檔將相同資料夾的分類
+
+// 回復到尚未修改的版本
+git format-patch HEAD^^^
+git reset --hard HEAD^^^ 
+
+// 再利用 meld 針對, mhl 資料夾進行 merge

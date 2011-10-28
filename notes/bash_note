@@ -1,4 +1,6 @@
 history					// List command history
+history | cut -c 8		// History without line number
+
 grep -nR 'term' ./*		// Search 'term' word in all files under current dir
 
 // 找出所有包含有 "keyword" 的 java檔
