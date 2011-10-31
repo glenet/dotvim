@@ -11,7 +11,7 @@ set modeline
 set ls=2
 set showcmd
 set nobackup	
-set hlsearch	//高亮度搜尋
+set hlsearch
 set autoindent
 set noswapfile
 set smartindent
