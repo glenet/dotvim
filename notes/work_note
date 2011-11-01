@@ -1,0 +1,4 @@
+Holiday ROM
+
+1. 裝 HiApn
+2. 裝中文 adb shell setprop persist.sys.language zh;adb shell setprop persist.sys.country TW;adb shell stop;adb shell sleep 5;adb shell start
