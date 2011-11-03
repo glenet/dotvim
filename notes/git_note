@@ -52,6 +52,14 @@ git apply --reject	// 會把可以上的部份上去，衝突部份他會寫到 
 git reset	// 把changes to be commited的部份拉到 changes but not commit
 git ch .	// 把changes but not commit 變成 no changes
 
+// Single file checkout
+git checkout v1.2.3 -- filename         # tag v1.2.3
+git checkout stable -- filename         # stable branch
+git checkout origin/master -- filename  # upstream master
+git checkout HEAD -- filename           # the version from the most recent commit
+git checkout HEAD^ -- filename          # the version before the most recent commit
+
+
 // Global git ignore 
 git config --global core.excludesfile ~/.gitignore 
 printf ".DS_Store\nThumbs.db\n" >> ~/.gitignore	// 忽略所有 .DS_Store 和
