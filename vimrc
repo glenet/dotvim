@@ -26,6 +26,8 @@ set encoding=utf-8
 "set guifont=Monaco:h14 " windows/mac
 set fileencodings=utf-8,cp950
 
+:map<F2> a<C-R> pr_info("[DISP]%s($d)\n", __func__, __LINE__);<CR><ESC>
+
 " // --- Copy/Paste Cross Session --- //
 " 不同檔案之間的複製/貼上 
 " 用法：Ctrl+V選取欲複製行, Shift+Y複製, 跳到另外一個檔案Shift+P貼上
