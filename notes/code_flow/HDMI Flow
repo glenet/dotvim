@@ -1,0 +1,9 @@
+// HDMI FLow
+
+tegra_dc_probe
+	tegra_dc_set_out(dc, dc->pdata->default_out)
+		dc->out_ops = &tegra_dc_hdmi_ops
+							|
+			.detect = tegra_dc_hdmi_detect
+							|
+				tegra_edid_get_monspecs(hdmi->edid, &specs)

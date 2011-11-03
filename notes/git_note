@@ -62,8 +62,7 @@ git checkout HEAD^ -- filename          # the version before the most recent com
 
 // Global git ignore 
 git config --global core.excludesfile ~/.gitignore 
-printf ".DS_Store\nThumbs.db\n" >> ~/.gitignore	// 忽略所有 .DS_Store 和
-Thumbs.db
+printf ".DS_Store\nThumbs.db\n" >> ~/.gitignore	// 忽略所有 .DS_Store 和 Thumbs.db
 
 // Always commit good code base before apply any debug step
 
