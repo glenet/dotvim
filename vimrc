@@ -216,3 +216,14 @@ endfunction
 let mapleader = ","
 noremap <silent> <leader>n :call <SID>CycleBuffer(1)<CR>:<BS>
 noremap <silent> <leader>N :call <SID>CycleBuffer(0)<CR>:<BS>
+
+" // --- Show Function Name --- //
+fun! ShowFuncName()
+  let lnum = line(".")
+  let col = col(".")
+  echohl ModeMsg
+  echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))
+  echohl None
+  call search("\\%" . lnum . "l" . "\\%" . col . "c")
+endfun
+map f :call ShowFuncName() <CR>
