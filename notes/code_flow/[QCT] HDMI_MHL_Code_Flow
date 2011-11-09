@@ -8,12 +8,13 @@ sii9234_mhl_device_wakeup(sii9234.c) //cable insert 之後呼叫
 	USB switch 
 	MHL rest pin to High
 	mhl_1v2_power(1)
-		開對應 GPIO		
+		開對應 GPIO (MHL_SCL, MHL_SDA, MHL_HPD)
 		hdmi_hpd_feature
 			external_common_state->hpd_feature(1);
 										hdmi_msm_hpd_feature
-											hdmi_msm_hpd_on
-												clk, core power, 5v
+											hdmi_msm_hpd_on (由MHL控制HDMI, 這邊改為MHL->Panel->HDMI,
+															NV的hdmi函數tegra_dc_hdmi_enable)
+												clk, core power, 5v 
 												確認 hpd 的狀態
 
 			mutex_lock(&external_common_state_hpd_mutex);
@@ -54,8 +55,8 @@ sii9234_early_suspend(sii9234.c)
 <4>[  111.683062] update_mhl_status: -+-+-+-+- MHL is NOT connected, status = -1 -+-+-+-+-
 <6>[  111.683367] send_mhl_connect_notify: 0
 <6>[  111.683916] [CABLE] mhl_status_notifier_func: isMHL 0, charging type 0, id_pin 1
-<6>[  111.684221] [CABLE] MHL removed
-<6>[  111.684771] [CABLE] holiday_usb_dpdn_switch: Set USB path
+<6>[  111.684221] [CABLE] MHL removed (cable_detect.c -> cable_detect_handler)
+<6>[  111.684771] [CABLE] holiday_usb_dpdn_switch: Set USB path (board-holiday.c -> .usb_dpdn_switch = holiday_usb_dpdn_switch)
 <7>[  111.685076] [DISP]sii9234_change_usb_owner(0)
 <6>[  111.685442] MHL ISR
 
@@ -71,6 +72,32 @@ sii9234_late_resume
 					send_mhl_connect_notify
 						list_for_each_entry(mhl_notifier, &g_lh_mhl_detect_notifier_list, mhl_notifier_link)
 																								|
-							mhl_detect_register_notifier
+							mhl_detect_register_notifier(定義在 sii9234.c, 在 cable_detect.c 中被使用)
 							// ./drivers/misc/cable_detect.c:1011: mhl_detect_register_notifier(&mhl_status_notifier);
 								mhl_status_notifier_func(bool isMHL, int charging_type)
+
+
+
+
+// Edge MHL's HDMI flow
+
+tegra_dc_hdmi_irq
+
+	if (tegra_dc_hdmi_hpd(dc))
+		queue_delayed_work(system_nrt_wq, &hdmi->work, msecs_to_jiffies(100));
+												|
+											在 tegra_dc_probe 裡面被 init
+													|
+	tegra_dc_probe -> tegra_dc_set_out -> tegra_dc_set_out
+													dc->out_ops->init(dc)
+																	|
+																.init = tegra_dc_hdmi_init
+																				|
+																	INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker)
+																											|
+																									tegra_dc_enable
+																										|
+																									tegra_dc_hdmi_enable
+																										|
+																								dc->out_ops->enabled
+

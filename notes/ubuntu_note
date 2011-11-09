@@ -16,6 +16,7 @@ Ctrl+Alt Left/Right		// Switch Workspace
 Alt+Caps+1/2/3			// Switch terminal tab
 Ctrl+Shift+W			// Close terminal tab
 Ctrl+Shift+T			// Create new terminal tab
+Shift + PageUp/PageDown	// Scroll terminal output
 
 // Add environment variable
 1. open ~/.bashrc

@@ -33,6 +33,7 @@ git remote show origin
 
 git log --pretty=short	// 簡短的log
 git log --oneline		// 超短的log
+git log --author="Jon"	// Show Jon's commits
 
 // Show the HEAD change history
 git reflog show HEAD@{now} -10
