@@ -20,13 +20,17 @@ set nocompatible
 set tabstop=4
 set backspace=2
 set shiftwidth=4
-set textwidth=80
+set textwidth=90
 set encoding=utf-8
 "set guifont=Monaco\ 12  " ubuntu
 "set guifont=Monaco:h14 " windows/mac
 set fileencodings=utf-8,cp950
 
 :map<F2> a<C-R> pr_info("[DISP]%s(%d)\n", __func__, __LINE__);<CR><ESC>
+
+" insert blank line without into insert mode
+map <S-Enter> O<Esc>
+map <CR> o<ESc>k
 
 " // --- Copy/Paste Cross Session --- //
 " 不同檔案之間的複製/貼上 

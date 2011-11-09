@@ -16,4 +16,4 @@
   build all
 
 // 查看自己的 define 有沒有進去
-vim $OUT/obj/kernel/.config
+vim $OUT/obj/KERNEL/.config
