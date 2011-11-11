@@ -32,7 +32,11 @@ module_init(tegra_dc_module_init) (dc.c)
 												|
 							.detect = tegra_dc_hdmi_detect				
 											|
-						tegra_edid_get_monspecs(hdmi->edid, &specs)
+						tegra_edid_get_monspecs(hdmi->edid, &specs), tegra_dc_hdmi_detect_config(dc, &specs)
+																				|
+															tegra_fb_update_monspecs(dc->fb, specs, tegra_dc_hdmi_mode_filter);
+																			|
+															  這個地方會神奇的 call 到 tegra_fb_set_par() ???
 
 
 		//.probe = tegra_dc_probe
