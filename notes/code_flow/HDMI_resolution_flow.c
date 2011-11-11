@@ -47,17 +47,7 @@ module_init(tegra_dc_module_init) (dc.c)
 		.init = tegra_dc_hdmi_init,
 						|
 		INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker)
-												|
-<<<<<<< HEAD
-							.detect = tegra_dc_hdmi_detect				
-											|
-						tegra_edid_get_monspecs(hdmi->edid, &specs), tegra_dc_hdmi_detect_config(dc, &specs)
-																				|
-															tegra_fb_update_monspecs(dc->fb, specs, tegra_dc_hdmi_mode_filter);
-																			|
-															  這個地方會神奇的 call 到 tegra_fb_set_par() ???
-
-=======
+												|							
 								tegra_dc_enable,			tegra_dc_hdmi_detect				
 										|						|
 					dc->enabled = _tegra_dc_enable(dc)		tegra_edid_get_monspecs(hdmi->edid, &specs)						
@@ -65,12 +55,12 @@ module_init(tegra_dc_module_init) (dc.c)
 				return _tegra_dc_controller_enable(dc)				|
 									|						tegra_fb_update_monspecs(dc->fb, specs, tegra_dc_hdmi_mode_filter);
 							dc->out->enable();								|
-				(就是board part的enterprise_hdmi_enable)		  這個地方會神奇的 call 到 tegra_fb_set_par() ???
+				(就是 board part 的 enterprise_hdmi_enable)		  這個地方會神奇的 call 到 tegra_fb_set_par() ???
 									...
 					if (dc->out_ops && dc->out_ops->enable)
 						dc->out_ops->enable(dc);
 						(就是tegra_dc_hdmi_enable)
->>>>>>> add notes
+
 
 		//.probe = tegra_dc_probe
 					|
