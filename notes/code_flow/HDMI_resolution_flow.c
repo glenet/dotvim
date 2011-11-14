@@ -34,19 +34,19 @@ module_init(tegra_dc_module_init) (dc.c)
 								|
 		//.probe = tegra_dc_probe(struct nvhost_device *ndev)
 					|
-	dc->pdata = ndev->dev.platform_data; (dc.c:2629) 	// the place board setting pass to driver
+		dc->pdata = ndev->dev.platform_data; (dc.c:2629) 	// the place board setting pass to driver
 														
 		//.probe = tegra_dc_probe
 					|
-	tegra_dc_set_out(dc, dc->pdata->default_out) (dc.c:2679)
+		tegra_dc_set_out(dc, dc->pdata->default_out) (dc.c:2679)
 				|
-		dc->out = out (dc.c:1759)
-		dc->out_ops = &tegra_dc_hdmi_ops (dc.c:1770)	
-		dc->out_ops->init(dc) (dc.c:1783)
-					   |										   |
-		.init = tegra_dc_hdmi_init,
+			dc->out = out (dc.c:1759)
+			dc->out_ops = &tegra_dc_hdmi_ops (dc.c:1770)	
+			dc->out_ops->init(dc) (dc.c:1783)
+						   |										   
+			.init = tegra_dc_hdmi_init,
 						|
-		INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker)
+			INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker)
 												|							
 								tegra_dc_enable,			tegra_dc_hdmi_detect				
 										|						|
@@ -85,7 +85,6 @@ struct tegra_fb_info *tegra_fb_register(struct nvhost_device *ndev,
 	return tegra_fb;	// tegra_fb_register return 'tegra_fb_info'
 
 // HDMI irq
-
 tegra_dc_hdmi_irq
 	...
 	if (tegra_dc_hdmi_hpd(dc))
