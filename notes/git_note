@@ -1,3 +1,11 @@
+// --- Git Gerneral --- //
+
+git checkout -- <somefile>	// Discard local changes of some file
+
+// Global git ignore 
+git config --global core.excludesfile ~/.gitignore 
+printf ".DS_Store\nThumbs.db\n" >> ~/.gitignore	// 忽略所有 .DS_Store 和 Thumbs.db
+
 // --- Git Diff --- //
 
 git diff			// Look diff from previous commited version
@@ -15,46 +23,39 @@ git diff --stat --color master..branchName	// Lookup 2 branch difference more de
 
 git branch -av	// detail branch info
 
-// Make existing branches to track remote branches
-branch --set-upstream local-branch-name origin/remote-branch-name
+branch --set-upstream local-branch-name origin/remote-branch-name	// Make existing branches to track remote branches
 
-// Merge multiple commits to one commit (ex: ABCDE), you want to ABE'(E'=CDE)
+// Merge multiple commits to one commit 
+// (ex: ABCDE), you want to ABE'(E'=CDE)
 git rebase -i HEAD~2	// rebase to C
 s e97a17b E
 s asd314f D
 p asd314f C
 
-// How to tell which local branch is tracking which remote branch in Git
-git remote show origin
+git remote show origin	// 如何分辨 local br 追蹤哪一個 remote br
 
-// Discard local changes and checkout to other branch then delete this experimental branch 
-1. Delete all files in the branch
-2. git reset --hard 	// reset the entire repository to last commited state	
+cat .git/HEAD	// Show the HEAD location
+git reflog show HEAD@{now} -10	// Show the HEAD change history
 
+// --- Git Log --- //
 git log --pretty=short	// 簡短的log
 git log --oneline		// 超短的log
 git log --author="Jon"	// Show Jon's commits
+git log /drivers/video	// 只看drivers/video資料夾下更動的log
 
-// Show the HEAD location
-cat .git/HEAD
+git blame sha1_file.c				// 查看sha1_file.c 的修改
+git blame -L 160,+10 sha1_file.c	// 查看sha1_file.c 從第160行開始往下10行，是誰修改的
 
-// Show the HEAD change history
-git reflog show HEAD@{now} -10
 
-// Discard local changes of some file
-git checkout -- <somefile>
+// --- Git Patch --- //
 
 // Pathc from commit to commit
 git format-patch 7ef30fa2c(你要從別人那個commit開始patch)..e9623f0e67(一直patch到你想要的commit) --stdout > pk.patch
 
-// 一個branch有tracking remote branch時，你在從他checkout一個branch出來，新的branch並不會也tracking同一個branch，要自己設定
-
-// 一旦 add 以後，git diff 就看不到了
-
 git apply --reject	// 會把可以上的部份上去，衝突部份他會寫到 xxx.c.rej 檔案中
 
-git reset	// 把changes to be commited的部份拉到 changes but not commit
-git ch .	// 把changes but not commit 變成 no changes
+git reset	// 把 changes to be commited 的部份拉到 changes but not commit
+git ch .	// 把 changes but not commit 變成 no changes
 
 // Single file checkout
 git checkout v1.2.3 -- filename         # tag v1.2.3
@@ -63,17 +64,20 @@ git checkout origin/master -- filename  # upstream master
 git checkout HEAD -- filename           # the version from the most recent commit
 git checkout HEAD^ -- filename          # the version before the most recent commit
 
+// git revert
+git revert 2cded15f64b2eb6f8acc	// revert a previous commit, and the revert action will become a new commit
 
-// Global git ignore 
-git config --global core.excludesfile ~/.gitignore 
-printf ".DS_Store\nThumbs.db\n" >> ~/.gitignore	// 忽略所有 .DS_Store 和 Thumbs.db
+// git bisect
+git bisect start
+git bisect bad 2ac4169f24e91e10d683cbf4676d
+git bisect good a49b61dbb440fa48f78adece5e5980
 
-// Always commit good code base before apply any debug step
 
-// Use rebase to merge commits
+// --- Git Advances --- //
+
+// 使用 rebase to merge commits
 // Suppose you have a history containing the three commits A, B and C: A-B-C
-// I would like to combine the two commits A and B to one commit AB: AB-C
-// You tried:
+// To combine the two commits A and B to one commit AB: AB-C
 git rebase -i A
 
 //It is possible to start like that if you continue with edit rather than squash:
@@ -86,7 +90,7 @@ git commit --amend
 git rebase --continue
 
 
-// 整理code的流程
+// 安全地整理 code 的流程
 // 列出某次commit修改了哪些檔案
 git log
 git show f8040320c63522312ec4ccaaccca9c8d7275b720 --name-only
@@ -99,13 +103,21 @@ cp arch/arm/mach-tegra/cpu-tegra3.c mhl/
 cp drivers/video/tegra/dc/hdmi.c mhl/
 cp drivers/video/tegra/fb.c mhl/
 
-// 針對每一次的 commit 做完複製動作, 開一個文字檔複製起這些 cp
-// 指令(因為有路徑的問題)
-
+// 針對每一次的 commit 做完複製動作, 開一個文字檔複製起這些 cp 指令 (因為可能會有檔案不同路徑但同檔名的問題)
 // 整理該文字檔將相同資料夾的分類
 
 // 回復到尚未修改的版本
-git format-patch HEAD^^^
-git reset --hard HEAD^^^ 
+git format-patch HEAD^^^	// 備份
+git reset --hard HEAD^^^ 	// 還原
 
-// 再利用 meld 針對, mhl 資料夾進行 merge
+// 再利用 meld 針對, mhl 資料夾進行手動 merge
+
+
+// --- Git 注意事項 ---- //
+
+1. 一個 branch 有 tracking remote branch 時，你從他 ch 個 br 出來，
+新的 br 並不會也 tracking 同一個 remote br，要自己設定
+
+2. 一旦 changes add 以後，git diff 就看不到了
+
+3. Always commit good code base before apply any debug step
