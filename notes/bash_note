@@ -4,6 +4,7 @@ history | cut -c 8		// History without line number
 grep -nR 'term' ./*		// Search 'term' word in all files under current dir
 grep -w 'term'			// Searches for the expression as a word as if surrounded by \< and \>
 grep -nR --exclude=*.o 'term' *
+grep -c 				// 計算發生次數
 
 // 找出所有包含有 "keyword" 的 java檔
 ~# : find ./ -name \*.java -exec grep -wl "keyword" {} \; 
