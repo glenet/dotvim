@@ -11,3 +11,6 @@ ANR fatal error fingerprint Watchdog "bout to"(surfaceflinger) die
 
 // kernel keyword
 DISP dc brightness late_resume early_suspend panic
+
+log 裡面看到 tegra-grhost 代表某個 module hung 住
+

@@ -13,6 +13,8 @@ grep -c 				// 計算發生次數
 adb pull /data/htclog htc_log
 cd htc_log/
 
+adb shell rm /data/htclog/	// clear logs
+
 // Minicom 使用方式
 minicom -s	// 更改 serial port
 Ctrl+A + L	// 輸出 log 成檔案

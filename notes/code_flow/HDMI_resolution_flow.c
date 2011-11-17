@@ -34,30 +34,20 @@ module_init(tegra_dc_module_init) (dc.c)
 								|
 		//.probe = tegra_dc_probe(struct nvhost_device *ndev)
 					|
-	dc->pdata = ndev->dev.platform_data; (dc.c:2629) 	// the place board setting pass to driver
+		dc->pdata = ndev->dev.platform_data; (dc.c:2629) 	// the place board setting pass to driver
 														
 		//.probe = tegra_dc_probe
 					|
-	tegra_dc_set_out(dc, dc->pdata->default_out) (dc.c:2679)
+		tegra_dc_set_out(dc, dc->pdata->default_out) (dc.c:2679)
 				|
-		dc->out = out (dc.c:1759)
-		dc->out_ops = &tegra_dc_hdmi_ops (dc.c:1770)	
-		dc->out_ops->init(dc) (dc.c:1783)
-					   |										   |
-		.init = tegra_dc_hdmi_init,
+			dc->out = out (dc.c:1759)
+			dc->out_ops = &tegra_dc_hdmi_ops (dc.c:1770)	
+			dc->out_ops->init(dc) (dc.c:1783)
+						   |										   
+			.init = tegra_dc_hdmi_init,
 						|
-		INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker)
-												|
-<<<<<<< HEAD
-							.detect = tegra_dc_hdmi_detect				
-											|
-						tegra_edid_get_monspecs(hdmi->edid, &specs), tegra_dc_hdmi_detect_config(dc, &specs)
-																				|
-															tegra_fb_update_monspecs(dc->fb, specs, tegra_dc_hdmi_mode_filter);
-																			|
-															  這個地方會神奇的 call 到 tegra_fb_set_par() ???
-
-=======
+			INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker)
+												|							
 								tegra_dc_enable,			tegra_dc_hdmi_detect				
 										|						|
 					dc->enabled = _tegra_dc_enable(dc)		tegra_edid_get_monspecs(hdmi->edid, &specs)						
@@ -65,12 +55,12 @@ module_init(tegra_dc_module_init) (dc.c)
 				return _tegra_dc_controller_enable(dc)				|
 									|						tegra_fb_update_monspecs(dc->fb, specs, tegra_dc_hdmi_mode_filter);
 							dc->out->enable();								|
-				(就是board part的enterprise_hdmi_enable)		  這個地方會神奇的 call 到 tegra_fb_set_par() ???
+				(就是 board part 的 enterprise_hdmi_enable)		  這個地方會神奇的 call 到 tegra_fb_set_par() ???
 									...
 					if (dc->out_ops && dc->out_ops->enable)
 						dc->out_ops->enable(dc);
 						(就是tegra_dc_hdmi_enable)
->>>>>>> add notes
+
 
 		//.probe = tegra_dc_probe
 					|
@@ -95,7 +85,6 @@ struct tegra_fb_info *tegra_fb_register(struct nvhost_device *ndev,
 	return tegra_fb;	// tegra_fb_register return 'tegra_fb_info'
 
 // HDMI irq
-
 tegra_dc_hdmi_irq
 	...
 	if (tegra_dc_hdmi_hpd(dc))
