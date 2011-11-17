@@ -219,7 +219,7 @@ endfunction
 
 let mapleader = ","
 noremap <silent> <leader>n :call <SID>CycleBuffer(1)<CR>:<BS>
-noremap <silent> <leader>N :call <SID>CycleBuffer(0)<CR>:<BS>
+noremap <silent> <leader>p :call <SID>CycleBuffer(0)<CR>:<BS>
 
 " // --- Show Function Name --- //
 fun! ShowFuncName()

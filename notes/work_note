@@ -4,3 +4,6 @@ Holiday ROM
 2. 裝中文 adb shell setprop persist.sys.language zh;adb shell setprop persist.sys.country TW;adb shell stop;adb shell sleep 5;adb shell start
 
 log 裡面看到 tegra-grhost 代表某個 module hung 住
+
+ 
+1. Please alway add comment in code if it is workaround or issue

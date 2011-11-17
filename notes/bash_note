@@ -12,6 +12,9 @@ grep -nR --exclude=*.o 'term' *
 adb pull /data/htclog htc_log
 cd htc_log/
 
+// Dump gpio
+adb shell cat /d/htc_tegra_gpio
+
 adb shell rm /data/htclog/	// clear logs
 
 // Minicom 使用方式
