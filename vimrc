@@ -16,7 +16,7 @@ set autoindent
 set noswapfile
 set smartindent
 set nocompatible
-set cursorline
+"set cursorline
 "set expandtab " use spaces replace tab
 set tabstop=4
 set backspace=2
@@ -28,6 +28,22 @@ set encoding=utf-8
 set fileencodings=utf-8,cp950
 
 :map<F2> a<C-R> pr_info("[DISP]%s(%d)\n", __func__, __LINE__);<CR><ESC>
+
+" toggle cursorline/cursorcolumn or center line
+nmap <F7> zz
+if version >= 700 " NONE turns off underlining
+	highlight CursorLine NONE ctermbg=Yellow
+	highlight CursorColumn NONE ctermbg=Yellow
+	let s:lico=0
+	function LiCo()
+	let s:lico=s:lico>2 ?0 :s:lico+1
+	let &cursorline=s:lico % 2
+	let &cursorcolumn=s:lico / 2
+	endfun
+	nmap <silent> <F7> :call LiCo()<cr>
+	endif
+	imap <F7> <c-o><F7>
+	vmap <F7> <c-c><F7>gv
 
 " insert blank line without into insert mode
 map <S-Enter> O<Esc>
