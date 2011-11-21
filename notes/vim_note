@@ -12,7 +12,7 @@ Insert mode: <Cr-R>d	// paste from buffer "d"
 
 :sp			// 水平分割視窗
 :e			// 在 vim 當中開啟同資料夾下的其他檔案
-
+:bufdo e!	// refresh all files in buffers
 
 /*--- Search ---*/
 
