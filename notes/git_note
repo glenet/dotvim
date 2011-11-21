@@ -21,9 +21,18 @@ git diff --stat --color master..branchName	// Lookup 2 branch difference more de
 
 // --- Git Branch --- //
 
-git branch -av	// detail branch info
+git branch -av		// detail branch info
+git pull --rebase	// pull remote branch use rebase method
 
 branch --set-upstream local-branch-name origin/remote-branch-name	// Make existing branches to track remote branches
+
+// Rebase your topic branch against the master branch:
+git checkout foo
+git rebase master
+
+or 
+
+git rebase master foo
 
 // Merge multiple commits to one commit 
 // (ex: ABCDE), you want to ABE'(E'=CDE)
