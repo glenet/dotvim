@@ -1,8 +1,3 @@
-Holiday ROM
-
-1. 裝 HiApn
-2. 裝中文 adb shell setprop persist.sys.language zh;adb shell setprop persist.sys.country TW;adb shell stop;adb shell sleep 5;adb shell start
-
 // ITS debug skill
 1. 不要相信 QA 的 time stamp, 拿到 issue 馬上檢查 log 時間的正確性
 
