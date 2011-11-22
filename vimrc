@@ -30,7 +30,7 @@ set fileencodings=utf-8,cp950
 :map<F2> a<C-R> pr_info("[DISP]%s(%d)\n", __func__, __LINE__);<CR><ESC>
 
 " toggle cursorline/cursorcolumn or center line
-nmap <F7> zz
+nmap <F12> zz
 if version >= 700 " NONE turns off underlining
 	highlight CursorLine NONE ctermbg=Yellow
 	highlight CursorColumn NONE ctermbg=Yellow
