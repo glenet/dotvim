@@ -59,6 +59,7 @@ git blame -L 160,+10 sha1_file.c	// 查看sha1_file.c 從第160行開始往下10
 // --- Git Patch --- //
 
 // Pathc from commit to commit
+git format-patch -1 7ef30fa		// 取出單一commit為patch
 git format-patch 7ef30fa2c(你要從別人那個commit開始patch)..e9623f0e67(一直patch到你想要的commit) --stdout > pk.patch
 
 git apply --reject	// 會把可以上的部份上去，衝突部份他會寫到 xxx.c.rej 檔案中
