@@ -1,0 +1,71 @@
+// gralloc flow
+
+int NvGrFbDevOpen (NvGrModule* mod, hw_device_t** out, int index) 
+{
+	...
+	
+	err = uevent_add_native_handler(handle_uevent, dev);
+	
+	...
+}
+static void hdmi_hotplug(void *data)
+					|
+	hdmi_uevent_polling(&handle_uevent, data);
+								|
+						handle_hotplug(dev, state);
+
+
+// hardware/libhardware/include/hardware/hardware.h
+/* 
+* Every hardware module must have a data structure named HAL_MODULE_INFO_SYM
+* and the fields of this data structure must begin with hw_module_t
+* followed by module specific information.
+*/
+typedef struct hw_module_t {
+
+	...
+} hw_module_t;
+
+
+// hardware/libhardware/include/hardware/gralloc.h
+typedef struct gralloc_module_t {
+	struct hw_module_t common;
+
+	...
+} gralloc_module_t;
+
+// vendor/nvidia/tegra/hal/libgralloc/nvgr.h
+typedef struct NvGrModuleRec {
+	gralloc_module_t    Base;
+
+	...
+} NvGrModule;
+
+// vendor/nvidia/tegra/hal/libgralloc/nvgrmodule.c 
+static hw_module_methods_t NvGrMethods =
+{
+	.open = NvGrDevOpen
+};
+
+NvGrModule HAL_MODULE_INFO_SYM =
+{
+	.Base =
+	{
+		.common =
+		{
+			.tag = HARDWARE_MODULE_TAG,
+			.version_major = 1,
+			.version_minor = 0,
+			.id = GRALLOC_HARDWARE_MODULE_ID,
+			.name = "NVIDIA Tegra Graphics Memory Allocator",
+			.author = "NVIDIA",
+			.methods = &NvGrMethods
+		},
+
+		...
+	}
+	
+	...
+};
+
+

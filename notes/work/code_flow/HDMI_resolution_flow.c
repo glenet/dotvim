@@ -26,15 +26,21 @@ static struct nvhost_device enterprise_disp2_device = {
      },
 
 nvhost_device_register(&enterprise_disp2_device);
+			|
+	ret = device_add(&dev->dev); 
+			|
+	kobject_uevent(&dev->kobj, KOBJ_ADD);
+
 
 // Driver Part
 module_init(tegra_dc_module_init) (dc.c)
 					|
-	nvhost_driver_register(&tegra_dc_driver)
+	nvhost_driver_register(&tegra_dc_driver), 							tegra_dc_ext_module_init();
 								|
 		//.probe = tegra_dc_probe(struct nvhost_device *ndev)
 					|
-		dc->pdata = ndev->dev.platform_data; (dc.c:2629) 	// the place board setting pass to driver
+		// the place board setting pass to driver
+		dc->pdata = ndev->dev.platform_data; (dc.c:2629) 	
 														
 		//.probe = tegra_dc_probe
 					|
@@ -46,21 +52,30 @@ module_init(tegra_dc_module_init) (dc.c)
 						   |										   
 			.init = tegra_dc_hdmi_init,
 						|
-			INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker)
-												|							
-								tegra_dc_enable,			tegra_dc_hdmi_detect				
-										|						|
-					dc->enabled = _tegra_dc_enable(dc)		tegra_edid_get_monspecs(hdmi->edid, &specs)						
-										|					tegra_dc_hdmi_detect_config(dc, &specs)
-				return _tegra_dc_controller_enable(dc)				|
-									|						tegra_fb_update_monspecs(dc->fb, specs, tegra_dc_hdmi_mode_filter);
-							dc->out->enable();								|
-				(就是 board part 的 enterprise_hdmi_enable)		  這個地方會神奇的 call 到 tegra_fb_set_par() ???
-									...
-					if (dc->out_ops && dc->out_ops->enable)
-						dc->out_ops->enable(dc);
-						(就是tegra_dc_hdmi_enable)
+			//INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker)
+												|
+					tegra_dc_enable,			tegra_dc_hdmi_detect
+							|						|
+		dc->enabled = _tegra_dc_enable(dc)		tegra_edid_get_monspecs(hdmi->edid, &specs)						
+							|					tegra_dc_hdmi_detect_config(dc, &specs)
+	return _tegra_dc_controller_enable(dc)				|
+						|						tegra_fb_update_monspecs(dc->fb, specs, tegra_dc_hdmi_mode_filter);
+				dc->out->enable();								|
+	(就是 board part 的 enterprise_hdmi_enable)		  這個地方會神奇的 call 到 tegra_fb_set_par() ???
+						...
+		if (dc->out_ops && dc->out_ops->enable)
+			dc->out_ops->enable(dc);
+			(就是tegra_dc_hdmi_enable)
 
+			//INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker)
+													|
+		tegra_dc_ext_process_hotplug
+					|
+		tegra_dc_ext_queue_hotplug
+					|
+		tegra_dc_ext_queue_event(control, &pack.event);
+					|
+		
 
 		//.probe = tegra_dc_probe
 					|
