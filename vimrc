@@ -40,10 +40,10 @@ if version >= 700 " NONE turns off underlining
 	let &cursorline=s:lico % 2
 	let &cursorcolumn=s:lico / 2
 	endfun
-	nmap <silent> <F7> :call LiCo()<cr>
+	nmap <silent> <F12> :call LiCo()<cr>
 	endif
-	imap <F7> <c-o><F7>
-	vmap <F7> <c-c><F7>gv
+	imap <F12> <c-o><F12>
+	vmap <F12> <c-c><F12>gv
 
 " insert blank line without into insert mode
 map <S-Enter> O<Esc>
