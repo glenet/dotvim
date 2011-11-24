@@ -69,13 +69,18 @@ module_init(tegra_dc_module_init) (dc.c)
 
 			//INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker)
 													|
-		tegra_dc_ext_process_hotplug
+		tegra_dc_ext_process_hotplug(dc->ndev->id); (board-edge-panel.c:564 nvhost_device.id = 1)
 					|
-		tegra_dc_ext_queue_hotplug
-					|
-		tegra_dc_ext_queue_event(control, &pack.event);
-					|
-		
+			tegra_dc_ext_queue_hotplug
+						|
+				pack.event.type = TEGRA_DC_EXT_EVENT_HOTPLUG (vendor/nvidia/tegra/core/drivers/libnvdc/events.c:65)
+				...
+				tegra_dc_ext_queue_event(control, &pack.event);
+							|
+					
+					
+					
+
 
 		//.probe = tegra_dc_probe
 					|
