@@ -16,7 +16,6 @@ set autoindent
 set noswapfile
 set smartindent
 set nocompatible
-"set cursorline
 "set expandtab " use spaces replace tab
 set tabstop=4
 set backspace=2
