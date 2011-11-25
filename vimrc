@@ -29,7 +29,16 @@ set fileencodings=utf-8,cp950
 :map<F2> a<C-R> pr_info("[DISP]%s(%d)\n", __func__, __LINE__);<CR><ESC>
 
 " status line
-:set statusline=%<%f\ %h%m%r\ %y%=%{v:register}\ %-14.(%l,%c%V%)\ %P
+set statusline=
+set statusline +=\ %n\             "buffer number
+set statusline +=%{&ff}            "file format
+set statusline +=%y%*                "file type
+set statusline +=\ %<%F            "full path
+set statusline +=%m                "modified flag
+set statusline +=%=%5l             "current line
+set statusline +=/%L               "total lines
+set statusline +=%4c\              "column number
+set statusline +=0x%04B\           "character under cursor
 
 " toggle cursorline/cursorcolumn or center line
 nmap <F12> zz
