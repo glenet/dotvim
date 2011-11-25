@@ -10,6 +10,3 @@
 [submodule "bundle/minibufexpl"]
 	path = bundle/minibufexpl
 	url = https://github.com/fholgado/minibufexpl.vim.git
-[submodule "vim-git-branch-info"]
-	path = vim-git-branch-info
-	url = https://github.com/taq/vim-git-branch-info.git
