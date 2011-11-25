@@ -28,9 +28,6 @@ set fileencodings=utf-8,cp950
 
 :map<F2> a<C-R> pr_info("[DISP]%s(%d)\n", __func__, __LINE__);<CR><ESC>
 
-" vim-git plugin
-:set statusline=%#StatusLineNC#\ Git\ %#ErrorMsg#\ %{GitBranchInfoTokens()[0]}\ %#StatusLine# 
-
 " toggle cursorline/cursorcolumn or center line
 nmap <F12> zz
 if version >= 700 " NONE turns off underlining
