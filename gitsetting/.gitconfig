@@ -7,16 +7,19 @@
 	excludesfile = /home/brownylin/.gitignore
 
 [alias]
-  ch = checkout
-  cm = commit -a
-  st = status
-  br = branch
-  fp = format-patch
-  logb = log --author=Browny
-  oneline = log --pretty=oneline --since='2 days ago'
-  onelog = log -p -1
+	ch = checkout
+	cm = commit -a
+	di = diff
+	re = remote
+	st = status
+	br = branch
+	fp = format-patch
+	logb = log --author=Browny
+	oneline = log --pretty=oneline --since='2 days ago'
+	onelog = log -p -1
 
 [color]
-  status = auto
-  branch = auto
-  ui = auto
+	ui = auto
+	diff = auto
+    status = auto
+    branch = auto
