@@ -8,9 +8,11 @@
 
 [alias]
   ch = checkout
-  ci = commit -a
+  cm = commit -a
   st = status
   br = branch
+  fp = format-patch
+  logb = log --author=Browny
   oneline = log --pretty=oneline --since='2 days ago'
   onelog = log -p -1
 

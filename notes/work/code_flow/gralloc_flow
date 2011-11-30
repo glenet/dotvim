@@ -69,3 +69,12 @@ NvGrModule HAL_MODULE_INFO_SYM =
 };
 
 
+int nvdcEventData(struct nvdcState *state, int fd) //tegra/core/drivers/libnvdc/events.c
+			|
+	case TEGRA_DC_EXT_EVENT_HOTPLUG:
+		return handleHotplug(state, event->data);
+						|
+			state->hotplug(&state->displays[hpData->handle]);
+				|
+
+
