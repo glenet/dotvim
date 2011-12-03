@@ -27,3 +27,16 @@ lspci		// List peripheral devices info
 
 // Utility
 sudo apt-get install nautilus-open-terminal	// Install nautilus addon nautilus-open-terminal
+
+// JRE installation
+
+sudo add-apt-repository ppa:ferramroberto/java
+sudo apt-get update
+
+sudo apt-get install sun-java6-jre sun-java6-jre-plugin
+sudo apt-get install sun-java6-jdk
+
+// install new font
+
+sudo cp {來源檔案} /usr/share/fonts/truetype
+sudo fc-cache -f -v
