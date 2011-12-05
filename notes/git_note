@@ -55,6 +55,8 @@ git log /drivers/video	// 只看drivers/video資料夾下更動的log
 git blame sha1_file.c				// 查看sha1_file.c 的修改
 git blame -L 160,+10 sha1_file.c	// 查看sha1_file.c 從第160行開始往下10行，是誰修改的
 
+git log --grep=word		// 搜尋 commit message 包含 'word' 的 commit
+git log -Sword			// 搜尋 commit 修改內容包含 'word' 的 commit
 
 // --- Git Patch --- //
 

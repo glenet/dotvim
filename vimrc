@@ -26,7 +26,10 @@ set encoding=utf-8
 "set guifont=Monaco:h14 " windows/mac
 set fileencodings=utf-8,cp950
 
-:map<F2> a<C-R> pr_info("[DISP]%s(%d)\n", __func__, __LINE__);<CR><ESC>
+:map<F2> a<C-R> DISP_ERR("");<CR><ESC>
+:map<F7> a<C-R> DISP_INFO_IN();<CR><ESC>
+:map<F8> a<C-R> DISP_INFO_OUT();<CR><ESC>
+:map<F9> a<C-R> DISP_INFO_LN("");<CR><ESC>
 
 " status line
 set statusline=

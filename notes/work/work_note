@@ -16,3 +16,5 @@ log 裡面看到 tegra-grhost 代表某個 module hung 住
 
 1. Please alway add comment in code if it is workaround or issue
 
+porting 的時候要確認每個部份都有正確的被編譯，那就是在你預期要 run 到的地方都加一些 print 確保他真的 run 到了！
+
