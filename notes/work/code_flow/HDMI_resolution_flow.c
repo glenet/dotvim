@@ -11,6 +11,14 @@ e. call platform_driver_register with related device name
 f. call platform_driver probe func after register success
 
 // Board Part
+static struct tegra_fb_data enterprise_hdmi_fb_data = {
+    .win        = 0,
+    .xres       = 1366,
+    .yres       = 768,
+    .bits_per_pixel = 32,
+    .flags      = TEGRA_FB_FLIP_ON_PROBE,
+};
+
 static struct tegra_dc_out enterprise_disp2_out = {
 
 	.enable     = enterprise_hdmi_enable
@@ -18,6 +26,7 @@ static struct tegra_dc_out enterprise_disp2_out = {
 static struct tegra_dc_platform_data enterprise_disp2_pdata = {
 
 	.default_out    = &enterprise_disp2_out
+	.fb     		= &enterprise_hdmi_fb_data
 
 static struct nvhost_device enterprise_disp2_device = {
 
@@ -58,11 +67,11 @@ module_init(tegra_dc_module_init) (dc.c)
 							|						|
 		dc->enabled = _tegra_dc_enable(dc)		tegra_edid_get_monspecs(hdmi->edid, &specs)						
 							|					tegra_dc_hdmi_detect_config(dc, &specs)
-	return _tegra_dc_controller_enable(dc)				|
-						|						tegra_fb_update_monspecs(dc->fb, specs, tegra_dc_hdmi_mode_filter);
-				dc->out->enable();								|
-	(就是 board part 的 enterprise_hdmi_enable)		  這個地方會神奇的 call 到 tegra_fb_set_par() ???
-						...
+	return _tegra_dc_controller_enable(dc)					|
+						|							tegra_fb_update_monspecs(dc->fb, specs, tegra_dc_hdmi_mode_filter);
+				dc->out->enable();					// 這個地方會神奇的 call 到 tegra_fb_set_par() ???
+	(就是 board part 的 enterprise_hdmi_enable)		tegra_dc_ext_process_hotplug(dc->ndev->id);  
+						...                     	
 		if (dc->out_ops && dc->out_ops->enable)
 			dc->out_ops->enable(dc);
 			(就是tegra_dc_hdmi_enable)
@@ -79,8 +88,6 @@ module_init(tegra_dc_module_init) (dc.c)
 							|
 					
 					
-					
-
 
 		//.probe = tegra_dc_probe
 					|
