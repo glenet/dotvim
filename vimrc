@@ -20,7 +20,7 @@ set nocompatible
 set tabstop=4
 set backspace=2
 set shiftwidth=4
-set textwidth=90
+"set textwidth=90
 set encoding=utf-8
 "set guifont=Monaco\ 12  " ubuntu
 "set guifont=Monaco:h14 " windows/mac

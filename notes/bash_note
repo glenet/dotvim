@@ -1,8 +1,13 @@
+//
 /*--- general ---*/
 history					// List command history
 history | cut -c 8		// History without line number
 Ctrl+L					// clear
 Ctrl+R					// search past commands
+
+/*---output ---*/
+echo "hello world" | tee test.txt		// output text to console and write to test.txt file
+echo "hello world" | tee -a test.txt	// output text to console and append to test.txt file
 
 /*--- grep ---*/
 grep -nR 'term' ./*		// Search 'term' word in all files under current dir

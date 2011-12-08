@@ -18,3 +18,6 @@ log 裡面看到 tegra-grhost 代表某個 module hung 住
 
 porting 的時候要確認每個部份都有正確的被編譯，那就是在你預期要 run 到的地方都加一些 print 確保他真的 run 到了！
 
+
+1. break down 問題的能力，把 feature切分成小task，實踐due day的觀念
+
