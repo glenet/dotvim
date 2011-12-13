@@ -3,6 +3,9 @@
 Mobile-HTC@nvidia.com
 rjkOzzSu
 
+[IP]
+\\10.9.113.174\share\	// 桌機
+
 [Build Code]
 // 查看自己的 define 有沒有進去
 vim $OUT/obj/KERNEL/.config
@@ -14,7 +17,7 @@ vim $OUT/obj/KERNEL/.config
 kernel_build -j4;make_boot_image
 
 // 將 hal 層的更動更新到 device 裡面
-adb remount; 
+adb remount;	//要更動 read-only 的區域要先做的動作 
 adb push $OUT/system/lib/hw/gralloc.tegra.so system/lib/hw; 
 adb reboot;
 
@@ -49,6 +52,8 @@ TRISTATE,	OUTPUT == disable input and output
 // 如果gpio不如自己預期怎麼辦
 1. grep一下, 是否被別人修改
 2. 在 pinmux 設定之後, 緊接用 gpio_dump 看值對不對
+3. Active 狀態不需要在 resume 特別設定
+4. 在 pinmux 的 config 只是單純設定, 真正要作用，要呼叫 tegra_gpio_enable
 
 [Log]
 // Dump HtcSsdTestTool log
@@ -72,6 +77,15 @@ ANR fatal error fingerprint Watchdog "bout to"(surfaceflinger) die
 DISP dc brightness late_resume early_suspend panic
 
 log 裡面看到 tegra-grhost 代表某個 module hung 住
+
+[NV]
+adb shell "echo 4 > /sys/devices/nvhost/tegradc.1/graphics/fb1/blank" (關)
+adb shell "echo 0 > /sys/devices/nvhost/tegradc.1/graphics/fb1/blank" (開)
+*echo 4，本來顯示的畫面會暗掉，再 echo 0 會在亮起來
+*echo 4 之後，拔除 cable 再插上，還是可以顯示
+
+adb shell "cat /sys/class/switch/tegradc.1/state (ok, 1280x720)
+adb shell "cat /sys/class/switch/tegradc.1/subsystem/hdmi/state" (ok, 0:unplugged, 1:plugged)
 
 [Code]
 1. Please alway add comment in code if it is workaround or issue
