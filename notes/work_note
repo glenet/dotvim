@@ -16,6 +16,11 @@ vim $OUT/obj/KERNEL/.config
 // 單獨燒 kernel
 kernel_build -j4;make_boot_image
 
+// VIM:把某幾行的tab變成space
+:set expandtab
+:60,70ret! 4
+:set noexpandtab
+
 // 將 hal 層的更動更新到 device 裡面
 adb remount;	//要更動 read-only 的區域要先做的動作 
 adb push $OUT/system/lib/hw/gralloc.tegra.so system/lib/hw; 
@@ -49,11 +54,16 @@ TRISTATE,	INPUT  == input only
 NORMAL,		INPUT  == bi-direction
 TRISTATE,	OUTPUT == disable input and output
 
+// GPIO 和 SFIO 
+SFIO 的 Mux 參數要去 arch/arm/mach-tegra/pinmux-t3-tables.c 查詢
+GPIO 則使用 RSVD (Reserved 的意思，使用 RSVD 就要去 bootloader 確定使否有 config 這個 pin)
+
 // 如果gpio不如自己預期怎麼辦
 1. grep一下, 是否被別人修改
 2. 在 pinmux 設定之後, 緊接用 gpio_dump 看值對不對
 3. Active 狀態不需要在 resume 特別設定
 4. 在 pinmux 的 config 只是單純設定, 真正要作用，要呼叫 tegra_gpio_enable
+5. gpio_request_array 也只是設定，下面要加 tegra_gpio_enable 迴圈來 enable
 
 [Log]
 // Dump HtcSsdTestTool log
