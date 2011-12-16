@@ -34,6 +34,11 @@ or
 
 git rebase master foo
 
+// Stash
+git stash save "work in progress for foo feature"
+git stash list
+git stash apply stash@{1}
+
 // Merge multiple commits to one commit 
 // (ex: ABCDE), you want to ABE'(E'=CDE)
 git rebase -i HEAD~2	// rebase to C
@@ -63,6 +68,9 @@ git log -Sword			// 搜尋 commit 修改內容包含 'word' 的 commit
 // Pathc from commit to commit
 git format-patch -1 7ef30fa		// 取出單一commit為patch
 git format-patch 7ef30fa2c(你要從別人那個commit開始patch)..e9623f0e67(一直patch到你想要的commit) --stdout > pk.patch
+
+git am		// apply format-patch patch
+git apply	// apply diff > patch
 
 git apply --reject	// 會把可以上的部份上去，衝突部份他會寫到 xxx.c.rej 檔案中
 

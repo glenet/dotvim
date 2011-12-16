@@ -5,6 +5,11 @@ history | cut -c 8		// History without line number
 Ctrl+L					// clear
 Ctrl+R					// search past commands
 
+godir nvddk_2d_v2.h		// jump to where nvddk_2d_v2.h exists
+cd -					// jump back
+
+readelf -Ws $OUT/system/lib/libnvddk_2d_v2.so	// lookup symbols in .so file
+
 /*---output ---*/
 echo "hello world" | tee test.txt		// output text to console and write to test.txt file
 echo "hello world" | tee -a test.txt	// output text to console and append to test.txt file
