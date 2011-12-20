@@ -81,7 +81,7 @@ adb shell rm /data/htclog/＊
 1. 不要相信 QA 的 time stamp, 拿到 issue 馬上檢查 log 時間的正確性
 
 // framework keyword
-ANR fatal error fingerprint Watchdog "bout to"(surfaceflinger) die
+ANR(Application Not Responding) fatal error fingerprint Watchdog "About to"(surfaceflinger) die
 
 // kernel keyword
 DISP dc brightness late_resume early_suspend panic
