@@ -27,6 +27,7 @@ lspci		// List peripheral devices info
 
 // Utility
 sudo apt-get install nautilus-open-terminal	// Install nautilus addon nautilus-open-terminal
+sudo apt-get install pidgin pidgin-sipe		// pidgin Office Communicator
 
 // JRE installation
 
