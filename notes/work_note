@@ -3,6 +3,18 @@
 Mobile-HTC@nvidia.com
 rjkOzzSu
 
+[Repo]
+1. Reset 所有 git 回到某個時間點（也可針對單一 git）：
+$ . setbuildenv u
+$ cd $TOP
+$ chmod 755 reset
+$ repo forall -pvc '$TOP/reset "10/10 23:59 2011"'
+
+2. 過濾出 git 中某個時間區間的 commit：
+$ chmod 755 filter-date
+$ cd framework/base
+$ ../../filter-date "10/14 00:00" "10/14 23:59"
+
 [IP]
 \\10.9.113.174\share\	// 桌機
 
