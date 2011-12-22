@@ -63,6 +63,9 @@ git blame -L 160,+10 sha1_file.c	// 查看sha1_file.c 從第160行開始往下10
 git log --grep=word		// 搜尋 commit message 包含 'word' 的 commit
 git log -Sword			// 搜尋 commit 修改內容包含 'word' 的 commit
 
+// 樹狀圖看log merge path
+git log --graph --pretty=format:'%Cred%h%Creset:%s  %Cgreen(%cr)%Creset %an' --abbrev-commit --date=relative
+
 // --- Git Patch --- //
 
 // Pathc from commit to commit
