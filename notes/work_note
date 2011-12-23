@@ -35,10 +35,9 @@ kernel_build -j4;make_boot_image
 :60,70ret! 4
 :set noexpandtab
 
-// 將 hal 層的更動更新到 device 裡面
-adb remount;	//要更動 read-only 的區域要先做的動作 
-adb push $OUT/system/lib/hw/gralloc.tegra.so system/lib/hw; 
-adb reboot;
+/*--- Cscope ---*/
+find . -name "*.h" -o -name "*.c" -o -name "*.cc" -o -name "*.cpp" -o -name "*.hpp"  > cscope.files
+cscope -Rbkq
 
 [GPIO]
 // Dump gpio in kernel
@@ -79,7 +78,7 @@ GPIO 則使用 RSVD (Reserved 的意思，使用 RSVD 就要去 bootloader 確�
 4. 在 pinmux 的 config 只是單純設定, 真正要作用，要呼叫 tegra_gpio_enable
 5. gpio_request_array 也只是設定，下面要加 tegra_gpio_enable 迴圈來 enable
 
-[Log]
+[adb]
 // Dump HtcSsdTestTool log
 adb pull /data/htclog htc_log
 
@@ -89,6 +88,23 @@ adb shell rm /data/htclog/＊
 // 沒開 SsdTestTool, 看 device log 的方式
 1. 把 system/core/rootdir/init.rc 裡面 dlog 的註解拿掉
 2. adb pull /data/dlog/ dlog/
+
+// 調整 backlight 最亮
+echo 255 > sys/class/backlight/tegra-pwm-bl/brightness
+
+// 設定調整 hdmi 參數
+adb shell "echo 4 > /sys/devices/nvhost/tegradc.1/graphics/fb1/blank" (關)
+adb shell "echo 0 > /sys/devices/nvhost/tegradc.1/graphics/fb1/blank" (開)
+*echo 4，本來顯示的畫面會暗掉，再 echo 0 會在亮起來
+*echo 4 之後，拔除 cable 再插上，還是可以顯示
+
+adb shell "cat /sys/class/switch/tegradc.1/state (ok, 1280x720)
+adb shell "cat /sys/class/switch/tegradc.1/subsystem/hdmi/state" (ok, 0:unplugged, 1:plugged)
+
+// 將 hal 層的更動更新到 device 裡面
+adb remount;	//要更動 read-only 的區域要先做的動作 
+adb push $OUT/system/lib/hw/gralloc.tegra.so system/lib/hw; 
+adb reboot;
 
 [Issue]
 // ITS debug skill
@@ -101,15 +117,6 @@ ANR(Application Not Responding) fatal error fingerprint Watchdog "About to"(surf
 DISP dc brightness late_resume early_suspend panic
 
 log 裡面看到 tegra-grhost 代表某個 module hung 住
-
-[NV]
-adb shell "echo 4 > /sys/devices/nvhost/tegradc.1/graphics/fb1/blank" (關)
-adb shell "echo 0 > /sys/devices/nvhost/tegradc.1/graphics/fb1/blank" (開)
-*echo 4，本來顯示的畫面會暗掉，再 echo 0 會在亮起來
-*echo 4 之後，拔除 cable 再插上，還是可以顯示
-
-adb shell "cat /sys/class/switch/tegradc.1/state (ok, 1280x720)
-adb shell "cat /sys/class/switch/tegradc.1/subsystem/hdmi/state" (ok, 0:unplugged, 1:plugged)
 
 [Code]
 1. Please alway add comment in code if it is workaround or issue
