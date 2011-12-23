@@ -4,6 +4,8 @@ Mobile-HTC@nvidia.com
 rjkOzzSu
 
 [Repo]
+ls -al .repo/	//列出目前repo指向的manifest
+
 1. Reset 所有 git 回到某個時間點（也可針對單一 git）：
 $ . setbuildenv u
 $ cd $TOP
