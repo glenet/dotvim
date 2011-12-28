@@ -77,6 +77,7 @@ GPIO 則使用 RSVD (Reserved 的意思，使用 RSVD 就要去 bootloader 確�
 3. Active 狀態不需要在 resume 特別設定
 4. 在 pinmux 的 config 只是單純設定, 真正要作用，要呼叫 tegra_gpio_enable
 5. gpio_request_array 也只是設定，下面要加 tegra_gpio_enable 迴圈來 enable
+6. request過的gpio不需要再request一次，直接tegra_gpio_setvalue就可以
 
 [adb]
 // Dump HtcSsdTestTool log
@@ -117,6 +118,8 @@ ANR(Application Not Responding) fatal error fingerprint Watchdog "About to"(surf
 DISP dc brightness late_resume early_suspend panic
 
 log 裡面看到 tegra-grhost 代表某個 module hung 住
+
+當問題發生在某個 func 的時候，可以把該 func 變成一個單純印 log 的 func，釐清是否是該 func 搞得鬼！
 
 [Code]
 1. Please alway add comment in code if it is workaround or issue
