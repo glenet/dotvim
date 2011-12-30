@@ -4,6 +4,7 @@ call pathogen#infect()
 
 syntax on
 filetype on
+filetype plugin on
 
 set nu
 set confirm
