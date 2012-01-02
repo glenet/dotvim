@@ -27,11 +27,19 @@ set encoding=utf-8
 "set guifont=Monaco:h14 " windows/mac
 set fileencodings=utf-8,cp950
 
+" Keys Mapping
 :map<F2> a<C-R> pr_info("[DISP]%s(%d)\n", __func__, __LINE__);<CR><ESC>
 :map<F7> a<C-R> DISP_INFO_IN();<CR><ESC>
 :map<F8> a<C-R> DISP_INFO_OUT();<CR><ESC>
 :map<F9> a<C-R> DISP_INFO_LN("");<CR><ESC>
 :map<F10> a<C-R> DISP_ERR("");<CR><ESC>
+
+" move up/down quickly by using Ctrl-j, Ctrl-k
+" " which will move us around by functions
+nnoremap <silent> <C-j> }
+nnoremap <silent> <C-k> {
+
+nnoremap <silent> K :GitGrep <cword><CR>
 
 " status line
 set statusline=
@@ -175,18 +183,8 @@ endif
 " // --- Color Scheme ---//
 colorscheme desert
 
-" Cursor color
-"highlight Cursor ctermbg=Green
-"highlight Cursor  guifg=white guibg=steelblue
-"highlight iCursor guifg=white guibg=steelblue
-"set guicursor=n-v-c:block-Cursor
-"set guicursor+=i:ver100-iCursor
-"set guicursor+=n-v-c:blinkon0
-"set guicursor+=i:blinkwait10
-
 " Cscope result color
 "hi ModeMsg guifg=black guibg=#C6C5FE gui=BOLD ctermfg=black ctermbg=cyan cterm=BOLD
-
 
 " // --- Mark Redundant Spaces ---//
 " 用法：按F3標示出多餘空白, 持續按N向下搜尋, 按X刪除
@@ -210,7 +208,6 @@ endfunction
 command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 nnoremap <F3>     :ShowSpaces 1<CR>
-
 
 " // --- MiniBufExplorer --- //
 function! <SID>CycleBuffer(forward)

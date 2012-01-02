@@ -14,6 +14,12 @@ Insert mode: <Cr-R>d	// paste from buffer "d"
 :e			// 在 vim 當中開啟同資料夾下的其他檔案
 :bufdo e!	// refresh all files in buffers
 
+yaw			// yank around word
+ci"			// change inside quote
+ctX			// change till X
+gf			// go to file
+
+
 guw (光標到詞尾,大寫轉換成小寫)
 gUw (光標到詞尾,小寫轉換成大寫)
 
