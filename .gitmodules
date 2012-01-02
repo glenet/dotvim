@@ -13,3 +13,6 @@
 [submodule "bundle/git-grep"]
 	path = bundle/git-grep
 	url = http://github.com/tjennings/git-grep-vim
+[submodule "bundle/tcomment"]
+	path = bundle/tcomment
+	url = http://github.com/tomtom/tcomment_vim.git

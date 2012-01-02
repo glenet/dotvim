@@ -41,6 +41,10 @@ nnoremap <silent> <C-k> {
 
 nnoremap <silent> K :GitGrep <cword><CR>
 
+" split window
+nnoremap <silent> vv <C-w>v
+nnoremap <silent> ss <C-w>s
+
 " status line
 set statusline=
 set statusline +=\ %n\             "buffer number
