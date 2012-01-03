@@ -8,6 +8,8 @@ Ctrl+R					// search past commands
 godir nvddk_2d_v2.h		// jump to where nvddk_2d_v2.h exists
 cd -					// jump back
 
+echo $'\07'				// make 'beep'
+
 readelf -Ws $OUT/system/lib/libnvddk_2d_v2.so	// lookup symbols in .so file
 
 /*---output ---*/
