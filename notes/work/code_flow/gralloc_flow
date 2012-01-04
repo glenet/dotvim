@@ -1,13 +1,6 @@
 // gralloc flow
 
-int NvGrFbDevOpen (NvGrModule* mod, hw_device_t** out, int index) 
-{
-	...
-	
-	err = uevent_add_native_handler(handle_uevent, dev);
-	
-	...
-}
+
 static void hdmi_hotplug(void *data)
 					|
 	hdmi_uevent_polling(&handle_uevent, data);
@@ -46,7 +39,7 @@ typedef struct NvGrModuleRec {
 // vendor/nvidia/tegra/hal/libgralloc/nvgrmodule.c 
 static hw_module_methods_t NvGrMethods =
 {
-	.open = NvGrDevOpen
+	.open = NvGrDevOpen <-- 見 line 75
 };
 
 NvGrModule HAL_MODULE_INFO_SYM =
@@ -61,7 +54,7 @@ NvGrModule HAL_MODULE_INFO_SYM =
 			.id = GRALLOC_HARDWARE_MODULE_ID,
 			.name = "NVIDIA Tegra Graphics Memory Allocator",
 			.author = "NVIDIA",
-			.methods = &NvGrMethods
+			.methods = &NvGrMethods	<- 見 line 47
 		},
 
 		...
@@ -69,6 +62,29 @@ NvGrModule HAL_MODULE_INFO_SYM =
 	
 	...
 };
+
+int NvGrFbDevOpen (NvGrModule* mod, hw_device_t** out, int index) 
+{
+	...
+	dev->Base.setRotation         = NvGrSetRotation; <-- 誰call了它, line 86
+	...
+	
+	err = uevent_add_native_handler(handle_uevent, dev);
+	
+	...
+}
+
+static int NvGrDevOpen(const hw_module_t* module, const char* name, hw_device_t** device) {
+
+	...
+
+	case NvGrDevIdx_Fb0:
+		ret = NvGrFbDevOpen(m, &m->Dev[idx], 0); <-- 見 line 66
+
+}
+
+./frameworks/base/libs/ui/FramebufferNativeWindow.cpp:83:    if (hw_get_module(GRALLOC_HARDWARE_MODULE_ID, &module) == 0) {
+./frameworks/base/services/surfaceflinger/DisplayHardware/DisplayHardware.cpp:409:        fbDev->setRotation(fbDev, rotation);
 
 
 int nvdcEventData(struct nvdcState *state, int fd) //tegra/core/drivers/libnvdc/events.c

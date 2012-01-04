@@ -110,6 +110,8 @@ adb remount;	//要更動 read-only 的區域要先做的動作
 adb push $OUT/system/lib/hw/gralloc.tegra.so system/lib/hw; 
 adb reboot;
 
+adb shell dumpsys SurfaceFlinger
+
 [Issue]
 // ITS debug skill
 1. 不要相信 QA 的 time stamp, 拿到 issue 馬上檢查 log 時間的正確性
