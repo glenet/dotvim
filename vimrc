@@ -1,15 +1,13 @@
 call pathogen#infect()
 
-" // --- General --- //
+"// --- General --- //
 
 syntax on
 filetype on
-filetype plugin on
 
 set nu
 set confirm
 set modeline
-set ls=2
 set showcmd
 set nobackup	
 set hlsearch
@@ -17,39 +15,25 @@ set autoindent
 set noswapfile
 set smartindent
 set nocompatible
-"set expandtab " use spaces replace tab
+
+set ls=2
 set tabstop=4
 set backspace=2
 set shiftwidth=4
-"set textwidth=90
 set encoding=utf-8
-"set guifont=Monaco\ 12  " ubuntu
-"set guifont=Monaco:h14 " windows/mac
 set fileencodings=utf-8,cp950
 
-" Keys Mapping
-:map<F2> a<C-R> pr_info("[DISP]%s(%d)\n", __func__, __LINE__);<CR><ESC>
-:map<F7> a<C-R> DISP_INFO_IN();<CR><ESC>
-:map<F8> a<C-R> DISP_INFO_OUT();<CR><ESC>
-:map<F9> a<C-R> DISP_INFO_LN("");<CR><ESC>
-:map<F10> a<C-R> DISP_ERR("");<CR><ESC>
+"// --- Appearance --- //
 
-" move up/down quickly by using Ctrl-j, Ctrl-k
-" " which will move us around by functions
-nnoremap <silent> <C-j> }
-nnoremap <silent> <C-k> {
+"set textwidth=90
+"set expandtab
+colorscheme desert
 
-nnoremap <silent> K :GitGrep <cword><CR>
-
-" split window
-nnoremap <silent> vv <C-w>v
-nnoremap <silent> ss <C-w>s
-
-" status line
+" status line appearance
 set statusline=
 set statusline +=\ %n\             "buffer number
 set statusline +=%{&ff}            "file format
-set statusline +=%y%*                "file type
+set statusline +=%y%*              "file type
 set statusline +=\ %<%F            "full path
 set statusline +=%m                "modified flag
 set statusline +=%=%5l             "current line
@@ -57,7 +41,26 @@ set statusline +=/%L               "total lines
 set statusline +=%4c\              "column number
 set statusline +=0x%04B\           "character under cursor
 
+"// ---  Keys Mapping --- //
+:map<F2> a<C-R> pr_info("[DISP]%s(%d)\n", __func__, __LINE__);<CR><ESC>
+:map<F7> a<C-R> DISP_INFO_IN();<CR><ESC>
+:map<F8> a<C-R> DISP_INFO_OUT();<CR><ESC>
+:map<F9> a<C-R> DISP_INFO_LN("");<CR><ESC>
+:map<F10> a<C-R> DISP_ERR("");<CR><ESC>
+
+" move up/down quickly by using Ctrl-j, Ctrl-k which will move us around by functions
+nnoremap <silent> <C-j> }
+nnoremap <silent> <C-k> {
+
+" map K for :GitGrep
+nnoremap <silent> K :GitGrep <cword><CR>
+
+" split window
+nnoremap <silent> vv <C-w>v
+nnoremap <silent> ss <C-w>s
+
 " toggle cursorline/cursorcolumn or center line
+" 顯示底線或垂直線方便trace code
 nmap <F12> zz
 if version >= 700 " NONE turns off underlining
 	highlight CursorLine NONE ctermbg=Yellow
@@ -74,10 +77,11 @@ if version >= 700 " NONE turns off underlining
 	vmap <F12> <c-c><F12>gv
 
 " insert blank line without into insert mode
+" 按enter新增一個空行
 map <S-Enter> O<Esc>
 map <CR> o<ESc>k
 
-" // --- Copy/Paste Cross Session --- //
+" Copy/Paste Cross Session
 " 不同檔案之間的複製/貼上 
 " 用法：Ctrl+V選取欲複製行, Shift+Y複製, 跳到另外一個檔案Shift+P貼上
 
@@ -89,8 +93,43 @@ nmap <S-y> :.w! ~/.vbuf<CR>
 "paste the contents of the buffer file
 nmap <S-p> :r ~/.vbuf<CR>
 
+" Mark Redundant Spaces 
+" 用法：按F3標示出多餘空白, 持續按N向下搜尋, 按X刪除
+function ShowSpaces(...)
+	let @/='\v(\s+$)|( +\ze\t)'
+	let oldhlsearch=&hlsearch
+	if !a:0
+	let &hlsearch=!&hlsearch
+	else
+	let &hlsearch=a:1
+	end
+	return oldhlsearch
+endfunction
 
-" // --- Ctags Plugin --- //
+function TrimSpaces() range
+	let oldhlsearch=ShowSpaces(1)
+	execute a:firstline.",".a:lastline."substitute ///gec"
+	let &hlsearch=oldhlsearch
+endfunction
+
+command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
+command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
+nnoremap <F3>     :ShowSpaces 1<CR>
+
+
+" // --- Show Function Name --- //
+fun! ShowFuncName()
+  let lnum = line(".")
+  let col = col(".")
+  echohl ModeMsg
+  echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))
+  echohl None
+  call search("\\%" . lnum . "l" . "\\%" . col . "c")
+endfun
+map f :call ShowFuncName() <CR>
+
+
+"// --- Ctags Plugin --- //
 
 set tags=tags;/
 " configure tags - add additional tags here
@@ -99,13 +138,13 @@ set tags+=~/.vim/tags/cpp
 nmap <C-L> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 
-" // --- Taglist Plugin ---//
+"// --- Taglist Plugin ---//
 
 let Tlist_Show_One_File = 1
 nnoremap <silent> <F6> :TlistToggle<CR>
 
 
-" // --- CSCOPE Plugin ---//
+"// --- CSCOPE Plugin ---//
 
 " 讓子目錄也可以利用根目錄建構出的 cscope.out 檔案
 function s:FindFile(file)
@@ -184,36 +223,11 @@ if has("cscope")
 
 endif
 
-" // --- Color Scheme ---//
-colorscheme desert
-
 " Cscope result color
 "hi ModeMsg guifg=black guibg=#C6C5FE gui=BOLD ctermfg=black ctermbg=cyan cterm=BOLD
 
-" // --- Mark Redundant Spaces ---//
-" 用法：按F3標示出多餘空白, 持續按N向下搜尋, 按X刪除
-function ShowSpaces(...)
-	let @/='\v(\s+$)|( +\ze\t)'
-	let oldhlsearch=&hlsearch
-	if !a:0
-	let &hlsearch=!&hlsearch
-	else
-	let &hlsearch=a:1
-	end
-	return oldhlsearch
-endfunction
 
-function TrimSpaces() range
-	let oldhlsearch=ShowSpaces(1)
-	execute a:firstline.",".a:lastline."substitute ///gec"
-	let &hlsearch=oldhlsearch
-endfunction
-
-command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
-command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
-nnoremap <F3>     :ShowSpaces 1<CR>
-
-" // --- MiniBufExplorer --- //
+"// --- MiniBufExplorer --- //
 function! <SID>CycleBuffer(forward)
 
   " The following hack handles the case where we only have one
@@ -255,13 +269,3 @@ let mapleader = ","
 noremap <silent> <leader>n :call <SID>CycleBuffer(1)<CR>:<BS>
 noremap <silent> <leader>p :call <SID>CycleBuffer(0)<CR>:<BS>
 
-" // --- Show Function Name --- //
-fun! ShowFuncName()
-  let lnum = line(".")
-  let col = col(".")
-  echohl ModeMsg
-  echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))
-  echohl None
-  call search("\\%" . lnum . "l" . "\\%" . col . "c")
-endfun
-map f :call ShowFuncName() <CR>
