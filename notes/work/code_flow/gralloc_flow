@@ -87,6 +87,8 @@ static int NvGrDevOpen(const hw_module_t* module, const char* name, hw_device_t*
 ./frameworks/base/services/surfaceflinger/DisplayHardware/DisplayHardware.cpp:409:        fbDev->setRotation(fbDev, rotation);
 
 
+SurfaceFlinger::readyToRun()
+
 int nvdcEventData(struct nvdcState *state, int fd) //tegra/core/drivers/libnvdc/events.c
 			|
 	case TEGRA_DC_EXT_EVENT_HOTPLUG:
