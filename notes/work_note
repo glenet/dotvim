@@ -130,6 +130,8 @@ log 裡面看到 tegra-grhost 代表某個 module hung 住
 
 當問題發生在某個 func 的時候，可以把該 func 變成一個單純印 log 的 func，釐清是否是該 func 搞得鬼！
 
+夾版本的時候，先用daily build找出哪兩個build之間發生問題，然後可以燒好的daily build 然後在單燒壞的daily build的kernel，確認問題是否發生在kernel。
+
 [Code]
 1. Please alway add comment in code if it is workaround or issue
 2. porting 的時候要確認每個部份都有正確的被編譯，那就是在你預期要 run 到的地方都加一些 print 確保他真的 run 到了！
