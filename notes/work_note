@@ -110,7 +110,11 @@ adb remount;	//要更動 read-only 的區域要先做的動作
 adb push $OUT/system/lib/hw/gralloc.tegra.so system/lib/hw; 
 adb reboot;
 
+// 看SurfaceFlinger的設定
 adb shell dumpsys SurfaceFlinger
+
+// 進kernel D-cable看不到log使用
+adb shell cat proc/kmsg
 
 [Issue]
 // ITS debug skill
