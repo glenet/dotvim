@@ -56,11 +56,16 @@ O(L)			#include <linux/gpio.h>
 O(H)			#include <linux/gpio.h>
 				gpio_direction_output(unsigned gpio, 1);
 
-I(PU)			#include <linux/gpio.h>
-				gpio_direction_input(unsigned gpio);
-				#include <mach/pinmux.h>
+I(NP)			#include <linux/gpio.h>
+I(PU) 			gpio_direction_input(unsigned gpio);
+I(PD)			#include <mach/pinmux.h>
 				int tegra_pinmux_set_pullupdown(enum tegra_pingroup pg, enum tegra_pullupdown pupd);
-I(PD)
+			
+				enum tegra_pullupdown {
+					TEGRA_PUPD_NORMAL = 0,
+					TEGRA_PUPD_PULL_DOWN,
+					TEGRA_PUPD_PULL_UP,
+				};
 
 A				#include <mach/gpio.h>
 				tegra_gpio_disable(int gpio);
