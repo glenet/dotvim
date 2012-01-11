@@ -32,19 +32,20 @@ Ctrl+A + L	// 輸出 log 成檔案
 Ctrl+A + Q	// 退出
 
 // tmux 使用方式 ( prefix: Ctrl+b )
-$tmux								// 開啟 tmux
-$tmux attach						// attach 存在 session 
-$tmux kill-session					// 殺掉 session
+$tmux                                // 開啟 tmux
+$tmux attach -t <session-name>       // attach 存在的 session
+$tmux kill-session                   // 殺掉 session
 $tmux kill-session -t session-id
-$tmux neww							// 開新的 window
+$tmux neww -n <window-name>          // 開新的 window
+$tmux new -s <session-name>          // create new session with name <session-name>
 
-^b + &							// 關掉 window
-^b + #							// go to window #
-^b , <newname>					// rename-window to newname
-^b "							// 水平分割視窗
-^b %							// 垂直分割視窗
-^b o 							// 切換分割窗
-^b x							// 殺掉分割窗
-^b -> ^ 按著加方向鍵				// 調整分割窗大小
-
+^b + &                               // 關掉 window
+^b + #                               // go to window #
+^b , <newname>                       // rename-window to newname
+^b "                                 // 水平分割視窗
+^b %                                 // 垂直分割視窗
+^b o                                 // 切換分割窗
+^b x                                 // 殺掉分割窗
+^b -> ^ 按著加方向鍵                 // 調整分割窗大小
+^b [                                 // enable scrolling
 
