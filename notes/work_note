@@ -21,7 +21,7 @@ $ ../../filter-date "10/14 00:00" "10/14 23:59"
 $ repo forall -pvc '$TOP/repocheck "base"'
 
 [IP]
-\\10.9.113.174\share\	// 桌機
+\\10.9.113.22\share\	// 桌機
 
 [Build Code]
 // 查看自己的 define 有沒有進去
