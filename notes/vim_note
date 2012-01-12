@@ -19,12 +19,17 @@ ci"			// change inside quote
 ctX			// change till X
 gf			// go to file
 
-
 guw (光標到詞尾,大寫轉換成小寫)
 gUw (光標到詞尾,小寫轉換成大寫)
 
 guu (光標到行尾,大寫轉換成小寫)
 gUU (光標到行尾,小寫轉換成大寫)
+
+// VIM:把某幾行的tab變成space
+:set expandtab
+:60,70ret! 4
+:set noexpandtab
+
 
 /*--- Search ---*/
 
