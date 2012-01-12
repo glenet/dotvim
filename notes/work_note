@@ -33,19 +33,21 @@ vim $OUT/obj/KERNEL/.config
 // 單獨燒 kernel
 kernel_build -j4;make_boot_image
 
-// VIM:把某幾行的tab變成space
-:set expandtab
-:60,70ret! 4
-:set noexpandtab
+// Shep build method
+Endeavor#U
+$ source build/envsetup.sh; partner_setup endeavoru EndeavorU_Generic_WWE_DEBUG; make -j4 PRODUCT-endeavoru-userdebug
+ 
+Endeavor#TD
+$ source build/envsetup.sh; partner_setup endeavortd EndeavorTD_Generic_WWE_DEBUG; make -j4 PRODUCT-endeavortd-userdebug
+ 
+Vertex#FP
+$ source build/envsetup.sh; partner_setup vertexfp Vertexfp_Generic_WWE_DEBUG; make -j4 PRODUCT-vertexfp-userdebug
 
 /*--- Cscope ---*/
 find . -name "*.h" -o -name "*.c" -o -name "*.cc" -o -name "*.cpp" -o -name "*.hpp"  > cscope.files
 cscope -Rbkq
 
 [GPIO]
-// Dump gpio in kernel
-// 如果要在 suspend 狀態下 dump gpio, 要把 mach-tegra/gpio.c 下 tegra_gpio_suspend(void) 裡面的 gpio_dump 註解拿掉
-adb shell cat /d/htc_tegra_gpio
 
 // Kernle gpio 設定大全(這些只是config, 真正要work要呼叫tegra_gpio_enable)
 Config 			Sample Code
@@ -56,11 +58,16 @@ O(L)			#include <linux/gpio.h>
 O(H)			#include <linux/gpio.h>
 				gpio_direction_output(unsigned gpio, 1);
 
-I(PU)			#include <linux/gpio.h>
-				gpio_direction_input(unsigned gpio);
-				#include <mach/pinmux.h>
+I(NP)			#include <linux/gpio.h>
+I(PU) 			gpio_direction_input(unsigned gpio);
+I(PD)			#include <mach/pinmux.h>
 				int tegra_pinmux_set_pullupdown(enum tegra_pingroup pg, enum tegra_pullupdown pupd);
-I(PD)
+			
+				enum tegra_pullupdown {
+					TEGRA_PUPD_NORMAL = 0,
+					TEGRA_PUPD_PULL_DOWN,
+					TEGRA_PUPD_PULL_UP,
+				};
 
 A				#include <mach/gpio.h>
 				tegra_gpio_disable(int gpio);
@@ -88,6 +95,10 @@ adb pull /data/htclog htc_log
 
 // 清除 htclog
 adb shell rm /data/htclog/＊
+
+// Dump gpio in kernel
+// 如果要在 suspend 狀態下 dump gpio, 要把 mach-tegra/gpio.c 下 tegra_gpio_suspend(void) 裡面的 gpio_dump 註解拿掉
+adb shell cat /d/htc_tegra_gpio
 
 // 沒開 SsdTestTool, 看 device log 的方式
 1. 把 system/core/rootdir/init.rc 裡面 dlog 的註解拿掉
@@ -129,6 +140,8 @@ DISP dc brightness late_resume early_suspend panic
 log 裡面看到 tegra-grhost 代表某個 module hung 住
 
 當問題發生在某個 func 的時候，可以把該 func 變成一個單純印 log 的 func，釐清是否是該 func 搞得鬼！
+
+夾版本的時候，先用daily build找出哪兩個build之間發生問題，然後可以燒好的daily build 然後在單燒壞的daily build的kernel，確認問題是否發生在kernel。
 
 [Code]
 1. Please alway add comment in code if it is workaround or issue
