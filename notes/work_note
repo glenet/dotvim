@@ -127,6 +127,9 @@ adb shell dumpsys SurfaceFlinger
 // 進kernel D-cable看不到log使用
 adb shell cat proc/kmsg
 
+// dump clock state
+cat /d/clock/clock_tree
+
 [Issue]
 // ITS debug skill
 1. 不要相信 QA 的 time stamp, 拿到 issue 馬上檢查 log 時間的正確性

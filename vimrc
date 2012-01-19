@@ -23,6 +23,12 @@ set shiftwidth=4
 set encoding=utf-8
 set fileencodings=utf-8,cp950
 
+" cursor highlight
+set cursorline
+highlight CursorLine cterm=NONE ctermbg=Black
+autocmd InsertEnter * set nocursorline
+autocmd InsertLeave * set cursorline
+
 "// --- Appearance --- //
 
 "set textwidth=90
@@ -59,23 +65,6 @@ nnoremap <silent> K :GitGrep <cword><CR>
 " split window
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
-
-" toggle cursorline/cursorcolumn or center line
-" 顯示底線或垂直線方便trace code
-nmap <F12> zz
-if version >= 700 " NONE turns off underlining
-	highlight CursorLine NONE ctermbg=Yellow
-	highlight CursorColumn NONE ctermbg=Yellow
-	let s:lico=0
-	function LiCo()
-	let s:lico=s:lico>2 ?0 :s:lico+1
-	let &cursorline=s:lico % 2
-	let &cursorcolumn=s:lico / 2
-	endfun
-	nmap <silent> <F12> :call LiCo()<cr>
-	endif
-	imap <F12> <c-o><F12>
-	vmap <F12> <c-c><F12>gv
 
 " insert blank line without into insert mode
 " 按enter新增一個空行
