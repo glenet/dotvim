@@ -1,5 +1,23 @@
-// NV Doc
-[Doc pass]
+// work note
+		
+[grep]
+
+// Logic
+egrep 'Error|Exception' logfile.txt // search 'Error' or 'Exception'
+egrep "\<you\>.*\<me\>" world.txt	// search 'you' and 'me' happne in the same line
+
+// Option
+grep -i Error logfile	// case insensitive search
+grep -C 2 'hello' *	// prints two lines of context around each matching line
+grep -w ERROR logfile	// whole word instead of just pattern
+grep 'ERROR\>' * // Searches only for words ending in 'ERROR', use `\<' and `\>' to match the start and end of words
+
+[find]
+find ./kernel -name sii9234.cpp	// find filename sii9234.cpp below kernel/
+find / -name mysql -type d		// find a directory called mysql under / directory:
+
+
+[NV Doc pass]
 Mobile-HTC@nvidia.com
 rjkOzzSu
 
@@ -32,6 +50,14 @@ vim $OUT/obj/KERNEL/.config
 
 // 單獨燒 kernel
 kernel_build -j4;make_boot_image
+
+// flash code in Ship build
+Use RUU mode to flash your zip in ship build.
+You can check ship build on the string of hboot.
+ 
+How to use RUU.
+1. fastboot oem rebootRUU
+2. fastboot flash zip xxx.zip
 
 // Shep build method
 Endeavor#U
@@ -130,12 +156,22 @@ adb shell cat proc/kmsg
 // dump clock state
 cat /d/clock/clock_tree
 
+// set property
+adb shell setprop debug.gr.mode 1
+
+// 列出所有 file node, 然後去找 file node 下面有 regs 的欄位可以 cat 出來看該 device 的 regs 值
+adb shell ls -R
+
+// 看 RAMDUMP lastkmsg
+adb shell cat /proc/last_kmsg > lastk.txt
+
+
 [Issue]
 // ITS debug skill
 1. 不要相信 QA 的 time stamp, 拿到 issue 馬上檢查 log 時間的正確性
 
 // framework keyword
-ANR(Application Not Responding) fatal error fingerprint Watchdog "About to"(surfaceflinger) die
+ANR(Application Not Responding) fatal error fingerprint Watchdog "About to"(surfaceflinger) die 'I DEBUG'
 
 // kernel keyword
 DISP dc brightness late_resume early_suspend panic
@@ -151,3 +187,8 @@ log 裡面看到 tegra-grhost 代表某個 module hung 住
 2. porting 的時候要確認每個部份都有正確的被編譯，那就是在你預期要 run 到的地方都加一些 print 確保他真的 run 到了！
 3. break down 問題的能力，把 feature切分成小task，實踐due day的觀念
 
+[MHL]
+// Sync QCT code
+1. git checkout -b ics403-qct8960 remotes/origin/ics403-qct8960
+2. ~/repo sync kernel
+3. ics403-qct8960 就看 msm/sii9234
