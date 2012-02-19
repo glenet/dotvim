@@ -16,30 +16,25 @@ grep 'ERROR\>' * // Searches only for words ending in 'ERROR', use `\<' and `\>'
 find ./kernel -name sii9234.cpp	// find filename sii9234.cpp below kernel/
 find / -name mysql -type d		// find a directory called mysql under / directory:
 
-
 [NV Doc pass]
 Mobile-HTC@nvidia.com
 rjkOzzSu
 
 [Repo]
-ls -al .repo/	//列出目前repo指向的manifest
 
 1. Reset 所有 git 回到某個時間點（也可針對單一 git）：
-$ . setbuildenv u
-$ cd $TOP
-$ chmod 755 reset
-$ repo forall -pvc '$TOP/reset "10/10 23:59 2011"'
+  $ . setbuildenv u
+  $ cd $TOP
+  $ chmod 755 reset
+  $ repo forall -pvc '$TOP/reset "10/10 23:59 2011"'
 
 2. 過濾出 git 中某個時間區間的 commit：
-$ chmod 755 filter-date
-$ cd framework/base
-$ ../../filter-date "10/14 00:00" "10/14 23:59"
+  $ chmod 755 filter-date
+  $ cd framework/base
+  $ ../../filter-date "10/14 00:00" "10/14 23:59"
 
 3.
-$ repo forall -pvc '$TOP/repocheck "base"'
-
-[IP]
-\\10.9.113.22\share\	// 桌機
+  $ repo forall -pvc '$TOP/repocheck "base"'
 
 [Build Code]
 // 查看自己的 define 有沒有進去
@@ -47,9 +42,6 @@ vim $OUT/obj/KERNEL/.config
 
 // 查看 device 是 XA, XB, or ...
 在 kernel log 裡面 search "phase"
-
-// 單獨燒 kernel
-kernel_build -j4;make_boot_image
 
 // flash code in Ship build
 Use RUU mode to flash your zip in ship build.
@@ -59,23 +51,10 @@ How to use RUU.
 1. fastboot oem rebootRUU
 2. fastboot flash zip xxx.zip
 
-// Shep build method
-Endeavor#U
-$ source build/envsetup.sh; partner_setup endeavoru EndeavorU_Generic_WWE_DEBUG; make -j4 PRODUCT-endeavoru-userdebug
- 
-Endeavor#TD
-$ source build/envsetup.sh; partner_setup endeavortd EndeavorTD_Generic_WWE_DEBUG; make -j4 PRODUCT-endeavortd-userdebug
- 
-Vertex#FP
-$ source build/envsetup.sh; partner_setup vertexfp Vertexfp_Generic_WWE_DEBUG; make -j4 PRODUCT-vertexfp-userdebug
-
-/*--- Cscope ---*/
-find . -name "*.h" -o -name "*.c" -o -name "*.cc" -o -name "*.cpp" -o -name "*.hpp"  > cscope.files
-cscope -Rbkq
-
 [GPIO]
 
 // Kernle gpio 設定大全(這些只是config, 真正要work要呼叫tegra_gpio_enable)
+
 Config 			Sample Code
 -------         ------------
 O(L)			#include <linux/gpio.h>
@@ -108,12 +87,13 @@ SFIO 的 Mux 參數要去 arch/arm/mach-tegra/pinmux-t3-tables.c 查詢
 GPIO 則使用 RSVD (Reserved 的意思，使用 RSVD 就要去 bootloader 確定使否有 config 這個 pin)
 
 // 如果gpio不如自己預期怎麼辦
-1. grep一下, 是否被別人修改
-2. 在 pinmux 設定之後, 緊接用 gpio_dump 看值對不對
-3. Active 狀態不需要在 resume 特別設定
-4. 在 pinmux 的 config 只是單純設定, 真正要作用，要呼叫 tegra_gpio_enable
-5. gpio_request_array 也只是設定，下面要加 tegra_gpio_enable 迴圈來 enable
-6. request過的gpio不需要再request一次，直接tegra_gpio_setvalue就可以
+  1. grep一下, 是否被別人修改
+  2. 在 pinmux 設定之後, 緊接用 gpio_dump 看值對不對
+  3. Active 狀態不需要在 resume 特別設定
+  4. 在 pinmux 的 config 只是單純設定, 真正要作用，要呼叫 tegra_gpio_enable
+  5. gpio_request_array 也只是設定，下面要加 tegra_gpio_enable 迴圈來 enable
+  6. request過的gpio不需要再request一次，直接tegra_gpio_setvalue就可以
+
 
 [adb]
 // Dump HtcSsdTestTool log
@@ -125,6 +105,9 @@ adb shell rm /data/htclog/＊
 // Dump gpio in kernel
 // 如果要在 suspend 狀態下 dump gpio, 要把 mach-tegra/gpio.c 下 tegra_gpio_suspend(void) 裡面的 gpio_dump 註解拿掉
 adb shell cat /d/htc_tegra_gpio
+
+// See gpio dump in uart right before suspend
+In Hboot: writeconfigex 1, then reboot
 
 // 沒開 SsdTestTool, 看 device log 的方式
 1. 把 system/core/rootdir/init.rc 裡面 dlog 的註解拿掉
@@ -185,7 +168,7 @@ log 裡面看到 tegra-grhost 代表某個 module hung 住
 [Code]
 1. Please alway add comment in code if it is workaround or issue
 2. porting 的時候要確認每個部份都有正確的被編譯，那就是在你預期要 run 到的地方都加一些 print 確保他真的 run 到了！
-3. break down 問題的能力，把 feature切分成小task，實踐due day的觀念
+3. 發生undefined reference to 的時候，檢查是否函數被 #ifdef 給包住了！
 
 [MHL]
 // Sync QCT code
