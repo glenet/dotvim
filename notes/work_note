@@ -3,6 +3,7 @@
 [grep]
 
 // Logic
+
 egrep 'Error|Exception' logfile.txt // search 'Error' or 'Exception'
 egrep "\<you\>.*\<me\>" world.txt	// search 'you' and 'me' happne in the same line
 
@@ -16,9 +17,15 @@ grep 'ERROR\>' * // Searches only for words ending in 'ERROR', use `\<' and `\>'
 find ./kernel -name sii9234.cpp	// find filename sii9234.cpp below kernel/
 find / -name mysql -type d		// find a directory called mysql under / directory:
 
+[bash]
+godir	// 建立filelist在root目錄下
+croot
+
 [NV Doc pass]
 Mobile-HTC@nvidia.com
 rjkOzzSu
+
+NV Display Expert: PeterZu (0987132290) PZu@nvidia.com
 
 [Repo]
 
@@ -148,6 +155,16 @@ adb shell ls -R
 // 看 RAMDUMP lastkmsg
 adb shell cat /proc/last_kmsg > lastk.txt
 
+// 看掛在哪個 func, 前提 adb 活著
+echo w > /proc/sysrq-trigger
+
+// pcbid r/w
+fastboot oem readpcbid
+fastboot oem writepcbid 2
+
+// skew r/w
+fastboot oem readsku
+fastboot oem writesku 1 0x802FFFF
 
 [Issue]
 // ITS debug skill
