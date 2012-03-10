@@ -17,9 +17,6 @@ grep 'ERROR\>' * // Searches only for words ending in 'ERROR', use `\<' and `\>'
 find ./kernel -name sii9234.cpp	// find filename sii9234.cpp below kernel/
 find / -name mysql -type d		// find a directory called mysql under / directory:
 
-[bash]
-godir	// 建立filelist在root目錄下
-croot
 
 [NV Doc pass]
 Mobile-HTC@nvidia.com
@@ -165,6 +162,18 @@ fastboot oem writepcbid 2
 // skew r/w
 fastboot oem readsku
 fastboot oem writesku 1 0x802FFFF
+fastboot oem writesku b 1 //write engineer id
+
+//hboot r/w i2c command
+The SLAVE_ADDR should be the address you mentioned with a 1 bit right shift as
+0x96->0x4B
+0x76->0x3B
+
+i2cw BUS SLAVE_ADDR REGISTER_OFFSET LENGTH DATA
+hboot> i2cw 4 x4B x12 1 x15
+
+i2cr BUS SLAVE_ADDR REGISTER_OFFSET LENGTH
+hboot> i2cr 4 x4B x12 1
 
 [Issue]
 // ITS debug skill
