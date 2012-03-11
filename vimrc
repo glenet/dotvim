@@ -266,3 +266,25 @@ nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
+
+let mapleader=','
+if exists(":Tabularize")
+map a= :Tabularize /=
+vmap a= :Tabularize /=
+nmap a: :Tabularize /:\zs
+vmap a: :Tabularize /:\zs
+endif
+
+inoremap:callalign()a
+
+function! s:align()
+let p = '^\s*|\s.*\s|\s*$'
+if exists(':Tabularize') &amp;&amp; getline('.') =~# '^\s*|' &amp;&amp; (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+Tabularize/|/l1
+normal! 0
+call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+endif
+endfunction
+
