@@ -139,6 +139,7 @@ adb shell dumpsys SurfaceFlinger
 
 // 進kernel D-cable看不到log使用
 adb shell cat proc/kmsg
+adb shell cat /proc/kmsg 2>&1 | tee log.txt
 
 // dump clock state
 cat /d/clock/clock_tree
@@ -174,6 +175,11 @@ hboot> i2cw 4 x4B x12 1 x15
 
 i2cr BUS SLAVE_ADDR REGISTER_OFFSET LENGTH
 hboot> i2cr 4 x4B x12 1
+
+// fastboot r/w i2c register
+bus   addr  offset   byte   value
+fastboot oem i2cw 4     x3b   x93      1      x80
+fastboot oem i2cr 4     x3b   x93      1
 
 [Issue]
 // ITS debug skill

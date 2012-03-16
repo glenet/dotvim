@@ -46,7 +46,7 @@ NvGrModule HAL_MODULE_INFO_SYM =
 {
 	.Base =
 	{
-		.common =
+		.common = // 繼承的 hw_module_t
 		{
 			.tag = HARDWARE_MODULE_TAG,
 			.version_major = 1,
