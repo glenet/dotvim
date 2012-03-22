@@ -2,12 +2,9 @@
 		
 [grep]
 
-// Logic
-
 egrep 'Error|Exception' logfile.txt // search 'Error' or 'Exception'
 egrep "\<you\>.*\<me\>" world.txt	// search 'you' and 'me' happne in the same line
 
-// Option
 grep -i Error logfile	// case insensitive search
 grep -C 2 'hello' *	// prints two lines of context around each matching line
 grep -w ERROR logfile	// whole word instead of just pattern
@@ -16,6 +13,9 @@ grep 'ERROR\>' * // Searches only for words ending in 'ERROR', use `\<' and `\>'
 [find]
 find ./kernel -name sii9234.cpp	// find filename sii9234.cpp below kernel/
 find / -name mysql -type d		// find a directory called mysql under / directory:
+
+[sed]
+sed -n 2,4p somefile.txt	// extract 2~4 row from somefile.txt
 
 [NV Doc pass]
 Mobile-HTC@nvidia.com
