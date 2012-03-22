@@ -17,7 +17,6 @@ grep 'ERROR\>' * // Searches only for words ending in 'ERROR', use `\<' and `\>'
 find ./kernel -name sii9234.cpp	// find filename sii9234.cpp below kernel/
 find / -name mysql -type d		// find a directory called mysql under / directory:
 
-
 [NV Doc pass]
 Mobile-HTC@nvidia.com
 rjkOzzSu
@@ -180,6 +179,9 @@ hboot> i2cr 4 x4B x12 1
 bus   addr  offset   byte   value
 fastboot oem i2cw 4     x3b   x93      1      x80
 fastboot oem i2cr 4     x3b   x93      1
+
+// remove watermark
+adb pull /data/dalvik-cache/system@framework@services.jar@classes.dex .;perl -pi -e 's/com\/android\/server\/ShowWatermarkService/cmm\/android\/server\/ShowWatermarkService/g' system@framework@services.jar@classes.dex;adb push system@framework@services.jar@classes.dex /data/dalvik-cache/
 
 [Issue]
 // ITS debug skill

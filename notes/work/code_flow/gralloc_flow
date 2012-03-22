@@ -39,7 +39,7 @@ typedef struct NvGrModuleRec {
 // vendor/nvidia/tegra/hal/libgralloc/nvgrmodule.c 
 static hw_module_methods_t NvGrMethods =
 {
-	.open = NvGrDevOpen <-- 見 line 75
+	.open = NvGrDevOpen <-- 見 line 77
 };
 
 NvGrModule HAL_MODULE_INFO_SYM =
@@ -54,7 +54,7 @@ NvGrModule HAL_MODULE_INFO_SYM =
 			.id = GRALLOC_HARDWARE_MODULE_ID,
 			.name = "NVIDIA Tegra Graphics Memory Allocator",
 			.author = "NVIDIA",
-			.methods = &NvGrMethods	<- 見 line 47
+			.methods = &NvGrMethods	<- 見 line 40
 		},
 
 		...
@@ -66,7 +66,7 @@ NvGrModule HAL_MODULE_INFO_SYM =
 int NvGrFbDevOpen (NvGrModule* mod, hw_device_t** out, int index) 
 {
 	...
-	dev->Base.setRotation         = NvGrSetRotation; <-- 誰call了它, line 86
+	dev->Base.setRotation         = NvGrSetRotation; <-- 誰call了它, line 87
 	...
 	
 	err = uevent_add_native_handler(handle_uevent, dev);
