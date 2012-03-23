@@ -30,6 +30,11 @@ gUU (光標到行尾,小寫轉換成大寫)
 :60,70ret! 4
 :set noexpandtab
 
+// Join 2 lines
+J
+
+// move to next line from cursor location
+r<Enter>
 
 /*--- Search ---*/
 
