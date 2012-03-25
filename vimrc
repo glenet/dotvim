@@ -48,13 +48,7 @@ set statusline +=%4c\              "column number
 set statusline +=0x%04B\           "character under cursor
 
 "// ---  Keys Mapping --- //
-:map<F2> a<C-R> pr_info("[DISP]%s(%d)\n", __func__, __LINE__);<CR><ESC>
-:map<F4> a<C-R> Log.i("[DISP]", "\n");<CR><ESC>
-:map<F5> a<C-R> LOGD("%s\n", __func__);<CR><ESC>
-:map<F7> a<C-R> DISP_INFO_IN();<CR><ESC>
-:map<F8> a<C-R> DISP_INFO_OUT();<CR><ESC>
-:map<F9> a<C-R> DISP_INFO_LN("");<CR><ESC>
-:map<F10> a<C-R> DISP_ERR("");<CR><ESC>
+:map<F9> a<C-R> DISP_INFO_LN("[BBB]");<CR><ESC>
 
 " move up/down quickly by using Ctrl-j, Ctrl-k which will move us around by functions
 nnoremap <silent> <C-j> }
