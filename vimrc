@@ -48,7 +48,7 @@ set statusline +=%4c\              "column number
 set statusline +=0x%04B\           "character under cursor
 
 "// ---  Keys Mapping --- //
-:map<F9> a<C-R> DISP_INFO_LN("[BBB]");<CR><ESC>
+:map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
 
 " move up/down quickly by using Ctrl-j, Ctrl-k which will move us around by functions
 nnoremap <silent> <C-j> }
