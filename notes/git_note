@@ -41,6 +41,9 @@ git stash save "work in progress for foo feature"
 git stash list
 git stash apply stash@{1}
 
+// List which branch (remote & local) contains some commit
+git branch -a --contains <commit id>
+
 // Merge multiple commits to one commit 
 // (ex: ABCDE), you want to ABE'(E'=CDE)
 git rebase -i HEAD~2	// rebase to C

@@ -54,6 +54,11 @@ How to use RUU.
 1. fastboot oem rebootRUU
 2. fastboot flash zip xxx.zip
 
+// 乾淨的 build 出 boot.img
+mv out/target/product/endeavortd/root/ out/target/product/endeavortd/root.bak
+build_all_noprebuilt bootimage
+
+
 [GPIO]
 
 // Kernle gpio 設定大全(這些只是config, 真正要work要呼叫tegra_gpio_enable)
