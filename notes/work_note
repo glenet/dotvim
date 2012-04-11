@@ -102,6 +102,11 @@ GPIO 則使用 RSVD (Reserved 的意思，使用 RSVD 就要去 bootloader 確�
   5. gpio_request_array 也只是設定，下面要加 tegra_gpio_enable 迴圈來 enable
   6. request過的gpio不需要再request一次，直接tegra_gpio_setvalue就可以
 
+[properties]
+// change resolution policy
+adb shell setprop persist.tegra.hdmi.resolution Max
+// gr debug
+adb shell setprop debug.gr.mode 1
 
 [adb]
 // Dump HtcSsdTestTool log
@@ -141,15 +146,15 @@ adb reboot;
 // 看SurfaceFlinger的設定
 adb shell dumpsys SurfaceFlinger
 
+// Disable HWC
+adb shell service call SurfaceFlinger 1008 i32 1
+
 // 進kernel D-cable看不到log使用
 adb shell cat proc/kmsg
 adb shell cat /proc/kmsg 2>&1 | tee log.txt
 
 // dump clock state
 cat /d/clock/clock_tree
-
-// set property
-adb shell setprop debug.gr.mode 1
 
 // 列出所有 file node, 然後去找 file node 下面有 regs 的欄位可以 cat 出來看該 device 的 regs 值
 adb shell ls -R
