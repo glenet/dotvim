@@ -1,5 +1,5 @@
 // work note
-		
+
 [grep]
 
 egrep 'Error|Exception' logfile.txt // search 'Error' or 'Exception'
@@ -49,7 +49,7 @@ vim $OUT/obj/KERNEL/.config
 // flash code in Ship build
 Use RUU mode to flash your zip in ship build.
 You can check ship build on the string of hboot.
- 
+
 How to use RUU.
 1. fastboot oem rebootRUU
 2. fastboot flash zip xxx.zip
@@ -63,7 +63,7 @@ build_all_noprebuilt bootimage
 
 // Kernle gpio 設定大全(這些只是config, 真正要work要呼叫tegra_gpio_enable)
 
-Config 			Sample Code
+Config			Sample Code
 -------         ------------
 O(L)			#include <linux/gpio.h>
 				gpio_direction_output(unsigned gpio, 0);
@@ -72,10 +72,10 @@ O(H)			#include <linux/gpio.h>
 				gpio_direction_output(unsigned gpio, 1);
 
 I(NP)			#include <linux/gpio.h>
-I(PU) 			gpio_direction_input(unsigned gpio);
+I(PU)			gpio_direction_input(unsigned gpio);
 I(PD)			#include <mach/pinmux.h>
 				int tegra_pinmux_set_pullupdown(enum tegra_pingroup pg, enum tegra_pullupdown pupd);
-			
+
 				enum tegra_pullupdown {
 					TEGRA_PUPD_NORMAL = 0,
 					TEGRA_PUPD_PULL_DOWN,
@@ -90,7 +90,7 @@ TRISTATE,	INPUT  == input only
 NORMAL,		INPUT  == bi-direction
 TRISTATE,	OUTPUT == disable input and output
 
-// GPIO 和 SFIO 
+// GPIO 和 SFIO
 SFIO 的 Mux 參數要去 arch/arm/mach-tegra/pinmux-t3-tables.c 查詢
 GPIO 則使用 RSVD (Reserved 的意思，使用 RSVD 就要去 bootloader 確定使否有 config 這個 pin)
 
@@ -139,8 +139,8 @@ adb shell "cat /sys/class/switch/tegradc.1/state (ok, 1280x720)
 adb shell "cat /sys/class/switch/tegradc.1/subsystem/hdmi/state" (ok, 0:unplugged, 1:plugged)
 
 // 將 hal 層的更動更新到 device 裡面
-adb remount;	//要更動 read-only 的區域要先做的動作 
-adb push $OUT/system/lib/hw/gralloc.tegra.so system/lib/hw; 
+adb remount;	//要更動 read-only 的區域要先做的動作
+adb push $OUT/system/lib/hw/gralloc.tegra.so system/lib/hw;
 adb reboot;
 
 // 看SurfaceFlinger的設定
@@ -219,3 +219,10 @@ log 裡面看到 tegra-grhost 代表某個 module hung 住
 1. git checkout -b ics403-qct8960 remotes/origin/ics403-qct8960
 2. ~/repo sync kernel
 3. ics403-qct8960 就看 msm/sii9234
+
+[MFG Communication]
+1. 那一版的ROM
+2. 在什麼機台
+3. 測試的方法 (之前有作什麼測試) step by step
+4. 判定 fail 的標準, fail rate 怎麼算
+5. 異常現象解釋, log file

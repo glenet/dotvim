@@ -61,6 +61,7 @@ git log --pretty=short	// 簡短的log
 git log --oneline		// 超短的log
 git log --author="Jon"	// Show Jon's commits
 git log /drivers/video	// 只看drivers/video資料夾下更動的log
+git log ./				// 只看當前資料夾下更動的log
 
 git blame sha1_file.c				// 查看sha1_file.c 的修改
 git blame -L 160,+10 sha1_file.c	// 查看sha1_file.c 從第160行開始往下10行，是誰修改的
