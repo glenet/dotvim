@@ -37,15 +37,15 @@ colorscheme desert
 
 " status line appearance
 set statusline=
-set statusline +=\ %n\             "buffer number
-set statusline +=%{&ff}            "file format
-set statusline +=%y%*              "file type
+"set statusline +=\ %n\             "buffer number
+"set statusline +=%{&ff}            "file format
+"set statusline +=%y%*              "file type
 set statusline +=\ %<%F            "full path
 set statusline +=%m                "modified flag
 set statusline +=%=%5l             "current line
 set statusline +=/%L               "total lines
-set statusline +=%4c\              "column number
-set statusline +=0x%04B\           "character under cursor
+"set statusline +=%4c\              "column number
+"set statusline +=0x%04B\           "character under cursor
 
 "// ---  Keys Mapping --- //
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
@@ -211,55 +211,9 @@ endif
 " Cscope result color
 "hi ModeMsg guifg=black guibg=#C6C5FE gui=BOLD ctermfg=black ctermbg=cyan cterm=BOLD
 
-
-"// --- MiniBufExplorer --- //
-function! <SID>CycleBuffer(forward)
-
-  " The following hack handles the case where we only have one
-  " window open and it is too small
-  let l:saveAutoUpdate = g:miniBufExplorerAutoUpdate
-  if (winbufnr(2) == -1)
-    resize
-    let g:miniBufExplorerAutoUpdate = 0
-  endif
-  
-  " Change buffer (keeping track of before and after buffers)
-  let l:origBuf = bufnr('%')
-  if (a:forward == 1)
-    bn!
-  else
-    bp!
-  endif
-  let l:curBuf  = bufnr('%')
-
-  " Skip any non-modifiable buffers, but don't cycle forever
-  " This should stop us from stopping in any of the [Explorers]
-  while getbufvar(l:curBuf, '&modifiable') == 0 && l:origBuf != l:curBuf
-    if (a:forward == 1)
-        bn!
-    else
-        bp!
-    endif
-    let l:curBuf = bufnr('%')
-  endwhile
-
-  let g:miniBufExplorerAutoUpdate = l:saveAutoUpdate
-  if (l:saveAutoUpdate == 1)
-    "call <SID>AutoUpdate(-1,bufnr("%"))
-  endif
-
-endfunction
-
-let mapleader = ","
-noremap <silent> <leader>n :call <SID>CycleBuffer(1)<CR>:<BS>
-noremap <silent> <leader>p :call <SID>CycleBuffer(0)<CR>:<BS>
-
 "// --- fugitive --- //
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
-
-" use ,F to jump to tag in a vertical split
-nnoremap <silent> ,F :let word=expand("<cword>")<CR>:vsp<CR>:wincmd w<cr>:exec("tag ". word)<cr>
