@@ -128,6 +128,10 @@ nmap <C-L> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 let Tlist_Show_One_File = 1
 nnoremap <silent> <F6> :TlistToggle<CR>
 
+"// --- Minibufexpl --- //
+for buffer_no in range(1, 9)
+execute "nmap <A-" . buffer_no . "> :b" . buffer_no . "\<CR>"
+endfor
 
 "// --- CSCOPE Plugin ---//
 
@@ -217,3 +221,6 @@ nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
+
+" // The switch of the Source Explorer 
+nmap <F8> :SrcExplToggle<CR> 
