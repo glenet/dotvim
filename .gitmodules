@@ -22,3 +22,6 @@
 [submodule "bundle/source-explorer"]
 	path = bundle/source-explorer
 	url = https://github.com/vim-scripts/Source-Explorer-srcexpl.vim.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
