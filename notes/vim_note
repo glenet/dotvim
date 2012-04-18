@@ -44,6 +44,8 @@ N			// Find previous
 *			// Go to next occurrence of word under cursor
 #			// Go to previous occurrence of word under cursor
 
+:g//p		// List all searched item
+
 
 /*--- Move ---*/
 

@@ -267,3 +267,44 @@ let mapleader = ","
 for buffer_no in range(1, 9)
   execute "nmap <Leader>" . buffer_no . " :b" . buffer_no . "\<CR>"
 endfor
+
+"// --- MiniBufExplorer --- //
+function! <SID>CycleBuffer(forward)
+
+" The following hack handles the case where we only have one
+" window open and it is too small
+let l:saveAutoUpdate = g:miniBufExplorerAutoUpdate
+if (winbufnr(2) == -1)
+resize
+let g:miniBufExplorerAutoUpdate = 0
+endif
+
+" Change buffer (keeping track of before and after buffers)
+let l:origBuf = bufnr('%')
+if (a:forward == 1)
+	bn!
+else
+	bp!
+endif
+let l:curBuf  = bufnr('%')
+
+" Skip any non-modifiable buffers, but don't cycle forever
+" This should stop us from stopping in any of the [Explorers]
+while getbufvar(l:curBuf, '&modifiable') == 0 && l:origBuf != l:curBuf
+if (a:forward == 1)
+	bn!
+else
+bp!
+endif
+let l:curBuf = bufnr('%')
+endwhile
+
+let g:miniBufExplorerAutoUpdate = l:saveAutoUpdate
+if (l:saveAutoUpdate == 1)
+"call <SID>AutoUpdate(-1,bufnr("%"))
+endif
+
+endfunction
+
+noremap <silent> <leader>n :call <SID>CycleBuffer(1)<CR>:<BS>
+noremap <silent> <leader>p :call <SID>CycleBuffer(0)<CR>:<BS>
