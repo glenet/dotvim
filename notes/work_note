@@ -162,6 +162,9 @@ adb shell ls -R
 // 看 RAMDUMP lastkmsg
 adb shell cat /proc/last_kmsg > lastk.txt
 
+// dump layer
+adb shell dumplayer
+
 // 看掛在哪個 func, 前提 adb 活著
 echo w > /proc/sysrq-trigger
 
@@ -213,6 +216,7 @@ log 裡面看到 tegra-grhost 代表某個 module hung 住
 1. Please alway add comment in code if it is workaround or issue
 2. porting 的時候要確認每個部份都有正確的被編譯，那就是在你預期要 run 到的地方都加一些 print 確保他真的 run 到了！
 3. 發生undefined reference to 的時候，檢查是否函數被 #ifdef 給包住了！
+4. 有 device_create 才有 node. tegra/fb.c 是 fbmem.c fb_ioctl 裡面的實做
 
 [MHL]
 // Sync QCT code
