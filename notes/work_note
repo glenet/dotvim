@@ -16,6 +16,7 @@ find / -name mysql -type d		// find a directory called mysql under / directory:
 
 [sed]
 sed -n 2,4p somefile.txt	// extract 2~4 row from somefile.txt
+sed -n 1000, 2000p log.txt | egrep 'error|ANR'
 
 [NV Doc pass]
 Mobile-HTC@nvidia.com
