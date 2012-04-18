@@ -21,7 +21,7 @@ sed -n 2,4p somefile.txt	// extract 2~4 row from somefile.txt
 Mobile-HTC@nvidia.com
 rjkOzzSu
 
-NV Display Expert: PeterZu (0987132290) PZu@nvidia.com
+NV Display Expert:  Peter Zu	(0987132290) PZu@nvidia.com
 
 [Repo]
 
@@ -149,12 +149,18 @@ adb shell dumpsys SurfaceFlinger
 // Disable HWC
 adb shell service call SurfaceFlinger 1008 i32 1
 
+// Disable overscan
+adb shell setprop persist.tegra.hdmi.overscan.val 0
+
 // 進kernel D-cable看不到log使用
 adb shell cat proc/kmsg
 adb shell cat /proc/kmsg 2>&1 | tee log.txt
 
 // dump clock state
 cat /d/clock/clock_tree
+
+// dump dc regs
+adb shell cat /d/tegradc.1/regs
 
 // 列出所有 file node, 然後去找 file node 下面有 regs 的欄位可以 cat 出來看該 device 的 regs 值
 adb shell ls -R
