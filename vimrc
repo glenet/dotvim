@@ -50,13 +50,6 @@ set statusline +=/%L               "total lines
 "// ---  Keys Mapping --- //
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
 
-" move up/down quickly by using Ctrl-j, Ctrl-k which will move us around by functions
-nnoremap <silent> <C-j> }
-nnoremap <silent> <C-k> {
-
-" map K for :GitGrep
-nnoremap <silent> K :GitGrep <cword><CR>
-
 " split window
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
@@ -124,10 +117,12 @@ nmap <C-L> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 
 "// --- Taglist Plugin ---//
-
 let Tlist_Show_One_File = 1
+let Tlist_Use_Right_Window = 1
 nnoremap <silent> <F6> :TlistToggle<CR>
 
+"// --- NERDTree Plugin ---//
+nnoremap <silent> <F5> :NERDTree<CR>
 
 "// --- CSCOPE Plugin ---//
 
@@ -218,49 +213,6 @@ nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 
-
-"// --- Source Explorer --- //
-" // The switch of the Source Explorer
-nmap <F8> :SrcExplToggle<CR>
-
-" // Set the height of Source Explorer window
-let g:SrcExpl_winHeight = 8
-
-" // Set 100 ms for refreshing the Source Explorer
-let g:SrcExpl_refreshTime = 100
-
-" // Set "Enter" key to jump into the exact definition context
-" let g:SrcExpl_jumpKey = "<ENTER>"
-
-" // Set "Space" key for back from the definition context
-let g:SrcExpl_gobackKey = "<SPACE>"
-
-" // In order to Avoid conflicts, the Source Explorer should know what plugins
-" // are using buffers. And you need add their bufname into the list below
-" // according to the command ":buffers!"
-let g:SrcExpl_pluginList = [
-\ "__Tag_List__",
-\ "_NERD_tree_",
-\ "-MiniBufExplorer-",
-\ "Source_Explorer"
-\ ]
-
-" // Enable/Disable the local definition searching, and note that this is not
-" // guaranteed to work, the Source Explorer doesn't check the syntax for now.
-" // It only searches for a match with the keyword according to command 'gd'
-let g:SrcExpl_searchLocalDef = 1
-
-" // Do not let the Source Explorer update the tags file when opening
-let g:SrcExpl_isUpdateTags = 0
-
-" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to
-" //  create/update a tags file
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
-
-" // Set "<F12>" key for updating the tags file artificially
-let g:SrcExpl_updateTagsKey = "<F12>"
-
-
 "// --- MiniBufExplorer --- //
 function! <SID>CycleBuffer(forward)
 
@@ -310,9 +262,7 @@ noremap <silent> <leader>p :call <SID>CycleBuffer(0)<CR>:<BS>
 
 
 "// --- FuzzyFinder --- //
-map ff <esc>:FuzzyFinderFile<cr>
-map fcd <esc>:FuzzyFinderDir<cr>
-map fba <esc>:FuzzyFinderAddBookmark<cr>
-map fbl <esc>:FuzzyFinderBookmark<cr>
-map fu <esc>:FuzzyFinderBuffer<cr>
-map <silent> <c-\> :FuzzyFinderTag! <c-r>=expand('<cword>')<cr><cr>
+map ff <esc>:FufFile<cr>
+map fba <esc>:FufBookmarkFileAdd<cr>
+map fb <esc>:FufBookmarkFile<cr>
+map fu <esc>:FufBuffer<cr>
