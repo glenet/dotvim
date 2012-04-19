@@ -261,13 +261,6 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 let g:SrcExpl_updateTagsKey = "<F12>"
 
 
-"// --- minibufexpl --- //
-" switching to buffer 1 - 9 is mapped to ,[nOfBuffer]
-let mapleader = ","
-for buffer_no in range(1, 9)
-  execute "nmap <Leader>" . buffer_no . " :b" . buffer_no . "\<CR>"
-endfor
-
 "// --- MiniBufExplorer --- //
 function! <SID>CycleBuffer(forward)
 
@@ -306,5 +299,20 @@ endif
 
 endfunction
 
+" switching to buffer 1 - 9 is mapped to ,[nOfBuffer]
+let mapleader = ","
+for buffer_no in range(1, 9)
+  execute "nmap <Leader>" . buffer_no . " :b" . buffer_no . "\<CR>"
+endfor
+
 noremap <silent> <leader>n :call <SID>CycleBuffer(1)<CR>:<BS>
 noremap <silent> <leader>p :call <SID>CycleBuffer(0)<CR>:<BS>
+
+
+"// --- FuzzyFinder --- //
+map ff <esc>:FuzzyFinderFile<cr>
+map fcd <esc>:FuzzyFinderDir<cr>
+map fba <esc>:FuzzyFinderAddBookmark<cr>
+map fbl <esc>:FuzzyFinderBookmark<cr>
+map fu <esc>:FuzzyFinderBuffer<cr>
+map <silent> <c-\> :FuzzyFinderTag! <c-r>=expand('<cword>')<cr><cr>
