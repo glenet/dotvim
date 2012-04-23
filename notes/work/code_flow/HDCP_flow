@@ -1,3 +1,25 @@
+// HDCP logic
+
+// NV Original
+1. Identify key
+2. check content 
+	if protect
+		if have key
+			play
+		else  
+			not play
+
+	if non-protect
+		play 
+
+// HTC (hdmid: for AP knowing the state of HDMI)
+Now, chiajung hardcode this behavior at gralloc.c -> dpy->Config.protect = 1;
+
+if have key
+	play
+else
+	non-play
+
 // HDCP flow
 
 tegra_dc_probe(struct nvhost_device *ndev)
