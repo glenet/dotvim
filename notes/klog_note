@@ -1,4 +1,0 @@
-// MHL
-
-accessory_link: MHL detected	// MHL cable insert
-usb_asy_rcv						// MHL cable remove
