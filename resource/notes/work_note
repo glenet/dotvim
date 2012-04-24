@@ -173,6 +173,9 @@ adb shell cat /d/tegradc.1/regs
 // 列出所有 file node, 然後去找 file node 下面有 regs 的欄位可以 cat 出來看該 device 的 regs 值
 adb shell ls -R
 
+// 查看某 deamon 是否正在運行
+adb shell top -n 1 | grep hdmi
+
 // 看 RAMDUMP lastkmsg
 adb shell cat /proc/last_kmsg > lastk.txt
 
