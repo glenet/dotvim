@@ -31,3 +31,6 @@
 [submodule "bundle/L9"]
 	path = bundle/L9
 	url = https://github.com/vim-scripts/L9.git
+[submodule "bundle/copy_as_rtf"]
+	path = bundle/copy_as_rtf
+	url = https://github.com/aniero/vim-copy-as-rtf.git
