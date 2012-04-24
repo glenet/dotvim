@@ -9,6 +9,8 @@ grep -i Error logfile	// case insensitive search
 grep -C 2 'hello' *	// prints two lines of context around each matching line
 grep -w ERROR logfile	// whole word instead of just pattern
 grep 'ERROR\>' * // Searches only for words ending in 'ERROR', use `\<' and `\>' to match the start and end of words
+grep -nRw VirtualKeys $(ls -tr device_e0004_20120423_163943.txt*) // show grep result according log modified time
+grep -nR -A 100 sii9234_early_suspend kernel_e0004_20120423_163943.txt | egrep 'sii9234_early_suspend|Update'
 
 [find]
 find ./kernel -name sii9234.cpp	// find filename sii9234.cpp below kernel/
@@ -181,6 +183,9 @@ adb shell cat /proc/last_kmsg > lastk.txt
 
 // dump layer
 adb shell dumplayer
+
+// 連續執行指令
+watch -n 0.3 "adb shell cat /d/clock/clock_tree | grep disp1"
 
 // 看掛在哪個 func, 前提 adb 活著
 echo w > /proc/sysrq-trigger
