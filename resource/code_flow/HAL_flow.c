@@ -147,8 +147,17 @@ int NvGrFbDevOpen (NvGrModule* mod, hw_device_t** out, int index)
 {
 	...
 	dev->Base.setRotation = NvGrSetRotation;
-	
 	...
+
+    /* Setup main display */
+    if (NvGrFbOpen(dev, NVGR_DISPLAY_LCD, index) != 0) {
+        goto fail;
+    }
+
+    /* Setup HDMI */
+    if (NvGrFbOpen(dev, NVGR_DISPLAY_HDMI, index) == 0) {
+        int err;
+
 }
 
 // frameworks/base/services/surfaceflinger/DisplayHardware/DisplayHardware.cpp
