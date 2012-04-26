@@ -114,6 +114,10 @@ static int tegra_dc_probe(struct nvhost_device *ndev)
 			.init = tegra_dc_hdmi_init,
 							|
 				INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker) // <-- a
+				...
+
+				hdmi->hpd_switch.name = "hdmi";
+				ret = switch_dev_register(&hdmi->hpd_switch);
 
 	dc->fb = tegra_fb_register(ndev, dc, dc->pdata->fb, fb_mem); // <-- b
 

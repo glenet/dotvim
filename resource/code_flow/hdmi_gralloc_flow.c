@@ -1,10 +1,17 @@
+int NvGrFbDevOpen (NvGrModule* mod, hw_device_t** out, int index)
 
-// gralloc process hdmi hotplug
-static void hdmi_hotplug(void *data)
-					|
-	hdmi_uevent_polling(&handle_uevent, data); // <-- a
-								|
-						handle_hotplug(dev, state); // <-- b
+	#ifdef HAVE_NATIVE_UEVENT
+	        err = uevent_add_native_handler(handle_uevent, dev);
+	        if (err < 0)
+	            LOGE("Failed to register native uevent handler device: %s\n", strerror(errno));
+	#else
+	        hdmi_thread_off = 0;
+	        err = hdmi_uevent_init();
+	        if (err < 0)
+	            LOGE("Failed to init hdmi uevent handler device: %s\n", strerror(errno));
+	        else
+	            pthread_create(&hdmi_hotplug_thread, NULL, (void *) &hdmi_hotplug, (void *) dev);
+	#endif
 
 // a: handle_uevent
 static void handle_uevent(void *data, const char *msg, int msg_len)
@@ -82,7 +89,7 @@ static void handle_hotplug(NvGrFbDev *dev, int state)
 
         /* Force a modeset now, so HDMI will be enabled before HDCP begins polling */
 #if USE_ALL_OVERLAYS
-        ret = set_default_hdmi_mode(dev);
+        ret = set_default_hdmi_mode(dev); // <-- call set_hdmi_mode to ioctl fb:w
 #else
         ret = set_preferred_hdmi_mode(dev);
 #endif
@@ -119,4 +126,15 @@ done:
     }
 #endif
 }
+
+// framework/base/policy/src/com/android/internal/policy/impl/PhoneWindowManager.java
+public class PhoneWindowManager implements WindowManagerPolicy {
+	...
+
+    void initializeHdmiState() {
+        boolean plugged = false;
+        // watch for HDMI plug messages if the hdmi switch exists
+        if (new File("/sys/devices/virtual/switch/hdmi/state").exists()) {
+            mHDMIObserver.startObserving("DEVPATH=/devices/virtual/switch/hdmi");
+
 
