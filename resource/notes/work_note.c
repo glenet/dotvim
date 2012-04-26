@@ -65,34 +65,34 @@ build_all_noprebuilt bootimage
 
 [GPIO]
 
-// Kernle gpio 設定大全(這些只是config, 真正要work要呼叫tegra_gpio_enable)
+// Kernle gpio 設定大全 (這些只是 config, 真正要 work 要呼叫 tegra_gpio_enable)
 
-Config			Sample Code
+Config          Sample Code
 -------         ------------
-O(L)			#include <linux/gpio.h>
-				gpio_direction_output(unsigned gpio, 0);
+O(L)            #include <linux/gpio.h>
+                gpio_direction_output(unsigned gpio, 0);
 
-O(H)			#include <linux/gpio.h>
-				gpio_direction_output(unsigned gpio, 1);
+O(H)            #include <linux/gpio.h>
+                gpio_direction_output(unsigned gpio, 1);
 
-I(NP)			#include <linux/gpio.h>
-I(PU)			gpio_direction_input(unsigned gpio);
-I(PD)			#include <mach/pinmux.h>
-				int tegra_pinmux_set_pullupdown(enum tegra_pingroup pg, enum tegra_pullupdown pupd);
+I(NP)           #include <linux/gpio.h>
+I(PU)           gpio_direction_input(unsigned gpio);
+I(PD)           #include <mach/pinmux.h>
+                int tegra_pinmux_set_pullupdown(enum tegra_pingroup pg, enum tegra_pullupdown pupd);
 
-				enum tegra_pullupdown {
-					TEGRA_PUPD_NORMAL = 0,
-					TEGRA_PUPD_PULL_DOWN,
-					TEGRA_PUPD_PULL_UP,
-				};
+                enum tegra_pullupdown {
+                    TEGRA_PUPD_NORMAL = 0,
+                    TEGRA_PUPD_PULL_DOWN,
+                    TEGRA_PUPD_PULL_UP,
+                };
 
-A				#include <mach/gpio.h>
-				tegra_gpio_disable(int gpio);
+A               #include <mach/gpio.h>
+                tegra_gpio_disable(int gpio);
 
-NORMAL,		OUTPUT == output only
-TRISTATE,	INPUT  == input only
-NORMAL,		INPUT  == bi-direction
-TRISTATE,	OUTPUT == disable input and output
+NORMAL,     OUTPUT == output only
+TRISTATE,   INPUT  == input only
+NORMAL,     INPUT  == bi-direction
+TRISTATE,   OUTPUT == disable input and output
 
 // GPIO 和 SFIO
 SFIO 的 Mux 參數要去 arch/arm/mach-tegra/pinmux-t3-tables.c 查詢
@@ -104,7 +104,8 @@ GPIO 則使用 RSVD (Reserved 的意思，使用 RSVD 就要去 bootloader 確�
   3. Active 狀態不需要在 resume 特別設定
   4. 在 pinmux 的 config 只是單純設定, 真正要作用，要呼叫 tegra_gpio_enable
   5. gpio_request_array 也只是設定，下面要加 tegra_gpio_enable 迴圈來 enable
-  6. request過的gpio不需要再request一次，直接tegra_gpio_setvalue就可以
+  6. request 過的 gpio 不需要再 request一次，直接 tegra_gpio_setvalue 就可以
+
 
 [properties]
 // change resolution policy

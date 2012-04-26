@@ -181,20 +181,3 @@ dc->fb = tegra_fb_register(ndev, dc, dc->pdata->fb, fb_mem)
 			|
 		 fb_find_nearest_mode(&m, &info->modelist);
 
-
-
-
-
-./drivers/video/tegra/fb.c:306
-static struct fb_ops tegra_fb_ops = {
-	...
-	.fb_set_par = tegra_fb_set_par,
- 
-struct tegra_fb_info *tegra_fb_register(struct nvhost_device *ndev,
-	...
-	info->fbops = &tegra_fb_ops;
-	...
-	tegra_fb->info = info;
-	...
-	return tegra_fb;	// tegra_fb_register return 'tegra_fb_info'
-
