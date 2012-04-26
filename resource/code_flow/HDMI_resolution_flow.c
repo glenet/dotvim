@@ -12,21 +12,45 @@ f. call platform_driver probe func after register success
 
 // Board Part: kernel/arch/arm/mach-tegra/board-endeavor-panel.c
 
-static void __init tegra_endeavor_init(void) //kernel/arch/arm/mach-tegra/board-endeavoru.c 
+statir void __init tegra_endeavor_init(void) // kernel/arch/arm/mach-tegra/board-endeavoru.c 
 
-	int __init endeavor_panel_init(void) // 
+	int __init endeavor_panel_init(void) // kernel/arch/arm/mach-tegra/board-endeavor-panel.c
 
 		err = nvhost_device_register(&endeavor_disp2_device);
 
+			ret = device_add(&dev->dev);
+
+struct nvhost_device {
+	const char			 *name;
+	struct device		 dev;
+	int					 id;
+	u32					 num_resources;
+	struct resource		 *resource;
+	struct nvhost_master *host;
+};
 
 static struct nvhost_device endeavor_disp2_device = {
-	.name		= "tegradc",
-	.id		= 1,
-	.resource	= endeavor_disp2_resources,
+	.name			= "tegradc",
+	.id				= 1,
+	.resource		= endeavor_disp2_resources,
 	.num_resources	= ARRAY_SIZE(endeavor_disp2_resources),
 	.dev = {
 		.platform_data = &endeavor_disp2_pdata,
 	},
+};
+
+static struct tegra_dc_platform_data endeavor_disp2_pdata = {
+	.flags        = 0,
+	.default_out  = &endeavor_disp2_out,
+	.fb           = &endeavor_hdmi_fb_data,
+	.emc_clk_rate = 300000000,
+};
+
+static struct tegra_dc_platform_data endeavor_disp1_pdata = {
+	.flags		= TEGRA_DC_FLAG_ENABLED,
+	.default_out	= &endeavor_disp1_out,
+	.fb		= &endeavor_dsi_fb_data,
+	.emc_clk_rate	= 204000000,
 };
 
 
