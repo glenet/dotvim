@@ -10,7 +10,26 @@ d. declare platform driver
 e. call platform_driver_register with related device name
 f. call platform_driver probe func after register success
 
-// Board Part
+// Board Part: kernel/arch/arm/mach-tegra/board-endeavor-panel.c
+
+static void __init tegra_endeavor_init(void) //kernel/arch/arm/mach-tegra/board-endeavoru.c 
+
+	int __init endeavor_panel_init(void) // 
+
+		err = nvhost_device_register(&endeavor_disp2_device);
+
+
+static struct nvhost_device endeavor_disp2_device = {
+	.name		= "tegradc",
+	.id		= 1,
+	.resource	= endeavor_disp2_resources,
+	.num_resources	= ARRAY_SIZE(endeavor_disp2_resources),
+	.dev = {
+		.platform_data = &endeavor_disp2_pdata,
+	},
+};
+
+
 static struct tegra_fb_data enterprise_hdmi_fb_data = {
     .win        = 0,
     .xres       = 1366,
