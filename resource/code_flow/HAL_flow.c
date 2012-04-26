@@ -1,12 +1,3 @@
-// gralloc flow
-
-
-static void hdmi_hotplug(void *data)
-					|
-	hdmi_uevent_polling(&handle_uevent, data);
-								|
-						handle_hotplug(dev, state);
-
 
 // hardware/libhardware/include/hardware/hardware.h
 /* 
@@ -23,6 +14,7 @@ typedef struct hw_module_t {
 // Android HAL 規定不要直接使用 struct hw_module_t，要用類別繼承
 // C 當中實做繼承的方式 1.宣告一個 data structure 將原始基本結構包裝起來 2. 將原始的基本結構放在第一個 field, 並取名 common
 // hardware/libhardware/include/hardware/gralloc.h
+
 typedef struct gralloc_module_t {
 	struct hw_module_t common;
 
@@ -96,5 +88,4 @@ int nvdcEventData(struct nvdcState *state, int fd) //tegra/core/drivers/libnvdc/
 						|
 			state->hotplug(&state->displays[hpData->handle]);
 				|
-
 

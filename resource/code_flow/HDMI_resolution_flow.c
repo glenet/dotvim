@@ -1,20 +1,10 @@
 // HDMI resolution flow
 
-// Board part
-a. declare resource and platform device
-
-// Driver part
-b. create init func to call platform_add_devices
-c. call sub_initcall to init devices
-d. declare platform driver
-e. call platform_driver_register with related device name
-f. call platform_driver probe func after register success
-
 // Board Part: kernel/arch/arm/mach-tegra/board-endeavor-panel.c
 
-statir void __init tegra_endeavor_init(void) // kernel/arch/arm/mach-tegra/board-endeavoru.c 
+statir void __init tegra_endeavor_init(void) // mach-tegra/board-endeavoru.c
 
-	int __init endeavor_panel_init(void) // kernel/arch/arm/mach-tegra/board-endeavor-panel.c
+	int __init endeavor_panel_init(void) // mach-tegra/board-endeavor-panel.c
 
 		err = nvhost_device_register(&endeavor_disp2_device);
 
@@ -39,113 +29,167 @@ static struct nvhost_device endeavor_disp2_device = {
 	},
 };
 
+//HDMI
 static struct tegra_dc_platform_data endeavor_disp2_pdata = {
 	.flags        = 0,
-	.default_out  = &endeavor_disp2_out,
-	.fb           = &endeavor_hdmi_fb_data,
+	.default_out  = &endeavor_disp2_out, // <-- a
+	.fb           = &endeavor_hdmi_fb_data, // <-- b
 	.emc_clk_rate = 300000000,
 };
 
+//DSI
 static struct tegra_dc_platform_data endeavor_disp1_pdata = {
-	.flags		= TEGRA_DC_FLAG_ENABLED,
-	.default_out	= &endeavor_disp1_out,
-	.fb		= &endeavor_dsi_fb_data,
-	.emc_clk_rate	= 204000000,
+	.flags        = TEGRA_DC_FLAG_ENABLED,
+	.default_out  = &endeavor_disp1_out,
+	.fb           = &endeavor_dsi_fb_data,
+	.emc_clk_rate = 204000000,
 };
 
+// a
+static struct tegra_dc_out endeavor_disp2_out = {
+	.type         = TEGRA_DC_OUT_HDMI,
+	.flags        = TEGRA_DC_OUT_HOTPLUG_HIGH,
+	.parent_clk   = "pll_d2_out0",
 
-static struct tegra_fb_data enterprise_hdmi_fb_data = {
-    .win        = 0,
-    .xres       = 1366,
-    .yres       = 768,
-    .bits_per_pixel = 32,
-    .flags      = TEGRA_FB_FLIP_ON_PROBE,
+	.dcc_bus      = 3,
+	.hotplug_gpio = MHL_HPD,
+
+	.max_pixclock = KHZ2PICOS(148500),
+
+	.align        = TEGRA_DC_ALIGN_MSB,
+	.order        = TEGRA_DC_ORDER_RED_BLUE,
+
+	.enable       = endeavor_hdmi_enable,
+	.disable      = endeavor_hdmi_disable,
+	.postsuspend  = endeavor_hdmi_vddio_disable,
+	.hotplug_init = endeavor_hdmi_vddio_enable,
 };
 
-static struct tegra_dc_out enterprise_disp2_out = {
+// b
+static struct tegra_fb_data endeavor_hdmi_fb_data = {
+	.win            = 0,
+	.xres           = 1366,
+	.yres           = 768,
+	.bits_per_pixel = 32,
+	.flags          = TEGRA_FB_FLIP_ON_PROBE,
+};
 
-	.enable     = enterprise_hdmi_enable
+// Driver Part // drivers/video/tegra/dc/dc.c
+struct nvhost_driver tegra_dc_driver = {
+	.driver = {
+		.name  = "tegradc",
+		.owner = THIS_MODULE,
+	},
+	.probe       = tegra_dc_probe,
+	.remove      = tegra_dc_remove,
+	.suspend     = tegra_dc_suspend,
+	.resume      = tegra_dc_resume,
+};
 
-static struct tegra_dc_platform_data enterprise_disp2_pdata = {
+static int __init tegra_dc_module_init(void)
+{
+	int ret = tegra_dc_ext_module_init();
+	if (ret)
+		return ret;
+	return nvhost_driver_register(&tegra_dc_driver);
+}
 
-	.default_out    = &enterprise_disp2_out
-	.fb     		= &enterprise_hdmi_fb_data
+static void __exit tegra_dc_module_exit(void)
+{
+	nvhost_driver_unregister(&tegra_dc_driver);
+	tegra_dc_ext_module_exit();
+}
 
-static struct nvhost_device enterprise_disp2_device = {
+// Probe function // kernel/drivers/video/tegra/dc/dc.c
+static int tegra_dc_probe(struct nvhost_device *ndev)
 
-	.dev = {
-         .platform_data = &enterprise_disp2_pdata,
-     },
+	dc->pdata = ndev->dev.platform_data; // pass board setting to driver
 
-nvhost_device_register(&enterprise_disp2_device);
-			|
-	ret = device_add(&dev->dev); 
-			|
-	kobject_uevent(&dev->kobj, KOBJ_ADD);
-
-
-// Driver Part
-module_init(tegra_dc_module_init) (dc.c)
-					|
-	nvhost_driver_register(&tegra_dc_driver), 							tegra_dc_ext_module_init();
-								|
-		//.probe = tegra_dc_probe(struct nvhost_device *ndev)
-					|
-		// the place board setting pass to driver
-		dc->pdata = ndev->dev.platform_data; (dc.c:2629) 	
-														
-		//.probe = tegra_dc_probe
-					|
-		tegra_dc_set_out(dc, dc->pdata->default_out) (dc.c:2679)
+	tegra_dc_set_out(dc, dc->pdata->default_out)
 				|
-			dc->out = out (dc.c:1759)
-			dc->out_ops = &tegra_dc_hdmi_ops (dc.c:1770)	
-			dc->out_ops->init(dc) (dc.c:1783)
-						   |										   
+			dc->out = out
+			dc->out_ops = &tegra_dc_hdmi_ops // assign corresponding output operations
+			dc->out_ops->init(dc)
+						   |
 			.init = tegra_dc_hdmi_init,
-						|
-			//INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker)
-												|
-					tegra_dc_enable,			tegra_dc_hdmi_detect
-							|						|
-		dc->enabled = _tegra_dc_enable(dc)		tegra_edid_get_monspecs(hdmi->edid, &specs)						
-							|					tegra_dc_hdmi_detect_config(dc, &specs)
-	return _tegra_dc_controller_enable(dc)					|
-						|							tegra_fb_update_monspecs(dc->fb, specs, tegra_dc_hdmi_mode_filter);
-				dc->out->enable();					// 這個地方會神奇的 call 到 tegra_fb_set_par() ???
-	(就是 board part 的 enterprise_hdmi_enable)		tegra_dc_ext_process_hotplug(dc->ndev->id);  
-						...                     	
-		if (dc->out_ops && dc->out_ops->enable)
-			dc->out_ops->enable(dc);
-			(就是tegra_dc_hdmi_enable)
-
-			//INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker)
-													|
-		tegra_dc_ext_process_hotplug(dc->ndev->id); (board-edge-panel.c:564 nvhost_device.id = 1)
-					|
-			tegra_dc_ext_queue_hotplug
-						|
-				pack.event.type = TEGRA_DC_EXT_EVENT_HOTPLUG (vendor/nvidia/tegra/core/drivers/libnvdc/events.c:65)
-				...
-				tegra_dc_ext_queue_event(control, &pack.event);
 							|
-					
-					
+				INIT_DELAYED_WORK(&hdmi->work, tegra_dc_hdmi_detect_worker) // <-- a
 
-		//.probe = tegra_dc_probe
+	dc->fb = tegra_fb_register(ndev, dc, dc->pdata->fb, fb_mem); // <-- b
+
+// a
+static void tegra_dc_hdmi_detect_worker(struct work_struct *work) // hdmi irq also queue this work
+{
+	struct tegra_dc_hdmi_data *hdmi =
+		container_of(to_delayed_work(work), struct tegra_dc_hdmi_data, work);
+	struct tegra_dc *dc = hdmi->dc;
+
+	tegra_dc_enable(dc); // <-- a1
+	msleep(5);
+	if (!tegra_dc_hdmi_detect(dc)) {	// <-- a2
+		tegra_dc_disable(dc);
+		tegra_fb_update_monspecs(dc->fb, NULL, NULL);
+
+		dc->connected = false;
+		tegra_dc_ext_process_hotplug(dc->ndev->id); // <-- a3
+	}
+}
+
+// a1: tegra_dc_enable
+tegra_dc_enable,
+	|
+dc->enabled = _tegra_dc_enable(dc)
 					|
-		dc->fb = tegra_fb_register(ndev, dc, dc->pdata->fb, fb_mem) (dc.c:2713, dc from parameter of tegra_fb_register: ndev)
+return _tegra_dc_controller_enable(dc)
 					|
-				tegra_fb->xres = fb_data->xres; (fb.c:386),		tegra_fb_set_par(info); (fb.c:453)
-									||										|
-								dc->pdata->fb				fb_find_nearest_mode(&m, &info->modelist); 
-															// info 是從tegra_fb_register裡的dc->pdata->fb 來的
+	if (dc->out->enable)
+		dc->out->enable(); // --> enterprise_hdmi_enable in board file
+
+	if (dc->out_ops && dc->out_ops->enable)
+		dc->out_ops->enable(dc); // --> tegra_dc_hdmi_enable
+
+
+// a2: tegra_dc_hdmi_detect
+tegra_dc_hdmi_detect
+		|
+	err = tegra_edid_get_monspecs(hdmi->edid, &specs);	// read EDID from TV
+	err = tegra_edid_get_eld(hdmi->edid, &hdmi->eld);
+	tegra_dc_hdmi_detect_config(dc, &specs);
+				|
+		tegra_fb_update_monspecs(dc->fb, specs, tegra_dc_hdmi_mode_filter);
+					|
+			fb_notifier_call_chain(FB_EVENT_NEW_MODELIST, &event); // <--
+
+		#ifdef CONFIG_SWITCH
+			hdmi->hpd_switch.state = 0;
+			switch_set_state(&hdmi->hpd_switch, 1); // trigger gralloc: hdmi_uevent_polling
+		#endif
+		dev_info(&dc->ndev->dev, "display detected\n");
+
+		dc->connected = true;
+		tegra_dc_ext_process_hotplug(dc->ndev->id);
+
+
+// a3: tegra_dc_ext_process_hotplug
+
+
+// b: tegra_fb_register
+
+dc->fb = tegra_fb_register(ndev, dc, dc->pdata->fb, fb_mem)
+			|
+	tegra_fb_set_par(info);
+			|
+		 fb_find_nearest_mode(&m, &info->modelist);
+
+
+
+
 
 ./drivers/video/tegra/fb.c:306
 static struct fb_ops tegra_fb_ops = {
 	...
 	.fb_set_par = tegra_fb_set_par,
-     
+ 
 struct tegra_fb_info *tegra_fb_register(struct nvhost_device *ndev,
 	...
 	info->fbops = &tegra_fb_ops;
@@ -154,49 +198,3 @@ struct tegra_fb_info *tegra_fb_register(struct nvhost_device *ndev,
 	...
 	return tegra_fb;	// tegra_fb_register return 'tegra_fb_info'
 
-// HDMI irq
-tegra_dc_hdmi_irq
-	...
-	if (tegra_dc_hdmi_hpd(dc))
-		queue_delayed_work(system_nrt_wq, &hdmi->work, msecs_to_jiffies(100));
-												|
-											在 tegra_dc_probe 裡面被 init
-
-
-// Prototype
-static int __init tegra_dc_module_init(void);
-void nvhost_driver_unregister(struct nvhost_driver *drv);
-
-struct nvhost_driver tegra_dc_driver = {
-	.driver = {
-		.name = "tegradc",
-		.owner = THIS_MODULE,
-	},  
-	.probe = tegra_dc_probe,
-	.remove = tegra_dc_remove,
-	.suspend = tegra_dc_suspend,
-	.resume = tegra_dc_resume,
-};
-
-tegra_dc_probe(struct nvhost_device *ndev);
-
-static void tegra_dc_set_out(struct tegra_dc *dc, struct tegra_dc_out *out);
-
-struct tegra_dc_out_ops tegra_dc_hdmi_ops = {
-	.init = tegra_dc_hdmi_init,
-	.destroy = tegra_dc_hdmi_destroy,
-	.enable = tegra_dc_hdmi_enable,
-	.disable = tegra_dc_hdmi_disable,
-	.detect = tegra_dc_hdmi_detect,
-	.suspend = tegra_dc_hdmi_suspend,
-	.resume = tegra_dc_hdmi_resume,
-};  
-
-static bool tegra_dc_hdmi_detect(struct tegra_dc *dc);
-
-static int tegra_fb_set_par(struct fb_info *info);
-
-struct tegra_fb_info *tegra_fb_register(struct nvhost_device *ndev,
-					struct tegra_dc *dc,
-					struct tegra_fb_data *fb_data,
-					struct resource *fb_mem);
