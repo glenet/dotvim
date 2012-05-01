@@ -26,6 +26,49 @@ struct t_mhl_status_notifier {
 	void (*func)(bool isMHL, int charging_type);
 };
 
+static void mhl_status_notifier_func(bool isMHL, int charging_type)
+{
+	struct cable_detect_info *pInfo = &the_cable_info;
+	int id_pin = gpio_get_value(pInfo->usb_id_pin_gpio);
+	static uint8_t mhl_connected;
+
+	CABLE_INFO("%s: isMHL %d, charging type %d, id_pin %d\n", __func__, isMHL, charging_type, id_pin);
+	if (pInfo->accessory_type != DOCK_STATE_MHL) {
+		CABLE_INFO("%s: accessory is not MHL, type %d\n", __func__, pInfo->accessory_type);
+		return;
+	}
+
+	if (!isMHL) {
+		CABLE_INFO("MHL removed\n");
+
+		if (pInfo->usb_dpdn_switch)
+			pInfo->usb_dpdn_switch(PATH_USB);
+
+		if (pInfo->mhl_1v2_power)
+			pInfo->mhl_1v2_power(0);
+#ifdef MHL_INTERNAL_POWER
+		send_cable_connect_notify(CONNECT_TYPE_CLEAR);
+#endif
+#ifdef MHL_REDETECT
+		if (mhl_connected == 0) {
+			CABLE_INFO("MHL re-detect\n");
+			irq_set_irq_type(pInfo->idpin_irq, id_pin ? IRQF_TRIGGER_LOW : IRQF_TRIGGER_HIGH);
+			pInfo->cable_redetect = 1;
+		}
+#endif
+		mhl_connected = 0;
+
+		pInfo->accessory_type = DOCK_STATE_UNDOCKED;
+		sii9234_disableIRQ();
+		enable_irq(pInfo->idpin_irq);
+		return;
+	}
+	else {
+		mhl_connected = 1;
+		irq_set_irq_type(pInfo->idpin_irq, id_pin ? IRQF_TRIGGER_LOW : IRQF_TRIGGER_HIGH);
+	}
+}
+
 // kernel/drivers/video/tegra/sii9234/sii9234.c
 int mhl_detect_register_notifier(struct t_mhl_status_notifier *notifier)
 {
