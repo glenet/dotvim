@@ -185,3 +185,4 @@ dc->fb = tegra_fb_register(ndev, dc, dc->pdata->fb, fb_mem)
 			|
 		 fb_find_nearest_mode(&m, &info->modelist);
 
+		 tegra_dc_set_fb_mode(tegra_fb->win->dc, info->mode, stereo);

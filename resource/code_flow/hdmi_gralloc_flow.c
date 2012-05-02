@@ -127,6 +127,44 @@ done:
 #endif
 }
 
+static int set_hdmi_mode(NvGrDisplay *dpy, 
+	struct fb_var_screeninfo *mode, int bpp)
+{
+    ret = ioctl(dpy->fd, FBIOPUT_VSCREENINFO, mode);
+
+
+static long do_fb_ioctl(struct fb_info *info, unsigned int cmd,
+	unsigned long arg)
+{
+	...
+	case FBIOPUT_VSCREENINFO:
+		if (copy_from_user(&var, argp, sizeof(var)))
+			return -EFAULT;
+		if (!lock_fb_info(info))
+			return -ENODEV;
+		console_lock();
+		info->flags |= FBINFO_MISC_USEREVENT;
+		ret = fb_set_var(info, &var); // <--
+		info->flags &= ~FBINFO_MISC_USEREVENT;
+		console_unlock();
+		unlock_fb_info(info);
+		if (!ret && copy_to_user(argp, &var, sizeof(var)))
+			ret = -EFAULT;
+		break;
+
+fb_set_var(struct fb_info *info, struct fb_var_screeninfo *var)
+{
+	...	
+	if (info->fbops->fb_set_par) {
+		ret = info->fbops->fb_set_par(info);
+
+static struct fb_ops tegra_fb_ops = {
+	.owner = THIS_MODULE,
+	.fb_check_var = tegra_fb_check_var,
+	.fb_set_par = tegra_fb_set_par, // call tegra_dc_set_fb_mode(tegra_fb->win->dc, info->mode, stereo);
+	.fb_setcmap = tegra_fb_setcmap,
+	.fb_blank = tegra_fb_blank,
+
 // framework/base/policy/src/com/android/internal/policy/impl/PhoneWindowManager.java
 public class PhoneWindowManager implements WindowManagerPolicy {
 	...
