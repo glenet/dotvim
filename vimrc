@@ -33,8 +33,8 @@ set cursorline
 
 "set textwidth=90
 "set expandtab
-"colorscheme desert
-colorscheme proton
+colorscheme desert
+"colorscheme proton
 
 " status line appearance
 set statusline=
