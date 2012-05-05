@@ -35,6 +35,7 @@ set cursorline
 "set expandtab
 colorscheme desert
 "colorscheme proton
+let python_highlight_all = 1
 
 " status line appearance
 set statusline=
