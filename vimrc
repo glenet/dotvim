@@ -33,8 +33,10 @@ set cursorline
 
 "set textwidth=90
 "set expandtab
-colorscheme desert
+set t_Co=256
+"colorscheme desert
 "colorscheme proton
+colorscheme wombat256
 let python_highlight_all = 1
 
 " status line appearance
