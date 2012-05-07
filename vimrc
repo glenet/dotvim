@@ -1,7 +1,6 @@
 call pathogen#infect()
 
 "// --- General --- //
-
 syntax on
 filetype on
 
@@ -23,34 +22,27 @@ set shiftwidth=4
 set encoding=utf-8
 set fileencodings=utf-8,cp950
 
-" cursor highlight
-set cursorline
-"highlight CursorLine cterm=NONE ctermbg=Black
-"autocmd InsertEnter * set nocursorline
-"autocmd InsertLeave * set cursorline
 
 "// --- Appearance --- //
-
+set t_Co=256
+colorscheme ir_black
+"colorscheme desert
+set cursorline " cursor highlight
 "set textwidth=90
 "set expandtab
-set t_Co=256
-"colorscheme desert
-colorscheme ir_black
-"colorscheme proton
-"colorscheme wombat256
 let python_highlight_all = 1
 
-" status line appearance
+" //status line appearance
 set statusline=
-"set statusline +=\ %n\             "buffer number
-"set statusline +=%{&ff}            "file format
-"set statusline +=%y%*              "file type
+"set statusline +=\ %n\            "buffer number
+"set statusline +=%{&ff}           "file format
+"set statusline +=%y%*             "file type
 set statusline +=\ %<%F            "full path
 set statusline +=%m                "modified flag
 set statusline +=%=%5l             "current line
 set statusline +=/%L               "total lines
-"set statusline +=%4c\              "column number
-"set statusline +=0x%04B\           "character under cursor
+"set statusline +=%4c\             "column number
+"set statusline +=0x%04B\          "character under cursor
 
 "// ---  Keys Mapping --- //
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
@@ -118,7 +110,6 @@ map f :call ShowFuncName() <CR>
 
 
 "// --- Ctags Plugin --- //
-
 set tags=tags;/
 " configure tags - add additional tags here
 set tags+=~/.vim/tags/cpp
@@ -131,11 +122,75 @@ let Tlist_Show_One_File = 1
 let Tlist_Use_Right_Window = 1
 nnoremap <silent> <F6> :TlistToggle<CR>
 
+
 "// --- NERDTree Plugin ---//
 nnoremap <silent> <F5> :NERDTree<CR>
 
-"// --- CSCOPE Plugin ---//
 
+"// --- fugitive --- //
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+
+
+"// --- MiniBufExplorer --- //
+function! <SID>CycleBuffer(forward)
+
+" The following hack handles the case where we only have one
+" window open and it is too small
+let l:saveAutoUpdate = g:miniBufExplorerAutoUpdate
+if (winbufnr(2) == -1)
+resize
+let g:miniBufExplorerAutoUpdate = 0
+endif
+
+" Change buffer (keeping track of before and after buffers)
+let l:origBuf = bufnr('%')
+if (a:forward == 1)
+	bn!
+else
+	bp!
+endif
+let l:curBuf  = bufnr('%')
+
+" Skip any non-modifiable buffers, but don't cycle forever
+" This should stop us from stopping in any of the [Explorers]
+while getbufvar(l:curBuf, '&modifiable') == 0 && l:origBuf != l:curBuf
+if (a:forward == 1)
+	bn!
+else
+bp!
+endif
+let l:curBuf = bufnr('%')
+endwhile
+
+let g:miniBufExplorerAutoUpdate = l:saveAutoUpdate
+if (l:saveAutoUpdate == 1)
+"call <SID>AutoUpdate(-1,bufnr("%"))
+endif
+
+endfunction
+
+" switching to buffer 1 - 9 is mapped to ,[nOfBuffer]
+let mapleader = ","
+for buffer_no in range(1, 9)
+  execute "nmap <Leader>" . buffer_no . " :b" . buffer_no . "\<CR>"
+endfor
+
+noremap <silent> <leader>n :call <SID>CycleBuffer(1)<CR>:<BS>
+noremap <silent> <leader>p :call <SID>CycleBuffer(0)<CR>:<BS>
+
+
+"// --- FuzzyFinder --- //
+map ff <esc>:FufFile<cr>
+map fba <esc>:FufBookmarkFileAdd<cr>
+map fb <esc>:FufBookmarkFile<cr>
+map fu <esc>:FufBuffer<cr>
+
+
+"// --- CSCOPE Plugin ---//
 " 讓子目錄也可以利用根目錄建構出的 cscope.out 檔案
 function s:FindFile(file)
     let curdir = getcwd()
@@ -215,64 +270,3 @@ endif
 
 " Cscope result color
 "hi ModeMsg guifg=black guibg=#C6C5FE gui=BOLD ctermfg=black ctermbg=cyan cterm=BOLD
-
-"// --- fugitive --- //
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-
-"// --- MiniBufExplorer --- //
-function! <SID>CycleBuffer(forward)
-
-" The following hack handles the case where we only have one
-" window open and it is too small
-let l:saveAutoUpdate = g:miniBufExplorerAutoUpdate
-if (winbufnr(2) == -1)
-resize
-let g:miniBufExplorerAutoUpdate = 0
-endif
-
-" Change buffer (keeping track of before and after buffers)
-let l:origBuf = bufnr('%')
-if (a:forward == 1)
-	bn!
-else
-	bp!
-endif
-let l:curBuf  = bufnr('%')
-
-" Skip any non-modifiable buffers, but don't cycle forever
-" This should stop us from stopping in any of the [Explorers]
-while getbufvar(l:curBuf, '&modifiable') == 0 && l:origBuf != l:curBuf
-if (a:forward == 1)
-	bn!
-else
-bp!
-endif
-let l:curBuf = bufnr('%')
-endwhile
-
-let g:miniBufExplorerAutoUpdate = l:saveAutoUpdate
-if (l:saveAutoUpdate == 1)
-"call <SID>AutoUpdate(-1,bufnr("%"))
-endif
-
-endfunction
-
-" switching to buffer 1 - 9 is mapped to ,[nOfBuffer]
-let mapleader = ","
-for buffer_no in range(1, 9)
-  execute "nmap <Leader>" . buffer_no . " :b" . buffer_no . "\<CR>"
-endfor
-
-noremap <silent> <leader>n :call <SID>CycleBuffer(1)<CR>:<BS>
-noremap <silent> <leader>p :call <SID>CycleBuffer(0)<CR>:<BS>
-
-
-"// --- FuzzyFinder --- //
-map ff <esc>:FufFile<cr>
-map fba <esc>:FufBookmarkFileAdd<cr>
-map fb <esc>:FufBookmarkFile<cr>
-map fu <esc>:FufBuffer<cr>
