@@ -152,7 +152,7 @@ static void sii9234_irq_do_work(struct work_struct *work)
 #ifdef CONFIG_TEGRA_HDMI_MHL_SUPERDEMO
 		Mhl_Proc_Remote_Event(pInfo);
 #endif
-		ProcessRcp(event, eventParameter);
+		ProcessRcp(event, eventParameter); 
 	}
 	mutex_unlock(&mhl_early_suspend_sem);
 
@@ -176,16 +176,67 @@ void TPI_Poll(void)
 {
 	if (POWER_STATE_D0_MHL != fwPowerState) {
 
-		Int4Isr(); // check register then process connection
+		Int4Isr(); // a: check register then process connection
 
 	} else if (POWER_STATE_D0_MHL == fwPowerState) {
 
 		if(deglitchingRsenNow) // plug out
 			...
 
-		MhlCbusIsr();
+		MhlCbusIsr(); // b
 	}
 
 }
+
+// TPI_Poll: a
+static	int	Int4Isr(void)
+{
+	if (reg74 & BIT_2) {
+
+		MhlTxDrvProcessConnection(); // a
+
+	} else if (reg74 & BIT_3) {
+
+		MhlTxDrvProcessDisconnection(); // <--
+	}
+
+	if ((POWER_STATE_D3 == fwPowerState) && (reg74 & BIT_6)) {
+		SwitchToD0();
+		ProcessRgnd(); // <--
+	}
+
+	if (reg74 & BIT_4) {
+
+		TPI_DEBUG_PRINT(("Drv: CBus Lockout\n"));
+		ForceUsbIdSwitchOpen();
+		ReleaseUsbIdSwitchOpen();
+
+#ifdef CONFIG_CABLE_DETECT_ACCESSORY
+		ProcessMhlStatus(false, true);
+#endif
+
+	}
+
+	return I2C_ACCESSIBLE;
+}
+
+// Int4Isr: a
+static void MhlTxDrvProcessConnection(void)
+	void	SiiMhlTxNotifyConnection(bool mhlConnected)
+		if (mhlConnected) {
+			SiiMhlTxTmdsEnable();
+				TPI_DEBUG_PRINT(("MhlTx:SiiMhlTxTmdsEnable\n"));
+				SiiMhlTxDrvTmdsControl(true);
+					if (enable) {
+						SET_BIT(TPI_SLAVE_ADDR, 0x80, 4);
+						TPI_DEBUG_PRINT(("Drv: TMDS Output Enabled\n"));
+						SiiMhlTxDrvReleaseUpstreamHPDControl();  /* this triggers an EDID read */
+					} else {
+						CLR_BIT(TPI_SLAVE_ADDR, 0x80, 4);
+						TPI_DEBUG_PRINT(("Drv: TMDS Ouput Disabled\n"));
+					}
+
+// TPI_Poll: b
+
 
 

@@ -55,6 +55,11 @@ set statusline +=/%L               "total lines
 "// ---  Keys Mapping --- //
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
 
+"center current line
+nmap <space> zz
+nmap n nzz
+nmap N Nzz
+
 " split window
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
