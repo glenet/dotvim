@@ -24,10 +24,10 @@
     status = auto
 
 [color "diff"]
-meta = yellow
+meta = blue
 frag = magenta
 old = red bold
-new = cyan bold
+new = green bold
     
 [color "branch"]
 current = cyan bold

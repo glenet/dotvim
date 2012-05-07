@@ -242,8 +242,18 @@ static void MhlCbusIsr(void)
 	if (BIT_6 & (dsHpdStatus ^ cbusInt)) {
 		uint8_t status = cbusInt & BIT_6;
 		/* SiiMhlTxNotifyDsHpdChange( cbusInt ); */
-		TPI_DEBUG_PRINT(("Drv: Downstream HPD changed to: %02X\n", (int) cbusInt));
+		TPI_DEBUG_PRINT(("Drv: Downstream HPD changed to: %02X\n", (int) cbusInt)); // 40 means connected, 00 means disconnected
 		SiiMhlTxNotifyDsHpdChange(status);
+			if (0 == dsHpdStatus) {
+				TPI_DEBUG_PRINT(("MhlTx: Disable TMDS - fake\n")); // <-- unplug HDMI cable 
+				/*mhlTxConfig.mhlHpdRSENflags &= ~MHL_HPD;*/
+				/*SiiMhlTxDrvTmdsControl(false);*/
+			} else {
+				TPI_DEBUG_PRINT(("MhlTx: Enable TMDS\n")); // <-- plug HDMI cable
+				TPI_DEBUG_PRINT(("MhlTx: DsHPD ON\n"));
+				mhlTxConfig.mhlHpdRSENflags |= MHL_HPD;
+				SiiMhlTxTmdsEnable();
+			}
 		if (status)
 			SiiMhlTxDrvReleaseUpstreamHPDControl();
 
