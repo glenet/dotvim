@@ -1,2 +1,0 @@
-
-1. (dongle + ac) plug-in/out will trigger hdmi_irq
