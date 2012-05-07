@@ -1,0 +1,35 @@
+
+[core]
+	pager = less -FXRS -x4
+
+[alias]
+	ch = checkout
+	cm = commit
+	di = diff --unified=10
+	st = status
+	br = branch
+	pr = pull --rebase
+	fp = format-patch
+	chep = cherry-pick
+	logb = log --author=Browny
+	apply = apply --ignore-space-change --ignore-whitespace
+	showfile = show --pretty="format:" --name-only
+	oneline = log --pretty=oneline --since='2 days ago'
+	onelog = log -p -1
+	
+[color]
+	ui = auto
+	diff = auto
+	branch = auto
+    status = auto
+
+[color "diff"]
+meta = yellow
+frag = magenta
+old = red bold
+new = cyan bold
+    
+[color "branch"]
+current = cyan bold
+local = yellow
+remote = green

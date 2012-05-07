@@ -237,6 +237,14 @@ static void MhlTxDrvProcessConnection(void)
 					}
 
 // TPI_Poll: b
+static void MhlCbusIsr(void)
 
+	if (BIT_6 & (dsHpdStatus ^ cbusInt)) {
+		uint8_t status = cbusInt & BIT_6;
+		/* SiiMhlTxNotifyDsHpdChange( cbusInt ); */
+		TPI_DEBUG_PRINT(("Drv: Downstream HPD changed to: %02X\n", (int) cbusInt));
+		SiiMhlTxNotifyDsHpdChange(status);
+		if (status)
+			SiiMhlTxDrvReleaseUpstreamHPDControl();
 
 
