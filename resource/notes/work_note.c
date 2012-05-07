@@ -27,6 +27,9 @@ rjkOzzSu
 NV Display Expert:  Peter Zu	(0987132290) PZu@nvidia.com
 NV Display Expert:  Vick  Yu	(0912581543) vyu@nvidia.com
 
+SiliconImage: Vincent.Jr Hsieh [Vincent.Hsieh@siliconimage.com]
+Edom:         Karl Cheng (鄭亦廷) [karlc@edom.com.tw]
+
 [Repo]
 
 1. Reset 所有 git 回到某個時間點（也可針對單一 git）：
