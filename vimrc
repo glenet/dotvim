@@ -35,8 +35,9 @@ set cursorline
 "set expandtab
 set t_Co=256
 "colorscheme desert
+colorscheme ir_black
 "colorscheme proton
-colorscheme wombat256
+"colorscheme wombat256
 let python_highlight_all = 1
 
 " status line appearance

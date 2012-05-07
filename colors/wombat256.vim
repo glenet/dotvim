@@ -6,7 +6,7 @@
 " works on xterms with 88 or 256 colors. The algorithm for approximating the
 " GUI colors with the xterm palette is from desert256.vim by Henry So Jr.
 
-set background=dark
+"set background=dark
 
 if version > 580
 	hi clear
