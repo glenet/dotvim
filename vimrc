@@ -14,6 +14,8 @@ set autoindent
 set noswapfile
 set smartindent
 set nocompatible
+set splitbelow
+set splitright
 
 set ls=2
 set tabstop=4
