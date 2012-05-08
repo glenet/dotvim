@@ -46,6 +46,7 @@ set statusline +=/%L               "total lines
 
 "// ---  Keys Mapping --- //
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
+:map<F8> a<C-R> #include <linux/disp_debug.h><CR><ESC>
 
 "center current line
 nmap <space> zz
