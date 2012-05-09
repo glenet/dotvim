@@ -10,7 +10,7 @@ set modeline
 set showcmd
 set nobackup
 set hlsearch
-set splitbelow
+set splitbelow " keep new split window at below/right
 set splitright
 set autoindent
 set noswapfile
@@ -21,6 +21,7 @@ set ls=2
 set tabstop=4
 set backspace=2
 set shiftwidth=4
+set scrolloff=999 " keep cursor at center when page up/down
 set encoding=utf-8
 set fileencodings=utf-8,cp950
 
