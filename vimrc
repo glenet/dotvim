@@ -10,12 +10,12 @@ set modeline
 set showcmd
 set nobackup
 set hlsearch
+set splitbelow
+set splitright
 set autoindent
 set noswapfile
 set smartindent
 set nocompatible
-set splitbelow
-set splitright
 
 set ls=2
 set tabstop=4
@@ -28,13 +28,12 @@ set fileencodings=utf-8,cp950
 "// --- Appearance --- //
 set t_Co=256
 colorscheme ir_black
-"colorscheme desert
-set cursorline " cursor highlight
+set cursorline 			"cursor highlight
 "set textwidth=90
 "set expandtab
 let python_highlight_all = 1
 
-" //status line appearance
+" *** status line appearance ***
 set statusline=
 "set statusline +=\ %n\            "buffer number
 "set statusline +=%{&ff}           "file format
@@ -46,38 +45,36 @@ set statusline +=/%L               "total lines
 "set statusline +=%4c\             "column number
 "set statusline +=0x%04B\          "character under cursor
 
+
 "// ---  Keys Mapping --- //
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
 :map<F8> a<C-R> #include <linux/disp_debug.h><CR><ESC>
 
-"center current line
+" *** move current line to center row ***
 nmap <space> zz
 nmap n nzz
 nmap N Nzz
 
-" split window
+" *** split window ***
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
 
-" insert blank line without into insert mode
-" 按enter新增一個空行
-map <S-Enter> O<Esc>
+" *** insert blank line without into insert mode ***
+map <S-Enter> O<Esc> 
 map <CR> o<ESc>k
 
-" Copy/Paste Cross Session
+" *** copy/paste cross session ***
 " 不同檔案之間的複製/貼上
-" 用法：Ctrl+V選取欲複製行, Shift+Y複製, 跳到另外一個檔案Shift+P貼上
-
-"custom copy'n'paste
-"copy the current visual selection to ~/.vbuf
+" 用法：Ctrl+V 選取欲複製行, Shift+Y 複製, 跳到另外一個檔案 Shift+P 貼上
+" copy the current visual selection to ~/.vbuf
 vmap <S-y> :w! ~/.vbuf<CR>
-"copy the current line to the buffer file if no visual selection
+" copy the current line to the buffer file if no visual selection
 nmap <S-y> :.w! ~/.vbuf<CR>
-"paste the contents of the buffer file
+" paste the contents of the buffer file
 nmap <S-p> :r ~/.vbuf<CR>
 
-" Mark Redundant Spaces
-" 用法：按F3標示出多餘空白, 持續按N向下搜尋, 按X刪除
+" *** mark redundant spaces ***
+" 用法：按 F3 標示出多餘空白, 持續按 N 向下搜尋, 按 X 刪除
 function ShowSpaces(...)
 	let @/='\v(\s+$)|( +\ze\t)'
 	let oldhlsearch=&hlsearch
@@ -99,8 +96,7 @@ command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 nnoremap <F3>     :ShowSpaces 1<CR>
 
-
-" // --- Show Function Name --- //
+" *** show function name ***
 fun! ShowFuncName()
   let lnum = line(".")
   let col = col(".")
@@ -112,7 +108,7 @@ endfun
 map f :call ShowFuncName() <CR>
 
 
-"// --- Ctags Plugin --- //
+"// --- Ctags plugin --- //
 set tags=tags;/
 " configure tags - add additional tags here
 set tags+=~/.vim/tags/cpp
@@ -120,17 +116,17 @@ set tags+=~/.vim/tags/cpp
 nmap <C-L> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 
-"// --- Taglist Plugin ---//
+"// --- Taglist plugin ---//
 let Tlist_Show_One_File = 1
 let Tlist_Use_Right_Window = 1
 nnoremap <silent> <F6> :TlistToggle<CR>
 
 
-"// --- NERDTree Plugin ---//
+"// --- NERDTree plugin ---//
 nnoremap <silent> <F5> :NERDTree<CR>
 
 
-"// --- fugitive --- //
+"// --- fugitive plugin --- //
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
@@ -138,7 +134,7 @@ nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 
 
-"// --- MiniBufExplorer --- //
+"// --- MiniBufExplorer plugin --- //
 function! <SID>CycleBuffer(forward)
 
 " The following hack handles the case where we only have one
@@ -186,14 +182,14 @@ noremap <silent> <leader>n :call <SID>CycleBuffer(1)<CR>:<BS>
 noremap <silent> <leader>p :call <SID>CycleBuffer(0)<CR>:<BS>
 
 
-"// --- FuzzyFinder --- //
+"// --- FuzzyFinder plugin --- //
 map ff <esc>:FufFile<cr>
 map fba <esc>:FufBookmarkFileAdd<cr>
 map fb <esc>:FufBookmarkFile<cr>
 map fu <esc>:FufBuffer<cr>
 
 
-"// --- CSCOPE Plugin ---//
+"// --- CSCOPE plugin ---//
 " 讓子目錄也可以利用根目錄建構出的 cscope.out 檔案
 function s:FindFile(file)
     let curdir = getcwd()
