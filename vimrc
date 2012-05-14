@@ -10,7 +10,6 @@ set modeline
 set showcmd
 set nobackup
 set hlsearch
-set splitbelow " keep new split window at below/right
 set splitright
 set autoindent
 set noswapfile
@@ -119,12 +118,13 @@ nmap <C-L> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 "// --- Taglist plugin ---//
 let Tlist_Show_One_File = 1
-let Tlist_Use_Right_Window = 1
+let Tlist_Use_Right_Window = 0
 nnoremap <silent> <F6> :TlistToggle<CR>
 
 
 "// --- NERDTree plugin ---//
 nnoremap <silent> <F5> :NERDTree<CR>
+let g:NERDTreeWinPos = "right"
 
 
 "// --- fugitive plugin --- //
