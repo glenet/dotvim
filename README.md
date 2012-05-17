@@ -9,6 +9,7 @@
 	ln -s ~/.vim/gitsetting/.gitconfig ~/.gitconfig
 	ln -s ~/.vim/gitsetting/.gitignore ~/.gitignore
 	ln -s ~/.vim/tmux.conf ~/.tmux.conf
+	cat bashrc_append >> ~/.bashrc
 
 ###Mount submodules
 
