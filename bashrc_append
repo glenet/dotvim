@@ -1,0 +1,22 @@
+
+# browny's alias
+alias rs='repo sync -j2'
+alias repoinit='repo init -u git://mirror-ateam.htc.com/manifest -b htc -m'
+alias tmuxn='tmux neww -n'
+
+alias flashzimage='fastboot flash zimage $OUT/obj/KERNEL/arch/arm/boot/zImage'
+alias pushgralloc='adb remount; adb push $OUT/system/lib/hw/gralloc.tegra.so system/lib/hw/'
+alias pushhwc='adb remount; adb push $OUT/system/lib/hw/hwcomposer.tegra.so system/lib/hw'
+alias sss='source build/envsetup.sh; partner_setup endeavoru EndeavorU_Generic_WWE_DEBUG;'
+
+alias kb='kernel_build -j3;make_boot_image'
+alias banp='build_all_noprebuilt -j2'
+
+alias onlyklog='rm -rf `ls | grep -v 'kernel_'`'
+alias htclog='adb pull data/htclog/'
+alias kmsg='adb shell cat proc/kmsg'
+alias lastk='adb shell cat /proc/last_kmsg > lastk.txt'
+alias gencscope='find . -name '*.cpp' -o -name '*.h' -o -name '*.c' -o -name '*.java' > cscope.files; cscope -Rbkq -i cscope.files; ctags -R --c++-kinds=+px --fields=+iaS --extra=+q .' 
+
+export TERM="xterm-256color"
+alias tmux="tmux -2"
