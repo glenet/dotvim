@@ -34,17 +34,28 @@ set cursorline 			"cursor highlight
 let python_highlight_all = 1
 
 " *** status line appearance ***
-set statusline=
-"set statusline +=\ %n\            "buffer number
-"set statusline +=%{&ff}           "file format
-"set statusline +=%y%*             "file type
-set statusline +=\ %<%F            "full path
-set statusline +=%m                "modified flag
-set statusline +=%=%5l             "current line
-set statusline +=/%L               "total lines
-"set statusline +=%4c\             "column number
-"set statusline +=0x%04B\          "character under cursor
+"Git branch
+function! GitBranch()
+	let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
+	if branch != ''
+	return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
+	en
+	return ''
+	endfunction
 
+function! CurDir()
+	return substitute(getcwd(), '/Users/amir/', "~/", "g")
+	endfunction
+
+function! HasPaste()
+	if &paste
+	return 'PASTE MODE  '
+	en
+	return ''
+	endfunction
+
+" Format the statusline
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ %=Line:\ %l/%L%{GitBranch()}
 
 "// ---  Keys Mapping --- //
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
