@@ -34,28 +34,18 @@ set cursorline 			"cursor highlight
 let python_highlight_all = 1
 
 " *** status line appearance ***
-"Git branch
-function! GitBranch()
-	let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
-	if branch != ''
-	return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
-	en
-	return ''
-	endfunction
-
-function! CurDir()
-	return substitute(getcwd(), '/Users/amir/', "~/", "g")
-	endfunction
-
-function! HasPaste()
-	if &paste
-	return 'PASTE MODE  '
-	en
-	return ''
-	endfunction
-
-" Format the statusline
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ %=Line:\ %l/%L%{GitBranch()}
+set statusline=%t       "tail of the filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%h      "help file flag
+set statusline+=%m      "modified flag
+set statusline+=%r      "read only flag
+set statusline+=%y      "filetype
+set statusline+=%=      "left/right separator
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+set statusline+=\ %{GitBranchInfoTokens()[0]}
 
 "// ---  Keys Mapping --- //
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
