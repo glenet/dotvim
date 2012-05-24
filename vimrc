@@ -34,18 +34,17 @@ set cursorline 			"cursor highlight
 let python_highlight_all = 1
 
 " *** status line appearance ***
-set statusline=%t       "tail of the filename
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}] "file format
-set statusline+=%h      "help file flag
-set statusline+=%m      "modified flag
-set statusline+=%r      "read only flag
-set statusline+=%y      "filetype
-set statusline+=%=      "left/right separator
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
-set statusline+=\ %{GitBranchInfoTokens()[0]}
+set statusline=%F                                 " filepath
+set statusline+=\ %h                                " help file flag
+set statusline+=%m                                " modified flag
+set statusline+=%r                                " read only flag
+set statusline+=%y                                " filetype
+set statusline+=%=                                " left/right separator
+set statusline+=%c,                               " cursor column
+set statusline+=%l/%L                             " cursor line/total lines
+set statusline+=\ %{GitBranchInfoTokens()[0]}     " git branch
+set statusline+=\ [%{strlen(&fenc)?&fenc:'none'}, " file encoding
+set statusline+=%{&ff}]                           " file format
 
 "// ---  Keys Mapping --- //
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
