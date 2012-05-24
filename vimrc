@@ -110,6 +110,51 @@ fun! ShowFuncName()
 endfun
 map f :call ShowFuncName() <CR>
 
+" *** QUICKFIX WINDOW ***
+command -bang -nargs=? QFix call QFixToggle(<bang>0)
+function! QFixToggle(forced)
+	if exists("g:qfix_win") && a:forced == 0
+	cclose
+	unlet g:qfix_win
+	else
+	copen 10
+	let g:qfix_win = bufnr("$")
+	endif
+endfunction
+nnoremap <leader>q :QFix<CR>
+
+" *** Filter the quickfix list ***
+function! FilterQFList(type, action, pattern)
+	" get current quickfix list
+let s:curList = getqflist()
+	let s:newList = []
+	for item in s:curList
+	if a:type == 0     " filter on file names
+let s:cmpPat = bufname(item.bufnr)
+	elseif a:type == 1 " filter by line content
+	let s:cmpPat = item.text . item.pattern
+	endif
+	if item.valid
+	if a:action < 0
+	" Keep only nonmatching lines
+	if s:cmpPat !~ a:pattern
+	let s:newList += [item]
+	endif
+	else
+	" Keep only matching lines
+	if s:cmpPat =~ a:pattern
+	let s:newList += [item]
+	endif
+	endif
+	endif
+	endfor
+call setqflist(s:newList)
+endfunction
+
+nnoremap ø :call FilterQFList(0, -1, inputdialog('Remove file names matching:', ''))<CR>
+nnoremap ø :call FilterQFList(0, 1, inputdialog('Keep only file names matching:', ''))<CR>
+nnoremap ø :call FilterQFList(1, -1, inputdialog('Remove all lines matching:', ''))<CR>
+nnoremap <silent> <leader>k :call FilterQFList(1, 1, inputdialog('Keep only lines matching:', ''))<CR>
 
 "// --- Ctags plugin --- //
 set tags=tags;/
