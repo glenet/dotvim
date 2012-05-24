@@ -46,8 +46,8 @@ set statusline+=%2*\ %{GitBranchInfoTokens()[0]}\ %* " git branch
 "set statusline+=[%{strlen(&fenc)?&fenc:'none'},      " file encoding
 "set statusline+=%{&ff}]                              " file format
 
-hi User1 ctermfg=green ctermbg=black cterm=BOLD
-hi User2 ctermfg=red   ctermbg=black cterm=BOLD
+hi User1 ctermfg=blue ctermbg=black
+hi User2 ctermfg=red  ctermbg=black
 
 "// ---  Keys Mapping --- //
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
