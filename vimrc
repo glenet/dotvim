@@ -49,11 +49,12 @@ set statusline+=%2*\ %{GitBranchInfoTokens()[0]}\ %* " git branch
 hi User1 ctermfg=blue ctermbg=black
 hi User2 ctermfg=red  ctermbg=black
 
+
 "// ---  Keys Mapping --- //
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
 :map<F8> a<C-R> #include <linux/disp_debug.h><CR><ESC>
 
-" *** move current line to center row ***
+" *** keep line in center ***
 nmap <space> zz
 nmap n nzz
 nmap N Nzz
@@ -67,8 +68,8 @@ map <S-Enter> O<Esc>
 map <CR> o<ESc>k
 
 " *** copy/paste cross session ***
-" 不同檔案之間的複製/貼上
-" 用法：Ctrl+V 選取欲複製行, Shift+Y 複製, 跳到另外一個檔案 Shift+P 貼上
+" How: 'Ctrl+V' select the rows you want to copy, 'Shift+Y' copy, jump to anthoer buffer, 'Shift+P' paste
+" *** ------------------------ ***  
 " copy the current visual selection to ~/.vbuf
 vmap <S-y> :w! ~/.vbuf<CR>
 " copy the current line to the buffer file if no visual selection
@@ -77,7 +78,8 @@ nmap <S-y> :.w! ~/.vbuf<CR>
 nmap <S-p> :r ~/.vbuf<CR>
 
 " *** mark redundant spaces ***
-" 用法：按 F3 標示出多餘空白, 持續按 N 向下搜尋, 按 X 刪除
+" How: 'F3' mark redundant spaces, 'N' to search next, 'X' to delete
+" *** --------------------- ***  
 function ShowSpaces(...)
 	let @/='\v(\s+$)|( +\ze\t)'
 	let oldhlsearch=&hlsearch
@@ -100,6 +102,8 @@ command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 nnoremap <F3>     :ShowSpaces 1<CR>
 
 " *** show function name ***
+" How: '<leader>+,' shows function name
+" *** ------------------ ***  
 fun! ShowFuncName()
   let lnum = line(".")
   let col = col(".")
@@ -111,6 +115,8 @@ endfun
 map f :call ShowFuncName() <CR>
 
 " *** QUICKFIX WINDOW ***
+" How: '<leader>+q' shows quickfix window
+" *** --------------- ***  
 command -bang -nargs=? QFix call QFixToggle(<bang>0)
 function! QFixToggle(forced)
 	if exists("g:qfix_win") && a:forced == 0
@@ -123,38 +129,6 @@ function! QFixToggle(forced)
 endfunction
 nnoremap <leader>q :QFix<CR>
 
-" *** Filter the quickfix list ***
-function! FilterQFList(type, action, pattern)
-	" get current quickfix list
-let s:curList = getqflist()
-	let s:newList = []
-	for item in s:curList
-	if a:type == 0     " filter on file names
-let s:cmpPat = bufname(item.bufnr)
-	elseif a:type == 1 " filter by line content
-	let s:cmpPat = item.text . item.pattern
-	endif
-	if item.valid
-	if a:action < 0
-	" Keep only nonmatching lines
-	if s:cmpPat !~ a:pattern
-	let s:newList += [item]
-	endif
-	else
-	" Keep only matching lines
-	if s:cmpPat =~ a:pattern
-	let s:newList += [item]
-	endif
-	endif
-	endif
-	endfor
-call setqflist(s:newList)
-endfunction
-
-nnoremap ø :call FilterQFList(0, -1, inputdialog('Remove file names matching:', ''))<CR>
-nnoremap ø :call FilterQFList(0, 1, inputdialog('Keep only file names matching:', ''))<CR>
-nnoremap ø :call FilterQFList(1, -1, inputdialog('Remove all lines matching:', ''))<CR>
-nnoremap <silent> <leader>k :call FilterQFList(1, 1, inputdialog('Keep only lines matching:', ''))<CR>
 
 "// --- Ctags plugin --- //
 set tags=tags;/
