@@ -24,6 +24,10 @@ set scrolloff=999 " keep cursor at center when page up/down
 set encoding=utf-8
 set fileencodings=utf-8,cp950
 
+"folding settings
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         "this is just what i use
 
 "// --- Appearance --- //
 set t_Co=256
@@ -52,6 +56,7 @@ hi User2 ctermfg=red  ctermbg=black
 
 "// ---  Keys Mapping --- //
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
+:map<F10> a<C-R> LOGI("%s: [BBB] ", __FUNCTION__);<CR><ESC>
 :map<F8> a<C-R> #include <linux/disp_debug.h><CR><ESC>
 
 " *** keep line in center ***
