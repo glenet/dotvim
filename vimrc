@@ -24,11 +24,6 @@ set scrolloff=999 " keep cursor at center when page up/down
 set encoding=utf-8
 set fileencodings=utf-8,cp950
 
-"folding settings
-set foldnestmax=10      "deepest fold is 10 levels
-set nofoldenable        "dont fold by default
-set foldlevel=1         "this is just what i use
-
 "// --- Appearance --- //
 set t_Co=256
 colorscheme ir_black
