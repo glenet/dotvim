@@ -1,6 +1,7 @@
-
 [core]
+	excludesfile = /home/brownylin/.gitignore
 	pager = less -FXRS -x4
+	filemode = false
 
 [alias]
 	ch = checkout
@@ -16,6 +17,7 @@
 	showfile = show --pretty="format:" --name-only
 	oneline = log --pretty=oneline --since='2 days ago'
 	onelog = log -p -1
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	
 [color]
 	ui = auto
@@ -33,3 +35,4 @@ new = green bold
 current = cyan bold
 local = yellow
 remote = green
+
