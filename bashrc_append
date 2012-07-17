@@ -1,20 +1,17 @@
 
 # browny's alias
+export PATH=$PATH:/home/brownylin/nrepos/ap37/out/host/linux-x86/bin:/home/brownylin/bin
+
 alias rs='repo sync -j2'
 alias repoinit='repo init -u git://mirror-ateam.htc.com/manifest -b htc -m'
-alias tmuxn='tmux neww -n'
 
 alias flashzimage='fastboot flash zimage $OUT/obj/KERNEL/arch/arm/boot/zImage'
 alias pushgralloc='adb remount; adb push $OUT/system/lib/hw/gralloc.tegra.so system/lib/hw/'
 alias pushhwc='adb remount; adb push $OUT/system/lib/hw/hwcomposer.tegra.so system/lib/hw'
-alias sss='source build/envsetup.sh; partner_setup endeavoru EndeavorU_Generic_WWE_DEBUG;'
 
 alias kb='kernel_build -j3;make_boot_image'
-alias banp='build_all_noprebuilt -j2'
 
-alias onlyklog='rm -rf `ls | grep -v 'kernel_'`'
 alias htclog='adb pull data/htclog/'
-alias kmsg='adb shell cat proc/kmsg'
 alias lastk='adb shell cat /proc/last_kmsg > lastk.txt'
 alias arb='adb reboot-bootloader'
 alias frb='fastboot reboot'
@@ -26,3 +23,7 @@ alias tmux="tmux -2"
 
 PS1="[\[\033[32m\]\w]\[\033[0m\]\[\033[1;36m\]\[\033[1;33m\]$ \[\033[0m\]"
 PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
+
+
+happen-grep() { grep -cR "$1" $(ls -tr *) | grep -v ":0" ;}
+tgrep() { egrep -nR -A 100 "MHL inserted|MHL removed|sii9234_early_suspend|sii9234_late_resume" $1 | egrep 'MHL inserted|MHL removed|sii9234_early_suspend|sii9234_late_resume|Update';}
