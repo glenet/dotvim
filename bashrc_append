@@ -24,6 +24,5 @@ alias tmux="tmux -2"
 PS1="[\[\033[32m\]\w]\[\033[0m\]\[\033[1;36m\]\[\033[1;33m\]$ \[\033[0m\]"
 PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
 
-
-happen-grep() { grep -cR "$1" $(ls -tr *) | grep -v ":0" ;}
-tgrep() { egrep -nR -A 100 "MHL inserted|MHL removed|sii9234_early_suspend|sii9234_late_resume" $1 | egrep 'MHL inserted|MHL removed|sii9234_early_suspend|sii9234_late_resume|Update';}
+happen-grep() { grep -cR "$1" * | grep -v ':0' ;}
+tgrep() { $(find . -type f -iname ''${1}'*' -exec egrep -nRH "${*:2}" {} \; ;}
