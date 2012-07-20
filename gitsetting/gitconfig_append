@@ -19,6 +19,7 @@
 	oneline = log --pretty=oneline --since='2 days ago'
 	onelog = log -p -1
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(bold blue)<%an>%Creset %C(yellow)%d%Creset %s %Cgreen(%cr)' --abbrev-commit --
+	com = "!sh -c \"bug=`git symbolic-ref HEAD|sed s#refs/heads/##`; git commit -em \\\"BUG: \\${bug}\\\"\""
 	
 [color]
 	ui = auto
