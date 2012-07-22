@@ -3,24 +3,50 @@
     email = shlin1983@gmail.com
 
 [core]
-	editor = vim
 	excludesfile = /home/brownylin/.gitignore
+	pager = less -FXRS -x4
+	filemode = false
 
 [alias]
 	ch = checkout
-	cm = commit -a
-	di = diff
-	re = remote
+	cm = commit
+	di = diff --unified=10
 	st = status
 	br = branch
+	pr = pull --rebase
 	fp = format-patch
-	rh = reset --hard
+	chep = cherry-pick
+	unstage = reset HEAD
+	uncommit = reset --soft HEAD^
+	amend = commit --amend
+	apply = apply --ignore-space-change --ignore-whitespace
+	logp = log -p
 	logb = log --author=Browny
-	oneline = log --pretty=oneline --since='2 days ago'
-	onelog = log -p -1
+	showfile = show --pretty="format:" --name-only
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%an>%Creset %C(yellow)%d%Creset %s %Cgreen(%cr)' --abbrev-commit
+
+	who = shortlog -n -s --no-merges
+	g = grep -n --color -E
+	com = "!sh -c \"bug=`git symbolic-ref HEAD|sed s#refs/heads/##`; git commit -em \\\"BUG: \\${bug}\\\"\""
+	
+[push]
+# Only push branches that have been
+# set up to track a remote branch.
+	default = current
 
 [color]
 	ui = auto
 	diff = auto
+	branch = auto
     status = auto
-    branch = auto
+
+[color "diff"]
+meta = blue
+frag = magenta
+old = red bold
+new = green bold
+    
+[color "branch"]
+current = cyan bold
+local = yellow
+remote = green

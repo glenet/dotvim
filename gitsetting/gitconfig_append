@@ -13,14 +13,24 @@
 	pr = pull --rebase
 	fp = format-patch
 	chep = cherry-pick
-	logb = log --author=Browny
+	unstage = reset HEAD
+	uncommit = reset --soft HEAD^
+	amend = commit --amend
 	apply = apply --ignore-space-change --ignore-whitespace
+	logp = log -p
+	logb = log --author=Browny
 	showfile = show --pretty="format:" --name-only
-	oneline = log --pretty=oneline --since='2 days ago'
-	onelog = log -p -1
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(bold blue)<%an>%Creset %C(yellow)%d%Creset %s %Cgreen(%cr)' --abbrev-commit --
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%an>%Creset %C(yellow)%d%Creset %s %Cgreen(%cr)' --abbrev-commit
+
+	who = shortlog -n -s --no-merges
+	g = grep -n --color -E
 	com = "!sh -c \"bug=`git symbolic-ref HEAD|sed s#refs/heads/##`; git commit -em \\\"BUG: \\${bug}\\\"\""
 	
+[push]
+# Only push branches that have been
+# set up to track a remote branch.
+	default = current
+
 [color]
 	ui = auto
 	diff = auto
