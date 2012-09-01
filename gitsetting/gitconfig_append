@@ -13,6 +13,7 @@
 	pr = pull --rebase
 	fp = format-patch
 	chep = cherry-pick
+	rh = reset --hard
 	unstage = reset HEAD
 	uncommit = reset --soft HEAD^
 	amend = commit --amend
