@@ -156,6 +156,8 @@ nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 
+"// --- ack plugin ---//
+let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
 "// --- MiniBufExplorer plugin --- //
 function! <SID>CycleBuffer(forward)

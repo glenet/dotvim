@@ -3,6 +3,7 @@
 	excludesfile = /home/brownylin/.gitignore
 	pager = less -FXRS -x4
 	filemode = false
+	whitespace = cr-at-eol
 
 [alias]
 	ch = checkout
