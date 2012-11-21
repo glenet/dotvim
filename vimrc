@@ -53,6 +53,7 @@ hi User2 ctermfg=red  ctermbg=black
 :map<F9> a<C-R> DISP_INFO_LN("[BBB]\n");<CR><ESC>
 :map<F8> a<C-R> ALOGD("[BBB] %s: ", __FUNCTION__);<CR><ESC>
 :map<F7> a<C-R> #include <linux/disp_debug.h><CR><ESC>
+:map<F4> a<C-R> <pre><code class="prettyprint"><CR><ESC>
 
 " *** keep line in center ***
 nmap <space> zz
