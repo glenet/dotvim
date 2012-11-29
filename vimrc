@@ -5,6 +5,7 @@ syntax on
 filetype on
 
 set nu
+set hidden
 set confirm
 set modeline
 set showcmd
@@ -15,8 +16,11 @@ set autoindent
 set noswapfile
 set smartindent
 set nocompatible
+set ignorecase
+set smartcase
 
 set ls=2
+set history=1000
 set tabstop=4
 set backspace=2
 set shiftwidth=4
