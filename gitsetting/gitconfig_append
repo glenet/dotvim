@@ -23,6 +23,7 @@
 	logp = log -p
 	logb = log --author=Browny
 	showfile = show --pretty="format:" --name-only
+	difffile = diff --pretty="format:" --name-only
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%an>%Creset %C(yellow)%d%Creset %s %Cgreen(%cr)' --abbrev-commit
 
 	who = shortlog -n -s --no-merges
