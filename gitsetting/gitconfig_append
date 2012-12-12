@@ -4,6 +4,7 @@
 	pager = less -FXRS -x4
 	filemode = false
 	whitespace = cr-at-eol
+	editor = vim
 
 [alias]
 	ch = checkout
