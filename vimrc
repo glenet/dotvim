@@ -3,6 +3,7 @@ call pathogen#infect()
 "// --- General --- //
 syntax on
 filetype on
+filetype plugin indent on
 
 set nu
 set hidden
