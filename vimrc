@@ -57,7 +57,7 @@ hi User2 ctermfg=red  ctermbg=black
 "// ---  Keys Mapping --- //
 :map<F4> a<C-R> <pre><code class="prettyprint"><CR><ESC>
 :map<F8> a<C-R> ALOGD("[BBB] %s: ", __FUNCTION__);<CR><ESC>
-:map<F9> a<C-R> printk(KERN_DEBUG "%s: "\n, __func__);<CR><ESC>
+:map<F9> a<C-R> printk(KERN_DEBUG "[BR] %s: "\n, __func__);<CR><ESC>
 
 " *** keep line in center ***
 nmap <space> zz
