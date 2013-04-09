@@ -29,13 +29,17 @@ set scrolloff=999 " keep cursor at center when page up/down
 set encoding=utf-8
 set fileencodings=utf-8,cp950
 
+"// --- Python --- //
+let python_highlight_all = 1
+autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
+
+
 "// --- Appearance --- //
 set t_Co=256
 colorscheme ir_black
 set cursorline 			"cursor highlight
 "set textwidth=90
 set expandtab
-let python_highlight_all = 1
 
 " *** status line appearance ***
 set statusline=%1*%F\ %*                             " filepath
@@ -55,6 +59,9 @@ hi User2 ctermfg=red  ctermbg=black
 
 
 "// ---  Keys Mapping --- //
+" Toggle line numbers and fold column for easy copying:
+nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+
 :map<F4> a<C-R> <pre><code class="prettyprint"><CR><ESC>
 :map<F8> a<C-R> ALOGD("[BBB] %s: ", __FUNCTION__);<CR><ESC>
 :map<F9> a<C-R> printk(KERN_DEBUG "[BR] %s: \n", __func__);<CR><ESC>
