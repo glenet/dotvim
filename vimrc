@@ -34,7 +34,7 @@ set t_Co=256
 colorscheme ir_black
 set cursorline 			"cursor highlight
 "set textwidth=90
-"set expandtab
+set expandtab
 let python_highlight_all = 1
 
 " *** status line appearance ***
