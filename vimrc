@@ -30,7 +30,6 @@ set encoding=utf-8
 set fileencodings=utf-8,cp950
 
 "// --- Python --- //
-let python_highlight_all = 1
 autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 
 
