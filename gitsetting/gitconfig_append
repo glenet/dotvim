@@ -1,7 +1,7 @@
 
 [core]
 	excludesfile = /home/brownylin/.gitignore
-	pager = less -FXRS -x4
+	pager = less -FXrS -x4
 	filemode = false
 	whitespace = cr-at-eol
 	editor = vim
