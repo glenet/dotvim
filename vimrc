@@ -352,3 +352,6 @@ map <F4> :Vimwiki2HTML<cr>
 
 " // --- Markdown to HTML --- //
 nmap <leader>q :%!/Users/brownylin/Dropbox/Markdown.pl --html4tags <cr>
+
+" // --- supertab --- //
+let g:SuperTabMappingForward="<tab>"
