@@ -19,6 +19,8 @@ set smartindent
 set nocompatible
 set ignorecase
 set smartcase
+set wrap
+set textwidth=80
 
 set ls=2
 set history=1000
@@ -32,15 +34,17 @@ set fileencodings=utf-8,cp950
 "// --- Python --- //
 autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 
+"// --- Git commit --- //
+autocmd Filetype gitcommit setlocal spell textwidth=72
 
 "// --- Appearance --- //
 set t_Co=256
 colorscheme ir_black
-set cursorline 			"cursor highlight
-"set textwidth=90
-set expandtab
+set cursorline			"cursor highlight
+"set expandtab
+let python_highlight_all=1
 
-" *** status line appearance ***
+" status line appearance
 set statusline=%1*%F\ %*                             " filepath
 set statusline+=%h                                   " help file flag
 set statusline+=%m                                   " modified flag
@@ -75,12 +79,12 @@ nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
 
 " *** insert blank line without into insert mode ***
-map <S-Enter> O<Esc> 
+map <S-Enter> O<Esc>
 map <CR> o<ESc>k
 
 " *** copy/paste cross session ***
 " How: 'Ctrl+V' select the rows you want to copy, 'Shift+Y' copy, jump to anthoer buffer, 'Shift+P' paste
-" *** ------------------------ ***  
+" *** ------------------------ ***
 " copy the current visual selection to ~/.vbuf
 vmap <S-y> :w! ~/.vbuf<CR>
 " copy the current line to the buffer file if no visual selection
@@ -90,7 +94,7 @@ nmap <S-p> :r ~/.vbuf<CR>
 
 " *** mark redundant spaces ***
 " How: 'F3' mark redundant spaces, 'N' to search next, 'X' to delete
-" *** --------------------- ***  
+" *** --------------------- ***
 function ShowSpaces(...)
 	let @/='\v(\s+$)|( +\ze\t)'
 	let oldhlsearch=&hlsearch
@@ -114,7 +118,7 @@ nnoremap <F3>     :ShowSpaces 1<CR>
 
 " *** show function name ***
 " How: '<leader>+,' shows function name
-" *** ------------------ ***  
+" *** ------------------ ***
 fun! ShowFuncName()
   let lnum = line(".")
   let col = col(".")
@@ -127,7 +131,7 @@ map f :call ShowFuncName() <CR>
 
 " *** QUICKFIX WINDOW ***
 " How: '<leader>+q' shows quickfix window
-" *** --------------- ***  
+" *** --------------- ***
 command -bang -nargs=? QFix call QFixToggle(<bang>0)
 function! QFixToggle(forced)
 	if exists("g:qfix_win") && a:forced == 0
@@ -316,3 +320,35 @@ endif
 
 " Cscope result color
 "hi ModeMsg guifg=black guibg=#C6C5FE gui=BOLD ctermfg=black ctermbg=cyan cterm=BOLD
+
+" // --- vimwiki --- //
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
+			\'template_path': '~/Dropbox/vimwiki/template/',
+			\'template_default': 'default',
+			\'template_ext': '.html',
+			\'path_html': '~/Dropbox/github/vimwiki/'}]
+
+" 對中文用戶來說，我們並不怎麼需要駝峰英文成為維基詞條
+let g:vimwiki_camel_case = 0
+
+" 標記為完成的 checklist 項目會有特別的顏色
+let g:vimwiki_hl_cb_checked = 1
+
+" 我的 vim 是沒有菜單的，加一個 vimwiki 菜單項也沒有意義
+let g:vimwiki_menu = ''
+
+" 是否開啟按語法折疊  會讓文件比較慢
+let g:vimwiki_folding = 1
+
+" 是否在計算字串長度時用特別考慮中文字符
+let g:vimwiki_CJK_length = 1
+
+" 支援html標記符
+let g:vimwiki_valid_html_tags='b,i,s,u,sub,sup,kbd,del,br,hr,div,code,h1,pre'
+
+map <S-F4> :VimwikiAll2HTML<cr>
+map <F4> :Vimwiki2HTML<cr>
+
+
+" // --- Markdown to HTML --- //
+nmap <leader>q :%!/Users/brownylin/Dropbox/Markdown.pl --html4tags <cr>
