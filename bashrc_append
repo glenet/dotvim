@@ -1,5 +1,9 @@
 
 # browny's alias
+export JAVA_HOME="/usr/lib/jvm/jdk1.7.0/"
+export JRE_HOME="/usr/lib/jvm/jdk1.7.0/jre"
+export M2_HOME="/home/brownylin/Java/maven3"
+
 export PATH=$PATH:/home/brownylin/nrepos/jb/out/host/linux-x86/bin:/home/brownylin/bin:/home/brownylin/Desktop/android-sdk-linux/tools/systrace
 
 alias rs='repo sync -j1'
@@ -24,12 +28,6 @@ alias gentags='ctags -R --c++-kinds=+px --fields=+iaS --extra=+q .'
 alias watermark="adb pull /data/dalvik-cache/system@framework@services.jar@classes.dex .;perl -pi -e 's/com\/android\/server\/ShowWatermarkService/cmm\/android\/server\/ShowWatermarkService/g' system@framework@services.jar@classes.dex;adb push system@framework@services.jar@classes.dex /data/dalvik-cache/;rm -rf system@framework@services.jar@classes.dex;adb reboot"
 alias push='adb remount;adb push'
 
-alias enrc2b='. build/envsetup.sh ; partner_setup enrc2b EnrC2B_Generic_WWE_DEBUG'
-alias evitare='. build/envsetup.sh;partner_setup evitareul EvitareUL_Generic_WWE_DEBUG'
-alias enru='. build/envsetup.sh ; partner_setup endeavoru EndeavorU_Generic_WWE_DEBUG'
-alias dlx='. build/envsetup.sh ; partner_setup dlx Dlx_Generic_WWE_DEBUG'
-alias dlxu='. build/envsetup.sh ; partner_setup dlxu DlxU_Generic_WWE_DEBUG'
-alias m7='. build/envsetup.sh ; partner_setup m7 M7_Generic_WWE_DEBUG'
 
 alias sf='adb shell dumpsys SurfaceFlinger | grep -A 20 "Hardware Composer state"'
 alias lcat='adb logcat -v threadtime'
@@ -48,8 +46,3 @@ happen-grep() { grep -cR "$1" * | grep -v ':0' ;}
 PS1="[\[\033[32m\]\w]\[\033[0m\]\[\033[1;36m\]\[\033[1;33m\]$ \[\033[0m\]"
 #PS1="[\[\033[32m\]\w]\[\033[0m\]\[\033[1;36m\]\$(git_branch)\[\033[1;33m\]$ \[\033[0m\]"
 PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
-
-export P4PORT="10.9.32.79:1668"
-export P4USER="HTCTAOYUAN\ANDSSD3"
-export P4PASSWD="andSSD@3"
-

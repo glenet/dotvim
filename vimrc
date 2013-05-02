@@ -346,8 +346,8 @@ let g:vimwiki_CJK_length = 1
 " 支援html標記符
 let g:vimwiki_valid_html_tags='b,i,s,u,sub,sup,kbd,del,br,hr,div,code,h1,pre'
 
-map <S-F4> :VimwikiAll2HTML<cr>
-map <F4> :Vimwiki2HTML<cr>
+map <F4> :VimwikiAll2HTML<cr>
+"map <F4> :Vimwiki2HTML<cr>
 
 
 " // --- Markdown to HTML --- //
