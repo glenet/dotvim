@@ -19,8 +19,8 @@ set smartindent
 set nocompatible
 set ignorecase
 set smartcase
-set wrap
-set textwidth=80
+"set wrap
+"set textwidth=80
 
 set ls=2
 set history=1000
@@ -30,9 +30,6 @@ set shiftwidth=4
 set scrolloff=999 " keep cursor at center when page up/down
 set encoding=utf-8
 set fileencodings=utf-8,cp950
-
-"// --- Python --- //
-autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 
 "// --- Git commit --- //
 autocmd Filetype gitcommit setlocal spell textwidth=72
