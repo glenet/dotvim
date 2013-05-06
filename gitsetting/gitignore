@@ -1,0 +1,19 @@
+
+# General
+cscope*
+.settings*
+*~
+*.DS_Store
+*.lock
+*.swp
+*.out
+
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Python
+*.pyc

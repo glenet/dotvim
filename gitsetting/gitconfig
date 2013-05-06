@@ -1,3 +1,6 @@
+[user]
+	name = Browny Lin
+	email = shlin1983@gmail.com
 
 [core]
 	excludesfile = /home/brownylin/.gitignore
