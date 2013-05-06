@@ -31,6 +31,18 @@ set scrolloff=999 " keep cursor at center when page up/down
 set encoding=utf-8
 set fileencodings=utf-8,cp950
 
+" highlight long line
+augroup vimrc_autocmds
+    autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#111111
+    autocmd BufEnter * match OverLength /\%85v.*/
+augroup END
+
+" // --- python-mode --- //
+" Disable pylint checking every save
+let g:pymode_lint_write = 0
+let g:pymode_folding = 0
+
+
 "// --- Git commit --- //
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
