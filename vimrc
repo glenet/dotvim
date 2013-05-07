@@ -21,6 +21,7 @@ set ignorecase
 set smartcase
 "set wrap
 "set textwidth=80
+set nofoldenable
 
 set ls=2
 set history=1000
@@ -71,6 +72,10 @@ hi User2 ctermfg=red  ctermbg=black
 
 
 "// ---  Keys Mapping --- //
+:inoremap ( ()<left>
+:inoremap " ""<left>
+:inoremap [ []<left>
+
 " Toggle line numbers and fold column for easy copying:
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 
