@@ -22,6 +22,7 @@ set smartcase
 "set wrap
 "set textwidth=80
 set nofoldenable
+set pastetoggle=<F2>
 
 set ls=2
 set history=1000
@@ -75,9 +76,20 @@ hi User2 ctermfg=red  ctermbg=black
 :inoremap ( ()<left>
 :inoremap " ""<left>
 :inoremap [ []<left>
+:inoremap jk <esc>
+:inoremap <esc> <nop>
+:inoremap  <up>     <nop>
+:inoremap  <down>   <nop>
+:inoremap  <left>   <nop>
+:inoremap  <right>  <nop>
+:noremap   <up>     <nop>
+:noremap   <down>   <nop>
+:noremap   <left>   <nop>
+:noremap   <right>  <nop>
 
 " Toggle line numbers and fold column for easy copying:
-nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+" nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+
 
 :map<F4> a<C-R> <pre><code class="prettyprint"><CR><ESC>
 :map<F8> a<C-R> ALOGD("[BBB] %s: ", __FUNCTION__);<CR><ESC>
