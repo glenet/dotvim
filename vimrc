@@ -74,14 +74,8 @@ hi User2 ctermfg=red  ctermbg=black
 
 "// ---  Keys Mapping --- //
 :inoremap ( ()<left>
-:inoremap " ""<left>
-:inoremap [ []<left>
 :inoremap jk <esc>
 :inoremap <esc> <nop>
-:inoremap  <up>     <nop>
-:inoremap  <down>   <nop>
-:inoremap  <left>   <nop>
-:inoremap  <right>  <nop>
 :noremap   <up>     <nop>
 :noremap   <down>   <nop>
 :noremap   <left>   <nop>
@@ -176,7 +170,11 @@ set tags=tags;/
 " configure tags - add additional tags here
 set tags+=~/.vim/tags/cpp
 " build tags of your own project with Ctrl-L
-nmap <C-L> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+function! UpdateTags()
+    execute ":!ctags -R --languages=C++ --c++-kinds=+p --fields=+iaS --extra=+q ./"
+    echohl StatusLine | echo "C/C++ tag updated" | echohl None
+endfunction
+nnoremap <C-L> :call UpdateTags()))
 
 
 "// --- Taglist plugin ---//
