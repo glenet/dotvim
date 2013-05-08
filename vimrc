@@ -106,7 +106,7 @@ nnoremap <silent> ss <C-w>s
 
 " *** insert blank line without into insert mode ***
 map <S-Enter> O<Esc>
-map <CR> o<ESc>k
+map <CR> ojk
 
 " *** copy/paste cross session ***
 " How: 'Ctrl+V' select the rows you want to copy, 'Shift+Y' copy, jump to anthoer buffer, 'Shift+P' paste
@@ -378,6 +378,7 @@ map <F4> :VimwikiAll2HTML<cr>
 
 " // --- Markdown to HTML --- //
 nmap <leader>q :%!/Users/brownylin/Dropbox/Markdown.pl --html4tags <cr>
+
 
 " // --- supertab --- //
 let g:SuperTabMappingForward="<tab>"
