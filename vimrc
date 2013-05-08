@@ -73,7 +73,6 @@ hi User2 ctermfg=red  ctermbg=black
 
 
 "// ---  Keys Mapping --- //
-:inoremap ( ()<left>
 :inoremap jk <esc>
 :inoremap <esc> <nop>
 :noremap   <up>     <nop>
