@@ -1,4 +1,3 @@
-
 # General
 cscope*
 .settings*
@@ -8,12 +7,34 @@ cscope*
 *.swp
 *.out
 
-
 # Java
 *.class
 *.jar
 *.war
 *.ear
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+*.iws
+log/
+target/
 
 # Python
 *.pyc
+
+# Eclipse specific git ignore
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
