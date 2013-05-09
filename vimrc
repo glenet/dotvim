@@ -97,7 +97,7 @@ nnoremap <silent> ss <C-w>s
 
 " *** insert blank line without into insert mode ***
 map <S-Enter> O<Esc>
-map <CR> ojk
+map <CR> o<Esc>
 
 " *** copy/paste cross session ***
 " How: 'Ctrl+V' select the rows you want to copy, 'Shift+Y' copy, jump to anthoer buffer, 'Shift+P' paste
