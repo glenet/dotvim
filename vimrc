@@ -176,13 +176,13 @@ nnoremap <C-L> :call UpdateTags()))
 
 "// --- Taglist plugin ---//
 let Tlist_Show_One_File = 1
-let Tlist_Use_Right_Window = 0
+let Tlist_Use_Right_Window   = 1
 nnoremap <silent> <F6> :TlistToggle<CR>
 
 
 "// --- NERDTree plugin ---//
-nnoremap <silent> <F5> :NERDTree<CR>
-let g:NERDTreeWinPos = "right"
+nmap <silent> <C-N> :NERDTreeToggle<CR>
+let g:NERDTreeWinPos = "left"
 
 
 "// --- fugitive plugin --- //
