@@ -181,6 +181,7 @@ nnoremap <silent> <F6> :TlistToggle<CR>
 
 
 "// --- NERDTree plugin ---//
+map <leader>r :NERDTreeFind<cr>
 nmap <silent> <C-N> :NERDTreeToggle<CR>
 let g:NERDTreeWinPos = "left"
 
