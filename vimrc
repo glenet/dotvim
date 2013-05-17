@@ -52,7 +52,7 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 set t_Co=256
 colorscheme ir_black
 set cursorline			"cursor highlight
-set expandtab
+"set expandtab
 let python_highlight_all=1
 
 " status line appearance
@@ -257,7 +257,7 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-	\ 'file': '\v\.(exe|so|dll)$',
+	\ 'file': '\v\.(exe|so|dll|class)$',
 	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 	\ }
 

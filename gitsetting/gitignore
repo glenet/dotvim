@@ -6,6 +6,7 @@ cscope*
 *.lock
 *.swp
 *.out
+*.patch
 
 # Java
 *.class
