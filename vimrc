@@ -81,6 +81,9 @@ hi User2 ctermfg=red  ctermbg=black
 " Toggle line numbers and fold column for easy copying:
 " nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 
+" *** refresh all buffers ***
+nnoremap <leader>rb :bufdo e<CR>
+
 
 :map<F4> a<C-R> <pre><code class="prettyprint"><CR><ESC>
 :map<F8> a<C-R> ALOGD("[BBB] %s: ", __FUNCTION__);<CR><ESC>
