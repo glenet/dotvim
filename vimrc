@@ -50,7 +50,8 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 
 "// --- Appearance --- //
 set t_Co=256
-colorscheme ir_black
+colorscheme railscasts
+"colorscheme ir_black
 set cursorline			"cursor highlight
 "set expandtab
 let python_highlight_all=1
