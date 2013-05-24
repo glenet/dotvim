@@ -48,6 +48,10 @@ let g:pymode_folding = 0
 "// --- Git commit --- //
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
+"// --- indent guide --- //
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+
 "// --- Appearance --- //
 set t_Co=256
 colorscheme railscasts
