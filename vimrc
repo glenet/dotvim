@@ -6,6 +6,7 @@ filetype on
 filetype plugin indent on
 
 set nu
+"set wrap
 set hidden
 set confirm
 set modeline
@@ -19,10 +20,7 @@ set smartindent
 set nocompatible
 set ignorecase
 set smartcase
-"set wrap
-"set textwidth=80
 set nofoldenable
-set pastetoggle=<F2>
 
 set ls=2
 set history=1000
@@ -32,12 +30,9 @@ set shiftwidth=4
 set scrolloff=999 " keep cursor at center when page up/down
 set encoding=utf-8
 set fileencodings=utf-8,cp950
+set pastetoggle=<F2>
+"set textwidth=80
 
-" highlight long line
-augroup vimrc_autocmds
-    autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#111111
-    autocmd BufEnter * match OverLength /\%85v.*/
-augroup END
 
 " // --- python-mode --- //
 " Disable pylint checking every save
@@ -48,6 +43,7 @@ let g:pymode_folding = 0
 "// --- Git commit --- //
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
+
 "// --- Appearance --- //
 set t_Co=256
 colorscheme ir_black
@@ -56,38 +52,33 @@ set cursorline			"cursor highlight
 let python_highlight_all=1
 
 " status line appearance
-set statusline=%1*%F\ %*                             " filepath
-set statusline+=%h                                   " help file flag
-set statusline+=%m                                   " modified flag
-set statusline+=%r                                   " read only flag
-"set statusline+=%y                                   " filetype
-set statusline+=%=                                   " left/right separator
-set statusline+=%c,\                                 " cursor column
-set statusline+=%l/%L\                               " cursor line/total lines
-set statusline+=%2*\ %{GitBranchInfoTokens()[0]}\ %* " git branch
-"set statusline+=[%{strlen(&fenc)?&fenc:'none'},      " file encoding
-"set statusline+=%{&ff}]                              " file format
+set statusline=%1*%F\ %*                             	" filepath
+set statusline+=%h                                   	" help file flag
+set statusline+=%m                                   	" modified flag
+set statusline+=%r                                   	" read only flag
+"set statusline+=%y                                  	" filetype
+set statusline+=%=                                   	" left/right separator
+set statusline+=%c,\                                 	" cursor column
+set statusline+=%l/%L\                               	" cursor line/total lines
+set statusline+=%2*\ %{GitBranchInfoTokens()[0]}\ %* 	" git branch
+"set statusline+=[%{strlen(&fenc)?&fenc:'none'},     	" file encoding
+"set statusline+=%{&ff}]                             	" file format
 
 hi User1 ctermfg=blue ctermbg=black
 hi User2 ctermfg=red  ctermbg=black
 
 
 "// ---  Keys Mapping --- //
+:map<F8> a<C-R> <pre><code class="prettyprint"><CR><ESC>
+
+" *** Disable direction key ***
 :noremap   <up>     <nop>
 :noremap   <down>   <nop>
 :noremap   <left>   <nop>
 :noremap   <right>  <nop>
 
-" Toggle line numbers and fold column for easy copying:
-" nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
-
 " *** refresh all buffers ***
 nnoremap <leader>rb :bufdo e<CR>
-
-
-:map<F4> a<C-R> <pre><code class="prettyprint"><CR><ESC>
-:map<F8> a<C-R> ALOGD("[BBB] %s: ", __FUNCTION__);<CR><ESC>
-:map<F9> a<C-R> printk(KERN_DEBUG "[BR] %s: \n", __func__);<CR><ESC>
 
 " *** keep line in center ***
 nmap <space> zz
@@ -196,8 +187,10 @@ nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 
-"// --- ack plugin ---//
+
+"// --- Ack plugin ---//
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+
 
 "// --- MiniBufExplorer plugin --- //
 function! <SID>CycleBuffer(forward)
@@ -254,7 +247,7 @@ map fb <esc>:FufBookmarkFile<cr>
 map fu <esc>:FufBuffer<cr>
 
 
-"// --- ctrlp plugin --- //
+"// --- Ctrlp plugin --- //
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
@@ -263,6 +256,38 @@ let g:ctrlp_custom_ignore = {
 	\ 'file': '\v\.(exe|so|dll|class)$',
 	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 	\ }
+
+
+" // --- Vimwiki plugin --- //
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
+			\'template_path': '~/Dropbox/vimwiki/template/',
+			\'template_default': 'default',
+			\'template_ext': '.html',
+			\'path_html': '~/Dropbox/github/vimwiki/'}]
+
+" 對中文用戶來說，我們並不怎麼需要駝峰英文成為維基詞條
+let g:vimwiki_camel_case = 0
+" 標記為完成的 checklist 項目會有特別的顏色
+let g:vimwiki_hl_cb_checked = 1
+" 我的 vim 是沒有菜單的，加一個 vimwiki 菜單項也沒有意義
+let g:vimwiki_menu = ''
+" 是否開啟按語法折疊  會讓文件比較慢
+let g:vimwiki_folding = 1
+" 是否在計算字串長度時用特別考慮中文字符
+let g:vimwiki_CJK_length = 1
+" 支援html標記符
+let g:vimwiki_valid_html_tags='b,i,s,u,sub,sup,kbd,del,br,hr,div,code,h1,pre'
+
+map <F4> :VimwikiAll2HTML<cr>
+"map <F4> :Vimwiki2HTML<cr>
+
+
+" // --- Markdown to HTML --- //
+nmap <leader>q :%!/Users/brownylin/Dropbox/Markdown.pl --html4tags <cr>
+
+
+" // --- Supertab plugin --- //
+let g:SuperTabMappingForward="<tab>"
 
 
 "// --- CSCOPE plugin ---//
@@ -346,38 +371,4 @@ endif
 " Cscope result color
 "hi ModeMsg guifg=black guibg=#C6C5FE gui=BOLD ctermfg=black ctermbg=cyan cterm=BOLD
 
-" // --- vimwiki --- //
-let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
-			\'template_path': '~/Dropbox/vimwiki/template/',
-			\'template_default': 'default',
-			\'template_ext': '.html',
-			\'path_html': '~/Dropbox/github/vimwiki/'}]
 
-" 對中文用戶來說，我們並不怎麼需要駝峰英文成為維基詞條
-let g:vimwiki_camel_case = 0
-
-" 標記為完成的 checklist 項目會有特別的顏色
-let g:vimwiki_hl_cb_checked = 1
-
-" 我的 vim 是沒有菜單的，加一個 vimwiki 菜單項也沒有意義
-let g:vimwiki_menu = ''
-
-" 是否開啟按語法折疊  會讓文件比較慢
-let g:vimwiki_folding = 1
-
-" 是否在計算字串長度時用特別考慮中文字符
-let g:vimwiki_CJK_length = 1
-
-" 支援html標記符
-let g:vimwiki_valid_html_tags='b,i,s,u,sub,sup,kbd,del,br,hr,div,code,h1,pre'
-
-map <F4> :VimwikiAll2HTML<cr>
-"map <F4> :Vimwiki2HTML<cr>
-
-
-" // --- Markdown to HTML --- //
-nmap <leader>q :%!/Users/brownylin/Dropbox/Markdown.pl --html4tags <cr>
-
-
-" // --- supertab --- //
-let g:SuperTabMappingForward="<tab>"
