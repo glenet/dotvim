@@ -33,20 +33,13 @@ set fileencodings=utf-8,cp950
 set pastetoggle=<F2>
 "set textwidth=80
 
-
-" // --- python-mode --- //
-" Disable pylint checking every save
-let g:pymode_lint_write = 0
-let g:pymode_folding = 0
-
-
-"// --- Git commit --- //
-autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd Filetype gitcommit setlocal spell textwidth=72 " git commit format check
 
 
 "// --- Appearance --- //
 set t_Co=256
-colorscheme ir_black
+colorscheme railscasts
+"colorscheme ir_black
 set cursorline			"cursor highlight
 "set expandtab
 let python_highlight_all=1
@@ -154,6 +147,20 @@ function! QFixToggle(forced)
 	endif
 endfunction
 nnoremap <leader>q :QFix<CR>
+
+
+" ---------- Plugins Start ----------
+
+
+" // --- Python-mode plugin --- //
+" Disable pylint checking every save
+let g:pymode_lint_write = 0
+let g:pymode_folding = 0
+
+
+"// --- Vim indent guide plugin --- //
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
 
 
 "// --- Ctags plugin --- //
