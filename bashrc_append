@@ -26,6 +26,16 @@ alias gencscope='find . -name '*.cpp' -o -name '*.h' -o -name '*.c' -o -name '*.
 alias gentags='ctags -R --c++-kinds=+px --fields=+iaS --extra=+q .' 
 
 
+# --- fanxin alias --- #
+alias mvnlocalrun='mvn -T4 clean; mvn -T4 compile; mvn tomcat6:run'
+alias mvnlocalpack='mvn -T4 clean package -DskipTests=true'
+alias mvnserver='mvn -T4 -P integration-server clean package -DskipTests=true'
+alias mvnproduct='mvn -T4 -P aws clean package -DskipTests=true'
+alias tomcaton='sudo ~/Java/tomcat6/bin/startup.sh'
+alias tomcatoff='sudo ~/Java/tomcat6/bin/shutdown.sh'
+alias devhttp='http GET dev.fanzy.tv:8080/fanzytv-api/api/'
+
+
 # --- htc alias --- #
 alias watermark="adb pull /data/dalvik-cache/system@framework@services.jar@classes.dex .;perl -pi -e 's/com\/android\/server\/ShowWatermarkService/cmm\/android\/server\/ShowWatermarkService/g' system@framework@services.jar@classes.dex;adb push system@framework@services.jar@classes.dex /data/dalvik-cache/;rm -rf system@framework@services.jar@classes.dex;adb reboot"
 
