@@ -61,6 +61,8 @@ hi User2 ctermfg=red  ctermbg=black
 
 
 "// ---  Keys Mapping --- //
+let mapleader = ","
+
 :map<F8> a<C-R> <pre><code class="prettyprint"><CR><ESC>
 
 " *** Disable direction key ***
@@ -237,7 +239,6 @@ endif
 endfunction
 
 " switching to buffer 1 - 9 is mapped to ,[nOfBuffer]
-let mapleader = ","
 for buffer_no in range(1, 9)
   execute "nmap <Leader>" . buffer_no . " :b" . buffer_no . "\<CR>"
 endfor
