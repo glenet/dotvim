@@ -33,7 +33,7 @@ alias mvnserver='mvn -T4 -P integration-server clean package -DskipTests=true'
 alias mvnproduct='mvn -T4 -P aws clean package -DskipTests=true'
 alias tomcaton='sudo ~/Java/tomcat6/bin/startup.sh'
 alias tomcatoff='sudo ~/Java/tomcat6/bin/shutdown.sh'
-alias devhttp='http GET dev.fanzy.tv:8080/fanzytv-api/api/'
+alias devhttp='http GET localhost:8080/service/api/user/93/get userid:93 os:web'
 
 
 # --- htc alias --- #
