@@ -39,4 +39,9 @@ alias devhttp='http GET localhost:8080/service/api/user/93/get userid:93 os:web'
 # --- htc alias --- #
 alias watermark="adb pull /data/dalvik-cache/system@framework@services.jar@classes.dex .;perl -pi -e 's/com\/android\/server\/ShowWatermarkService/cmm\/android\/server\/ShowWatermarkService/g' system@framework@services.jar@classes.dex;adb push system@framework@services.jar@classes.dex /data/dalvik-cache/;rm -rf system@framework@services.jar@classes.dex;adb reboot"
 
+
+# --- mac alias --- #
+alias mactomcaton='/Library/Tomcat/bin/startup.sh'
+
+
 alias lcat='adb logcat -v threadtime'
