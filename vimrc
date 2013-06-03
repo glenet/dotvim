@@ -66,6 +66,7 @@ let mapleader = ","
 :map<F8> a<C-R> <pre><code class="prettyprint"><CR><ESC>
 
 " *** Disable direction key ***
+:imap jk <Esc>
 :noremap   <up>     <nop>
 :noremap   <down>   <nop>
 :noremap   <left>   <nop>
