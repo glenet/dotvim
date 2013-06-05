@@ -28,7 +28,7 @@ alias gentags='ctags -R --c++-kinds=+px --fields=+iaS --extra=+q .'
 
 # --- fanxin alias --- #
 alias mvnlocalrun='mvn clean; mvn compile; mvn tomcat6:run -Ddatabase.name=fanzytv'
-alias mvnlocalpack='mvn clean package -DskipTests=true'
+alias mvnlocalpack='mvn clean package -Ddatabase.name=fanzytv -DskipTests=true'
 alias mvnserver='mvn -P integration-server clean package -DskipTests=true'
 alias mvnproduct='mvn -P aws clean package -DskipTests=true'
 alias tomcaton='sudo ~/Java/tomcat6/bin/startup.sh'
