@@ -12,7 +12,7 @@
 [alias]
 	ch = checkout
 	cm = commit
-	df = diff --unified=10
+	di = diff --unified=10
 	st = status
 	br = branch
 	pr = pull --rebase
