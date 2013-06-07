@@ -43,16 +43,28 @@ set cursorline			"cursor highlight
 "set expandtab
 let python_highlight_all=1
 
+"Git branch
+function! GitBranch()
+    let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
+    if branch != ''
+        return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
+    en
+    return ''
+endfunction
+
+
 " status line appearance
-set statusline=%1*%F\ %*                             	" filepath
+set statusline=%1*%F\ %*                            	" filepath
 set statusline+=%h                                   	" help file flag
 set statusline+=%m                                   	" modified flag
 set statusline+=%r                                   	" read only flag
+set statusline+=%=										" separator
+set statusline+=%{GitBranch()}
 "set statusline+=%y                                  	" filetype
-set statusline+=%=                                   	" left/right separator
-set statusline+=%c,\                                 	" cursor column
-set statusline+=%l/%L\                               	" cursor line/total lines
-set statusline+=%2*\ %{GitBranchInfoTokens()[0]}\ %* 	" git branch
+"set statusline+=%=                                   	" left/right separator
+"set statusline+=%c,\                                 	" cursor column
+"set statusline+=%l/%L\                               	" cursor line/total lines
+"set statusline+=%2*\ %{GitBranchInfoTokens()[0]}\ %* 	" git branch
 "set statusline+=[%{strlen(&fenc)?&fenc:'none'},     	" file encoding
 "set statusline+=%{&ff}]                             	" file format
 
@@ -102,20 +114,20 @@ nmap <S-p> :r ~/.vbuf<CR>
 " How: 'F3' mark redundant spaces, 'N' to search next, 'X' to delete
 " *** --------------------- ***
 function ShowSpaces(...)
-	let @/='\v(\s+$)|( +\ze\t)'
-	let oldhlsearch=&hlsearch
-	if !a:0
-	let &hlsearch=!&hlsearch
-	else
-	let &hlsearch=a:1
-	end
-	return oldhlsearch
+    let @/='\v(\s+$)|( +\ze\t)'
+    let oldhlsearch=&hlsearch
+    if !a:0
+        let &hlsearch=!&hlsearch
+    else
+        let &hlsearch=a:1
+    end
+    return oldhlsearch
 endfunction
 
 function TrimSpaces() range
-	let oldhlsearch=ShowSpaces(1)
-	execute a:firstline.",".a:lastline."substitute ///gec"
-	let &hlsearch=oldhlsearch
+    let oldhlsearch=ShowSpaces(1)
+    execute a:firstline.",".a:lastline."substitute ///gec"
+    let &hlsearch=oldhlsearch
 endfunction
 
 command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
@@ -126,12 +138,12 @@ nnoremap <F3>     :ShowSpaces 1<CR>
 " How: '<leader>+,' shows function name
 " *** ------------------ ***
 fun! ShowFuncName()
-  let lnum = line(".")
-  let col = col(".")
-  echohl ModeMsg
-  echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))
-  echohl None
-  call search("\\%" . lnum . "l" . "\\%" . col . "c")
+    let lnum = line(".")
+    let col = col(".")
+    echohl ModeMsg
+    echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))
+    echohl None
+    call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
 map f :call ShowFuncName() <CR>
 
@@ -140,13 +152,13 @@ map f :call ShowFuncName() <CR>
 " *** --------------- ***
 command -bang -nargs=? QFix call QFixToggle(<bang>0)
 function! QFixToggle(forced)
-	if exists("g:qfix_win") && a:forced == 0
-	cclose
-	unlet g:qfix_win
-	else
-	copen 10
-	let g:qfix_win = bufnr("$")
-	endif
+    if exists("g:qfix_win") && a:forced == 0
+        cclose
+        unlet g:qfix_win
+    else
+        copen 10
+        let g:qfix_win = bufnr("$")
+    endif
 endfunction
 nnoremap <leader>q :QFix<CR>
 
@@ -204,44 +216,44 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 "// --- MiniBufExplorer plugin --- //
 function! <SID>CycleBuffer(forward)
 
-" The following hack handles the case where we only have one
-" window open and it is too small
-let l:saveAutoUpdate = g:miniBufExplorerAutoUpdate
-if (winbufnr(2) == -1)
-resize
-let g:miniBufExplorerAutoUpdate = 0
-endif
+    " The following hack handles the case where we only have one
+    " window open and it is too small
+    let l:saveAutoUpdate = g:miniBufExplorerAutoUpdate
+    if (winbufnr(2) == -1)
+        resize
+        let g:miniBufExplorerAutoUpdate = 0
+    endif
 
-" Change buffer (keeping track of before and after buffers)
-let l:origBuf = bufnr('%')
-if (a:forward == 1)
-	bn!
-else
-	bp!
-endif
-let l:curBuf  = bufnr('%')
+    " Change buffer (keeping track of before and after buffers)
+    let l:origBuf = bufnr('%')
+    if (a:forward == 1)
+        bn!
+    else
+        bp!
+    endif
+    let l:curBuf  = bufnr('%')
 
-" Skip any non-modifiable buffers, but don't cycle forever
-" This should stop us from stopping in any of the [Explorers]
-while getbufvar(l:curBuf, '&modifiable') == 0 && l:origBuf != l:curBuf
-if (a:forward == 1)
-	bn!
-else
-bp!
-endif
-let l:curBuf = bufnr('%')
-endwhile
+    " Skip any non-modifiable buffers, but don't cycle forever
+    " This should stop us from stopping in any of the [Explorers]
+    while getbufvar(l:curBuf, '&modifiable') == 0 && l:origBuf != l:curBuf
+        if (a:forward == 1)
+            bn!
+        else
+            bp!
+        endif
+        let l:curBuf = bufnr('%')
+    endwhile
 
-let g:miniBufExplorerAutoUpdate = l:saveAutoUpdate
-if (l:saveAutoUpdate == 1)
-"call <SID>AutoUpdate(-1,bufnr("%"))
-endif
+    let g:miniBufExplorerAutoUpdate = l:saveAutoUpdate
+    if (l:saveAutoUpdate == 1)
+        "call <SID>AutoUpdate(-1,bufnr("%"))
+    endif
 
 endfunction
 
 " switching to buffer 1 - 9 is mapped to ,[nOfBuffer]
 for buffer_no in range(1, 9)
-  execute "nmap <Leader>" . buffer_no . " :b" . buffer_no . "\<CR>"
+    execute "nmap <Leader>" . buffer_no . " :b" . buffer_no . "\<CR>"
 endfor
 
 noremap <silent> <leader>n :call <SID>CycleBuffer(1)<CR>:<BS>
@@ -262,18 +274,18 @@ let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*/bin/*,*/target/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows  "
 let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-	\ 'file': '\v\.(exe|so|dll|class)$',
-	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-	\ }
+            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+            \ 'file': '\v\.(exe|so|dll|class)$',
+            \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+            \ }
 
 
 " // --- Vimwiki plugin --- //
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
-			\'template_path': '~/Dropbox/vimwiki/template/',
-			\'template_default': 'default',
-			\'template_ext': '.html',
-			\'path_html': '~/Dropbox/github/vimwiki/'}]
+            \'template_path': '~/Dropbox/vimwiki/template/',
+            \'template_default': 'default',
+            \'template_ext': '.html',
+            \'path_html': '~/Dropbox/github/vimwiki/'}]
 
 " 對中文用戶來說，我們並不怎麼需要駝峰英文成為維基詞條
 let g:vimwiki_camel_case = 0
