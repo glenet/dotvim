@@ -15,9 +15,13 @@ function git_branch {
 	echo "("${ref#refs/heads/}") ";
 }
 
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
 happen-grep() { grep -cR "$1" * | grep -v ':0' ;}
 
-PS1="[\[\033[32m\]\w]\[\033[0m\]\[\033[1;36m\]\[\033[1;33m\]$ \[\033[0m\]"
+PS1="[\[\033[32m\]\w]\[\033[0m\]\[\033[1;36m\]\$(parse_git_branch)\[\033[1;33m\]$ \[\033[0m\]"
 PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
 
 
