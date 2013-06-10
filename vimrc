@@ -66,14 +66,11 @@ let mapleader = ","
 :map<F8> a<C-R> <pre><code class="prettyprint"><CR><ESC>
 
 " *** Disable direction key ***
-:imap jk <Esc>
+:imap jk   <Esc>
 :noremap   <up>     <nop>
 :noremap   <down>   <nop>
 :noremap   <left>   <nop>
 :noremap   <right>  <nop>
-
-" *** refresh all buffers ***
-nnoremap <leader>rb :bufdo e<CR>
 
 " *** keep line in center ***
 nmap <space> zz
