@@ -54,19 +54,18 @@ endfunction
 
 
 " status line appearance
-set statusline=%1*%F\ %*                            	" filepath
-set statusline+=%h                                   	" help file flag
-set statusline+=%m                                   	" modified flag
-set statusline+=%r                                   	" read only flag
-set statusline+=%=										" separator
-set statusline+=%{GitBranch()}
-"set statusline+=%y                                  	" filetype
-"set statusline+=%=                                   	" left/right separator
-"set statusline+=%c,\                                 	" cursor column
-"set statusline+=%l/%L\                               	" cursor line/total lines
-"set statusline+=%2*\ %{GitBranchInfoTokens()[0]}\ %* 	" git branch
-"set statusline+=[%{strlen(&fenc)?&fenc:'none'},     	" file encoding
-"set statusline+=%{&ff}]                             	" file format
+set statusline=%1*%F\ %*	" filepath
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%h      "help file flag
+set statusline+=%m      "modified flag
+set statusline+=%r      "read only flag
+set statusline+=%y      "filetype
+set statusline+=%=      "left/right separator
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+
 
 hi User1 ctermfg=blue ctermbg=black
 hi User2 ctermfg=red  ctermbg=black
