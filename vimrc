@@ -119,6 +119,13 @@ command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 nnoremap <F3>     :ShowSpaces 1<CR>
 
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+noremap <leader>w :call DeleteTrailingWS()<CR>
+
 " *** show function name ***
 " How: '<leader>+,' shows function name
 " *** ------------------ ***
