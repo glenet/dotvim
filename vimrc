@@ -6,7 +6,6 @@ filetype on
 filetype plugin indent on
 
 set nu
-"set wrap
 set hidden
 set confirm
 set modeline
@@ -31,7 +30,7 @@ set scrolloff=999 " keep cursor at center when page up/down
 set encoding=utf-8
 set fileencodings=utf-8,cp950
 set pastetoggle=<F2>
-"set textwidth=80
+"set expandtab
 
 autocmd Filetype gitcommit setlocal spell textwidth=72 " git commit format check
 
@@ -40,7 +39,6 @@ autocmd Filetype gitcommit setlocal spell textwidth=72 " git commit format check
 set t_Co=256
 colorscheme ir_black
 set cursorline			"cursor highlight
-"set expandtab
 let python_highlight_all=1
 
 " status line appearance
@@ -96,7 +94,8 @@ nmap <S-y> :.w! ~/.vbuf<CR>
 nmap <S-p> :r ~/.vbuf<CR>
 
 " *** mark redundant spaces ***
-" How: 'F3' mark redundant spaces, 'N' to search next, 'X' to delete
+" How: 'F3' mark redundant spaces, 'N' to search next
+" <leader>+w to remove all trailing space
 " *** --------------------- ***
 function ShowSpaces(...)
 	let @/='\v(\s+$)|( +\ze\t)'
@@ -109,14 +108,7 @@ function ShowSpaces(...)
 	return oldhlsearch
 endfunction
 
-function TrimSpaces() range
-	let oldhlsearch=ShowSpaces(1)
-	execute a:firstline.",".a:lastline."substitute ///gec"
-	let &hlsearch=oldhlsearch
-endfunction
-
 command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
-command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 nnoremap <F3>     :ShowSpaces 1<CR>
 
 func! DeleteTrailingWS()
@@ -156,7 +148,6 @@ nnoremap <leader>q :QFix<CR>
 
 
 " ---------- Plugins Start ----------
-
 
 " // --- Python-mode plugin --- //
 " Disable pylint checking every save
@@ -250,13 +241,6 @@ endfor
 
 noremap <silent> <leader>n :call <SID>CycleBuffer(1)<CR>:<BS>
 noremap <silent> <leader>p :call <SID>CycleBuffer(0)<CR>:<BS>
-
-
-"// --- FuzzyFinder plugin --- //
-map ff <esc>:FufFile<cr>
-map fba <esc>:FufBookmarkFileAdd<cr>
-map fb <esc>:FufBookmarkFile<cr>
-map fu <esc>:FufBuffer<cr>
 
 
 "// --- Ctrlp plugin --- //
@@ -381,8 +365,4 @@ if has("cscope")
     nmap <C-w><C-w>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
 
 endif
-
-" Cscope result color
-"hi ModeMsg guifg=black guibg=#C6C5FE gui=BOLD ctermfg=black ctermbg=cyan cterm=BOLD
-
 
