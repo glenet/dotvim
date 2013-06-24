@@ -3,7 +3,7 @@
 	email = shlin1983@gmail.com
 
 [core]
-	excludesfile = /home/brownylin/.gitignore
+	excludesfile = ~/.gitignore
 	pager = less -FXrS -x4
 	filemode = false
 	whitespace = cr-at-eol
