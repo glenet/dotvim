@@ -36,8 +36,15 @@ autocmd Filetype gitcommit setlocal spell textwidth=72 " git commit format check
 
 
 "// --- Appearance --- //
+
+"solarized color scheme
+let g:solarized_termcolors=256
+syntax enable
+set background=dark
+colorscheme solarized
+
+"colorscheme ir_black
 set t_Co=256
-colorscheme ir_black
 set cursorline			"cursor highlight
 let python_highlight_all=1
 
