@@ -6,6 +6,7 @@ filetype on
 filetype plugin indent on
 
 set nu
+set autoread
 set hidden
 set confirm
 set modeline

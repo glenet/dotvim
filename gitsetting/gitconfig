@@ -13,6 +13,7 @@
 	ch = checkout
 	cm = commit
 	di = diff --unified=10
+	dc = diff --cached
 	st = status
 	br = branch
 	pr = pull --rebase
