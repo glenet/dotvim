@@ -188,3 +188,68 @@ snippet table
 	</table>${4}
 snippet textarea
 	<textarea name="${1:Name}" rows="${2:8}" cols="${3:40}">${4}</textarea>${5}
+
+
+snippet fanzyapi
+	==== <Function name/short description> ====
+	!The detail description of API!
+	
+	* URI: [[span(!URL!, style=font-size:18px)]]
+	* METHOD: !method!
+	* enctype: application/x-www-form-urlencoded, multipart/form-data
+	* Example:
+	  * !example!(/example/action?param_1=4324&param_2=blue)
+	* Headers
+	  {{{
+	  #!styledtable
+	  @table (@default):
+	
+	  #! Column definition
+	  @column hname
+	  @column constraint
+	  @column mean
+	  #! //
+	
+	  #! Table heading
+	  @hname: Name
+	  @constraint: Constraint
+	  @mean: Meaning
+	  #! //
+	
+	  @hname: !sample_name_of_header!
+	  @constraint (@important): Mandatory
+	  @mean: !sample meaning of header!
+	  }}}
+	* Parameters
+	  {{{
+	  #!styledtable
+	  @table (@default):
+	
+	  #! Column definition
+	  @column pname
+	  @column constraint
+	  @column mean
+	  #! //
+	
+	  #! Table heading
+	  @pname: Name
+	  @constraint: Constraint
+	  @mean: Meaning
+	  #! //
+	
+	  @pname: !sample_name_of_parameter!
+	  @constraint (@important): Mandatory
+	  @mean: !sample description of paramter!
+	  }}}
+	* Result(200, Success):
+	  {{{
+	  #!javascript
+	  [ /* Result as array */ ]
+	  { /* Result as object*/ }
+	  }}}
+	* HTTP !STATUS CODE!(Error)
+	  {{{
+	  #!javascript
+	  [ /* Result as array */ ]
+	  { /* Result as object*/ }
+	  }}}
