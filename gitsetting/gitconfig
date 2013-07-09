@@ -56,3 +56,9 @@
 	local = yellow
 	remote = green
 
+[giggle]
+	main-window-maximized = true
+	main-window-geometry = 700x550+1497+24
+	history-view-vpane-position = 781
+	file-view-vpane-position = 979
+	main-window-view = HistoryView
