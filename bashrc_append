@@ -34,7 +34,10 @@ llast () {
 	less < `ls -tr | tail -n 1`;
 }
 
+# Ack
+alias Ack='ack-grep'
 
 # --- vim alias --- #
 alias gencscope='find . -name '*.cpp' -o -name '*.h' -o -name '*.c' -o -name '*.java' > cscope.files; cscope -Rbkq -i cscope.files;'
 alias gentags='ctags -R --c++-kinds=+px --fields=+iaS --extra=+q .'
+
