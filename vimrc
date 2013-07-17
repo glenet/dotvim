@@ -65,6 +65,9 @@ let mapleader = ","
 
 :map<F8> a<C-R> <pre><code class="prettyprint"><CR><ESC>
 
+" *** let pointer stay after visual block yanking ***
+:vmap y ygv<Esc>
+
 " *** Disable direction key ***
 :imap jk   <Esc>
 :noremap   <up>     <nop>
