@@ -65,6 +65,12 @@ let mapleader = ","
 
 :map<F8> a<C-R> <pre><code class="prettyprint"><CR><ESC>
 
+" *** switch window faster ***
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
 " *** let pointer stay after visual block yanking ***
 :vmap y ygv<Esc>
 
@@ -174,7 +180,7 @@ function! UpdateTags()
     execute ":!ctags -R --languages=C++ --c++-kinds=+p --fields=+iaS --extra=+q ./"
     echohl StatusLine | echo "C/C++ tag updated" | echohl None
 endfunction
-nnoremap <C-L> :call UpdateTags()))
+"nnoremap <C-L> :call UpdateTags()))
 
 
 "// --- Taglist plugin ---//
