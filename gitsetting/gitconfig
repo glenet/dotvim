@@ -20,10 +20,11 @@
 	fp = format-patch
 	chep = cherry-pick
 	rh = reset --hard
+	merge = merge -s recursive -X patience
 	unstage = reset HEAD
 	uncommit = reset --soft HEAD^
 	amend = commit --amend
-	apply = apply --ignore-space-change --ignore-whitespace
+	apply = apply --whitespace=fix
 	logp = log -p
 	logb = log --author=Browny
 	showfile = show --pretty="format:" --name-only
