@@ -24,7 +24,7 @@
 	unstage = reset HEAD
 	uncommit = reset --soft HEAD^
 	amend = commit --amend
-	apply = apply --whitespace=fix
+	apply = apply --whitespace fix
 	logp = log -p
 	logb = log --author=Browny
 	showfile = show --pretty="format:" --name-only
