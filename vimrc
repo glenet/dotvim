@@ -268,6 +268,10 @@ let g:ctrlp_custom_ignore = {
 	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 	\ }
 
+let g:ctrlp_clear_cache_on_exit = 0 " 離開 vim 後不要清 cache
+let g:ctrlp_max_files = 1000000 " 加大 cache 索引的檔案數, 否則會漏找檔案
+let g:ctrlp_user_command = 'find %s -type f' " 使用 find 加速建索引的速度
+
 
 " // --- Vimwiki plugin --- //
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
