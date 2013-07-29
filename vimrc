@@ -30,6 +30,7 @@ set shiftwidth=4
 set scrolloff=999 " keep cursor at center when page up/down
 set encoding=utf-8
 set fileencodings=utf-8,cp950
+set clipboard=unnamedplus
 set pastetoggle=<F2>
 "set expandtab
 
