@@ -64,6 +64,7 @@ hi User2 ctermfg=red  ctermbg=black
 let mapleader = ","
 
 :map<F8> a<C-R> <pre><code class="prettyprint"><CR><ESC>
+nmap <leader>a :Ack<cr>
 
 " *** switch window faster ***
 nnoremap <C-h> <C-w>h
