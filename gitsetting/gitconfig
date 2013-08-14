@@ -21,6 +21,8 @@
 	chep = cherry-pick
 	rh = reset --hard
 	merge = merge -s recursive -X patience
+	compare = log --left-right --graph --cherry-pick --oneline
+	contains = branch -a --contains
 	unstage = reset HEAD
 	uncommit = reset --soft HEAD^
 	amend = commit --amend
