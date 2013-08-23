@@ -5,7 +5,6 @@ syntax on
 filetype on
 filetype plugin indent on
 
-set nu
 set autoread
 set hidden
 set confirm
