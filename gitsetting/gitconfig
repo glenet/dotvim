@@ -32,6 +32,7 @@
 	showfile = show --pretty="format:" --name-only
 	difffile = diff --pretty="format:" --name-only
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%an>%Creset %C(yellow)%d%Creset %s %Cgreen(%cr)' --abbrev-commit
+	report = log --author=Browny --since='2 sunday ago' --until='1 sunday ago' --format='%Cgreen%ci%Creset %s%Creset' --no-merges
 
 	who = shortlog -n -s --no-merges
 	g = grep -n --color -E
