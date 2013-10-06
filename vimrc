@@ -38,7 +38,8 @@ autocmd Filetype gitcommit setlocal spell textwidth=72 " git commit format check
 
 
 "// --- Appearance --- //
-colorscheme ir_black
+let g:seoul256_background = 233
+colorscheme seoul256
 "set t_Co=256
 set t_Co=256
 set cursorline			"cursor highlight

@@ -61,3 +61,6 @@
 [submodule "bundle/vim-json"]
 	path = bundle/vim-json
 	url = https://github.com/elzr/vim-json.git
+[submodule "bundle/seoul256-color"]
+	path = bundle/seoul256-color
+	url = https://github.com/junegunn/seoul256.vim.git
