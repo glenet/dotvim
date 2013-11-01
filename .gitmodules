@@ -64,3 +64,6 @@
 [submodule "bundle/seoul256-color"]
 	path = bundle/seoul256-color
 	url = https://github.com/junegunn/seoul256.vim.git
+[submodule "bundle/vim-golang"]
+	path = bundle/vim-golang
+	url = https://github.com/jnwhiteh/vim-golang.git
