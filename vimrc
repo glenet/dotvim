@@ -1,111 +1,106 @@
 
-" Setting up Vundle - the vim plugin bundler
-    let iCanHazVundle=1
-    let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-    if !filereadable(vundle_readme)
-        echo "Installing Vundle.."
-        echo ""
-        silent !mkdir -p ~/.vim/bundle
-        silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-        let iCanHazVundle=0
-    endif
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#rc()
-    Bundle 'gmarik/vundle'
-    "Add your bundles here
-	Bundle 'tpope/vim-fugitive'
-	Bundle 'junegunn/seoul256.vim'
-	Bundle 'vim-scripts/L9'
-	Bundle 'vim-scripts/OmniCppComplete'
-	Bundle 'mileszs/ack.vim'
-	Bundle 'kien/ctrlp.vim'
-	Bundle 'vim-scripts/dbext.vim'
-	Bundle 'fholgado/minibufexpl.vim'
-	Bundle 'scrooloose/nerdtree'
-	Bundle 'klen/python-mode'
-	Bundle 'ervandew/supertab'
-	Bundle 'godlygeek/tabular'
-	Bundle 'tomtom/tcomment_vim'
-	Bundle 'Townk/vim-autoclose'
-	Bundle 'Lokaltog/vim-easymotion'
-	Bundle 'plasticboy/vim-markdown'
-	Bundle 'tpope/vim-repeat'
-	Bundle 'tpope/vim-surround'
-	Bundle 'christoomey/vim-tmux-navigator'
-	Bundle 'tpope/vim-surround'
-	Bundle 'elzr/vim-json'
-	Bundle 'jnwhiteh/vim-golang'
+" // --- Vundle --- //
+" http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+	echo "Installing Vundle.."
+	echo ""
+	silent !mkdir -p ~/.vim/bundle
+	silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+	let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
 
-    "...All your other bundles...
-    if iCanHazVundle == 0
-        echo "Installing Bundles, please ignore key map error messages"
-        echo ""
-        :BundleInstall
-    endif
-" Setting up Vundle - the vim plugin bundler end
+"Add your bundles here
+Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'elzr/vim-json'
+Bundle 'ervandew/supertab'
+Bundle 'fholgado/minibufexpl.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'jnwhiteh/vim-golang'
+Bundle 'junegunn/seoul256.vim'
+Bundle 'kien/ctrlp.vim'
+Bundle 'klen/python-mode'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'mileszs/ack.vim'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tomtom/tcomment_vim'
+Bundle 'Townk/vim-autoclose'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/dbext.vim'
+Bundle 'vim-scripts/L9'
+Bundle 'vim-scripts/OmniCppComplete'
+
+if iCanHazVundle == 0
+	echo "Installing Bundles, please ignore key map error messages"
+	echo ""
+	:BundleInstall
+endif
 
 
 "// --- General --- //
 syntax on
 filetype plugin indent on
 
-set autoread
-set hidden
-set confirm
-set modeline
-set showcmd
-set nobackup
-set hlsearch
-set splitright
 set autoindent
-set noswapfile
-set smartindent
-set nocompatible
+set autoread
+set confirm
+set hidden
+set hlsearch
 set ignorecase
-set smartcase
+set modeline
+set nobackup
+set nocompatible
 set nofoldenable
+set noswapfile
+set showcmd
+set smartcase
+set smartindent
+set splitright
 
-set ls=2
-set history=1000
-set tabstop=4
 set backspace=2
-set shiftwidth=4
-set scrolloff=999 " keep cursor at center when page up/down
+set clipboard=unnamedplus
+set completeopt+=longest
 set encoding=utf-8
 set fileencodings=utf-8,cp950
-set clipboard=unnamedplus
+set history=1000
+set ls=2
 set pastetoggle=<F2>
-set completeopt+=longest
+set scrolloff=999 " keep cursor at center when page up/down
+set shiftwidth=4
+set tabstop=4
 "set expandtab
 
 autocmd Filetype gitcommit setlocal spell textwidth=72 " git commit format check
 
-" // If you prefer the Omni-Completion tip window to close when a selection is
-" // made, these lines close it on movement in insert mode or when leaving
-" // insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
 
 "// --- Appearance --- //
-let g:seoul256_background = 233
 colorscheme seoul256
-set t_Co=256
-set cursorline			"cursor highlight
+let g:seoul256_background = 233
 let python_highlight_all=1
+set cursorline			"cursor highlight
+set t_Co=256
+
 
 " status line appearance
-set statusline=%1*%F\ %*	" filepath
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}] "file format
-set statusline+=%h      "help file flag
-set statusline+=%m      "modified flag
-set statusline+=%r      "read only flag
-set statusline+=%y      "filetype
-set statusline+=%=      "left/right separator
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
+set statusline=%1*%F\ %*                        " filepath
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, " file encoding
+set statusline+=%{&ff}]                         " file format
+set statusline+=%h                              " help file flag
+set statusline+=%m                              " modified flag
+set statusline+=%r                              " read only flag
+set statusline+=%y                              " filetype
+set statusline+=%=                              " left/right separator
+set statusline+=%c,                             " cursor column
+set statusline+=%l/%L                           " cursor line/total lines
+set statusline+=\ %P                            " percent through file
 
 hi User1 ctermfg=blue ctermbg=black
 hi User2 ctermfg=red  ctermbg=black
@@ -117,36 +112,36 @@ let mapleader = ","
 :map<F8> a<C-R> <pre><code class="prettyprint"><CR><ESC>
 nmap <leader>a :Ack<cr>
 
-" *** switch window faster ***
+" switch window faster
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" *** let pointer stay after visual block yanking ***
+" let pointer stay after visual block yanking
 :vmap y ygv<Esc>
 
-" *** Disable direction key ***
+" Disable direction key
 :imap jk   <Esc>
 :noremap   <up>     <nop>
 :noremap   <down>   <nop>
 :noremap   <left>   <nop>
 :noremap   <right>  <nop>
 
-" *** keep line in center ***
+" keep line in center
 nmap <space> zz
 nmap n nzz
 nmap N Nzz
 
-" *** split window ***
+" split window
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
 
-" *** insert blank line without into insert mode ***
+" insert blank line without into insert mode
 map <S-Enter> O<Esc>
 map <CR> o<Esc>
 
-" *** copy/paste cross session ***
+" copy/paste cross session
 " How: 'Ctrl+V' select the rows you want to copy, 'Shift+Y' copy, jump to anthoer buffer, 'Shift+P' paste
 " *** ------------------------ ***
 " copy the current visual selection to ~/.vbuf
@@ -156,7 +151,7 @@ nmap <S-y> :.w! ~/.vbuf<CR>
 " paste the contents of the buffer file
 nmap <S-p> :r ~/.vbuf<CR>
 
-" *** mark redundant spaces ***
+" mark redundant spaces
 " How: 'F3' mark redundant spaces, 'N' to search next
 " <leader>+w to remove all trailing space
 " *** --------------------- ***
@@ -181,7 +176,7 @@ func! DeleteTrailingWS()
 endfunc
 noremap <leader>w :call DeleteTrailingWS()<CR>
 
-" *** show function name ***
+" show function name
 " How: '<leader>+,' shows function name
 " *** ------------------ ***
 fun! ShowFuncName()
@@ -194,7 +189,7 @@ fun! ShowFuncName()
 endfun
 map f :call ShowFuncName() <CR>
 
-" *** QUICKFIX WINDOW ***
+" quickfix window
 " How: '<leader>+q' shows quickfix window
 " *** --------------- ***
 command -bang -nargs=? QFix call QFixToggle(<bang>0)
@@ -210,7 +205,14 @@ endfunction
 nnoremap <leader>q :QFix<CR>
 
 
-" ---------- Plugins Start ----------
+" // === Plugins Start === //
+
+" // --- Omni-Completion --- //
+" If you prefer the Omni-Completion tip window to close when a selection is
+" made, these lines close it on movement in insert mode or when leaving insert mode
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
 
 " // --- Python-mode plugin --- //
 " Disable pylint checking every save
