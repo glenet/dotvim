@@ -32,9 +32,16 @@ set encoding=utf-8
 set fileencodings=utf-8,cp950
 set clipboard=unnamedplus
 set pastetoggle=<F2>
+set completeopt+=longest
 "set expandtab
 
 autocmd Filetype gitcommit setlocal spell textwidth=72 " git commit format check
+
+" // If you prefer the Omni-Completion tip window to close when a selection is
+" // made, these lines close it on movement in insert mode or when leaving
+" // insert mode
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 
 "// --- Appearance --- //
@@ -302,6 +309,9 @@ nmap <leader>q :%!/Users/brownylin/Dropbox/Markdown.pl --html4tags <cr>
 
 " // --- Supertab plugin --- //
 let g:SuperTabMappingForward="<tab>"
+let g:SuperTabLongestEnhanced = 1
+let g:SuperTabLongestHighlight = 1
+let g:SuperTabDefaultCompletionType = "context"
 
 
 "// --- CSCOPE plugin ---//
