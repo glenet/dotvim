@@ -1,9 +1,10 @@
-###Installation
+
+### Installation
 	
 	cd ~
 	git clone git@github.com:browny/dotvim.git ~/.vim
 
-###Create symlinks
+### Create symlinks
 
 	ln -s ~/.vim/vimrc ~/.vimrc
 	ln -s ~/.vim/gitsetting/gitconfig ~/.gitconfig
@@ -11,8 +12,16 @@
 	ln -s ~/.vim/tmux.conf ~/.tmux.conf
 	cat bashrc_append >> ~/.bashrc
 
-###Mount submodules
+### Mount submodules
 
 	cd ~/.vim
 	git submodule init
 	git submodule update
+
+### Screenshot
+
+![Image](https://raw.github.com/browny/dotvim/master/screenshot/vim-screenshot-20131104.png)
+
+### Plugins
+
+
