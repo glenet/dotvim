@@ -8,13 +8,13 @@
 	path = bundle/git-grep
 	url = http://github.com/tjennings/git-grep-vim
 [submodule "bundle/tcomment"]
-	path = bundle/tcomment
+	path = bundle/tcomment_vim
 	url = http://github.com/tomtom/tcomment_vim.git
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
 [submodule "bundle/minibufexpl"]
-	path = bundle/minibufexpl
+	path = bundle/minibufexpl.vim
 	url = https://github.com/fholgado/minibufexpl.vim.git
 [submodule "bundle/nerdtree"]
 	path = bundle/nerdtree
@@ -23,10 +23,10 @@
 	path = bundle/L9
 	url = https://github.com/vim-scripts/L9.git
 [submodule "bundle/ack"]
-	path = bundle/ack
+	path = bundle/ack.vim
 	url = https://github.com/mileszs/ack.vim.git
 [submodule "bundle/ctrlp"]
-	path = bundle/ctrlp
+	path = bundle/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
 [submodule "bundle/vim-surround"]
 	path = bundle/vim-surround
@@ -53,7 +53,7 @@
 	path = bundle/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown.git
 [submodule "bundle/dbext"]
-	path = bundle/dbext
+	path = bundle/dbext.vim
 	url = https://github.com/vim-scripts/dbext.vim.git
 [submodule "bundle/vim-json"]
 	path = bundle/vim-json
@@ -70,3 +70,9 @@
 [submodule "bundle/vim-snipmate"]
 	path = bundle/vim-snipmate
 	url = https://github.com/garbas/vim-snipmate.git
+[submodule "bundle/vim-fugitive"]
+	path = bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "bundle/seoul256"]
+	path = bundle/seoul256.vim
+	url = https://github.com/junegunn/seoul256.vim 
