@@ -1,20 +1,18 @@
 
 " // --- Vundle --- //
-" http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-	echo "Installing Vundle.."
-	echo ""
-	silent !mkdir -p ~/.vim/bundle
-	silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-	let iCanHazVundle=0
-endif
+set nocompatible               " be iMproved
+filetype off                   " required!
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+
+" let Vundle manage Vundle
+" required!
 Bundle 'gmarik/vundle'
 
-"Add your bundles here
+" My Bundles here:
+"
+" original repos on github
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'elzr/vim-json'
 Bundle 'ervandew/supertab'
@@ -34,15 +32,16 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/dbext.vim'
-Bundle 'vim-scripts/L9'
-Bundle 'vim-scripts/OmniCppComplete'
 
-if iCanHazVundle == 0
-	echo "Installing Bundles, please ignore key map error messages"
-	echo ""
-	:BundleInstall
-endif
+" vim-scripts repos
+Bundle 'dbext.vim'
+Bundle 'L9'
+Bundle 'OmniCppComplete'
+" non github repos
+
+" git repos on your local machine (ie. when working on your own plugin)
+
+" ...
 
 
 "// --- General --- //
