@@ -1,9 +1,52 @@
-call pathogen#infect()
-call pathogen#helptags()
+
+" Setting up Vundle - the vim plugin bundler
+    let iCanHazVundle=1
+    let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+    if !filereadable(vundle_readme)
+        echo "Installing Vundle.."
+        echo ""
+        silent !mkdir -p ~/.vim/bundle
+        silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+        let iCanHazVundle=0
+    endif
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+    Bundle 'gmarik/vundle'
+    "Add your bundles here
+	Bundle 'tpope/vim-fugitive'
+	Bundle 'junegunn/seoul256.vim'
+	Bundle 'vim-scripts/L9'
+	Bundle 'vim-scripts/OmniCppComplete'
+	Bundle 'mileszs/ack.vim'
+	Bundle 'kien/ctrlp.vim'
+	Bundle 'vim-scripts/dbext.vim'
+	Bundle 'fholgado/minibufexpl.vim'
+	Bundle 'scrooloose/nerdtree'
+	Bundle 'klen/python-mode'
+	Bundle 'ervandew/supertab'
+	Bundle 'godlygeek/tabular'
+	Bundle 'tomtom/tcomment_vim'
+	Bundle 'Townk/vim-autoclose'
+	Bundle 'Lokaltog/vim-easymotion'
+	Bundle 'plasticboy/vim-markdown'
+	Bundle 'tpope/vim-repeat'
+	Bundle 'tpope/vim-surround'
+	Bundle 'christoomey/vim-tmux-navigator'
+	Bundle 'tpope/vim-surround'
+	Bundle 'elzr/vim-json'
+	Bundle 'jnwhiteh/vim-golang'
+
+    "...All your other bundles...
+    if iCanHazVundle == 0
+        echo "Installing Bundles, please ignore key map error messages"
+        echo ""
+        :BundleInstall
+    endif
+" Setting up Vundle - the vim plugin bundler end
+
 
 "// --- General --- //
 syntax on
-filetype on
 filetype plugin indent on
 
 set autoread
@@ -47,7 +90,6 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 "// --- Appearance --- //
 let g:seoul256_background = 233
 colorscheme seoul256
-"set t_Co=256
 set t_Co=256
 set cursorline			"cursor highlight
 let python_highlight_all=1
