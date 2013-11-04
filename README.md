@@ -1,3 +1,7 @@
+## The dotvim for vim/bash/tmux/git settings
+
+I use the dotvim repository to sync the `vim`, `bash`, `tmux` and `git` settings. 
+The vim plugins are managed by [vundle](https://github.com/gmarik/vundle)
 
 ### Installation
 	
@@ -12,11 +16,11 @@
 	ln -s ~/.vim/tmux.conf ~/.tmux.conf
 	cat bashrc_append >> ~/.bashrc
 
-### Mount submodules
+### Mount submodules managed by vundle
 
-	cd ~/.vim
-	git submodule init
-	git submodule update
+	git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+	vim
+	:BundleInstall
 
 ### Screenshot
 
