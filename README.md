@@ -58,7 +58,7 @@
   An extensible and universal comment vim-plugin
 
 * [vim-autoclose](https://github.com/Townk/vim-autoclose)
-  This plugin for Vim enable an auto-close chars feature for you. For instance if you type an '(', ``autoclose`` will automatically insert a ')' and put the cursor between them
+  This plugin for Vim enable an auto-close chars feature for you 
   
 * [vim-fugitive](https://github.com/tpope/vim-fugitive)
   A Git wrapper so awesome, it should be illegal
@@ -69,3 +69,12 @@
 * [vim-surround](https://github.com/tpope/vim-surround)
   Quoting/parenthesizing made simple
 
+* [dbext.vim](http://www.vim.org/scripts/script.php?script_id=356)
+  This plugin contains functions/mappings/commands to enable Vim to access several databases
+
+* [omincompletion](http://vim.wikia.com/wiki/Omni_completion)
+  Omni completion provides smart autocompletion for programs
+
+* [seoul256.vim](https://github.com/junegunn/seoul256.vim)
+  A low-contrast Vim color scheme based on Seoul Colors
+  
