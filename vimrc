@@ -264,10 +264,8 @@ function! <SID>CycleBuffer(forward)
 
 " The following hack handles the case where we only have one
 " window open and it is too small
-let l:saveAutoUpdate = g:miniBufExplorerAutoUpdate
 if (winbufnr(2) == -1)
 resize
-let g:miniBufExplorerAutoUpdate = 0
 endif
 
 " Change buffer (keeping track of before and after buffers)
@@ -289,11 +287,6 @@ bp!
 endif
 let l:curBuf = bufnr('%')
 endwhile
-
-let g:miniBufExplorerAutoUpdate = l:saveAutoUpdate
-if (l:saveAutoUpdate == 1)
-"call <SID>AutoUpdate(-1,bufnr("%"))
-endif
 
 endfunction
 
