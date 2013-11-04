@@ -31,7 +31,6 @@ Bundle 'Townk/vim-autoclose'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-surround'
 
 " vim-scripts repos
 Bundle 'dbext.vim'
