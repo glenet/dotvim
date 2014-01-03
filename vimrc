@@ -31,6 +31,9 @@ Bundle 'Townk/vim-autoclose'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+Bundle 'goldfeld/vim-seek'
+Bundle 'rking/ag.vim'
+Bundle 'junegunn/goyo.vim'
 
 " vim-scripts repos
 Bundle 'dbext.vim'
@@ -108,13 +111,14 @@ hi User2 ctermfg=red  ctermbg=black
 let mapleader = ","
 
 :map<F8> a<C-R> <pre><code class="prettyprint"><CR><ESC>
-nmap <leader>a :Ack<cr>
+" nmap <leader>a :Ack<cr>
+nmap <leader>a :Ag<cr>
 
 " switch window faster
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+"nnoremap <C-h> <C-w>h
+"nnoremap <C-j> <C-w>j
+"nnoremap <C-k> <C-w>k
+"nnoremap <C-l> <C-w>l
 
 " let pointer stay after visual block yanking
 :vmap y ygv<Esc>
